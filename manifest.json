@@ -1,0 +1,28 @@
+{
+    "manifest_version": 2,
+    "name": "AMO CRM Extension",
+    "version": "1.0.0",
+    "description": "Extension that adds a circle button to amo.crm pages.",
+    "permissions": [
+      "activeTab"
+    ],
+    "browser_action": {
+      "default_icon": {
+        "16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
+      },
+      "default_title": "Open AMO CRM Form"
+    },
+    "background": {
+      "scripts": ["js/background.js"],
+      "persistent": false
+    },
+    "content_scripts": [
+        {
+          "matches": ["*://*.amocrm.ru/*"],
+          "js": ["js/content.js"],
+          "css": ["css/activation.css", "css/popup.css", "css/colors.css"]
+        }
+      ]
+  }

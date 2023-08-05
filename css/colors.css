@@ -1,0 +1,16 @@
+:root{
+    --white : #FFFFFF;
+    --basement : #F3F5F5;
+    --disabled-block : #D0D6D7;
+    --indicator-green : #00CE88;
+    --indicator-red : #FF616C;
+    --text-black : #101F23;
+    --text-gray : #465E66;
+    --text-selector : #253B41;
+    --arrow-selector : #202222;
+    --second-blue : #3168CA;
+    --button-gray : #647C80;
+    --link-blue : #233DB9;
+    --checkbox-gray : #9AA8AB;
+    --inactive-gray : #AFBCBE;
+}

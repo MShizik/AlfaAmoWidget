@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="../css/popup.css"/>
+        <link rel="stylesheet" href="../css/colors.css"/>
+        <link rel="stylesheet" href="../css/tip.css"/>
+        <link rel="stylesheet" href="../css/connection-block.css"/>
+        <link rel="stylesheet" href="../css/content-block.css"/>
+        <link rel="stylesheet" href="../css/student-choser.css"/>
+        <link rel="stylesheet" href="../css/add-student.css"/>
+        
+        <link rel="stylesheet" href="../css/calendar.css"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="../css/itc-custom-select.css">
+        <script src="../js/itc-custom-select.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                ItcCustomSelect.create('#select-1', {
+                    name: 'Parent',
+                    targetValue: 'Выбор',
+                    options: [
+                        [
+                            'choose1', 'Выбор 1'
+                        ],
+                        [
+                            'choose2', 'Выбор 2'
+                        ],
+                        [
+                            'choose3', 'Выбор 3'
+                        ],
+                        [
+                            'choose4', 'Выбор 4'
+                        ]
+                    ]
+                });
+                ItcCustomSelect.create('#select-2', {
+                    name: 'Student',
+                    targetValue: 'Выбор',
+                    options: [
+                        [
+                            'choose1', 'Выбор 1'
+                        ],
+                        [
+                            'choose2', 'Выбор 2'
+                        ],
+                        [
+                            'choose3', 'Выбор 3'
+                        ],
+                        [
+                            'choose4', 'Выбор 4'
+                        ]
+                    ]
+                });
+                ItcCustomSelect.create('#select-3', {
+                    name: 'Filial',
+                    targetValue: 'Выбор',
+                    options: [
+                        [
+                            'choose1', 'Выбор 1'
+                        ],
+                        [
+                            'choose2', 'Выбор 2'
+                        ],
+                        [
+                            'choose3', 'Выбор 3'
+                        ],
+                        [
+                            'choose4', 'Выбор 4'
+                        ]
+                    ]
+                });
+            })
+        </script>
+    </head>
+    <body>
+        <div class="basement">
+            <div class="connection-block">
+                <div class="connection-mark" id="amo-connection">
+                    <div class="connection-indicator connection-failure"></div>
+                    <div class="connection-name">Amo</div>
+                </div>
+                <div class="connection-mark" id="alfa-connection">
+                    <div class="connection-indicator connection-succeed"></div>
+                    <div class="connection-name">Alfa</div>
+                </div>
+            </div>
+            <div class="content-folder">
+                <div class="content-block active block-fixed">
+                    <div class="title">
+                        <div class="block-pos">
+                            01
+                        </div>
+                        <div class="block-desc">
+                            Выбрать учащегося в AlfaCRM
+                        </div>
+                    </div>
+                    <div class="operation-content">
+                        <div id="student-selector">
+                            <div class="selection-row">
+                                <div class="title">
+                                    Родитель/заказчик
+                                </div>
+                                <div class="selector">
+                                    <div id="select-1"></div>
+                                </div>
+                                <div class="note"></div>
+                            </div>
+                            <div class="selection-row">
+                                <div class="title">
+                                    Ученик
+                                </div>
+                                <div class="selector">
+                                    <div id="select-2"></div>
+                                </div>
+                                <div class="note">
+                                    Ученик не выбран
+                                </div>
+                            </div>
+                            <div class="selection-row">
+                                <div class="title">
+                                    Филлиал
+                                </div>
+                                <div class="selector">
+                                    <div id="select-3"></div>
+                                </div>
+                                <div class="note"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-block inactive">
+                    <div class="title">
+                        <div class="block-pos">
+                            02
+                        </div>
+                        <div class="block-desc">
+                            Записать ученика в AlfaCRM
+                        </div>
+                    </div>
+                    <div class="operation-content" id = "add-student">
+                        <div class="task_checkbox">
+                          <input type="checkbox" class="custom-checkbox" id="add_as_lead" name="add_as_lead" value="yes">
+                          <label for="add_as_lead">Записать как лид</label>
+                        </div>
+                        <div class="task_button">
+                          <button class = "basic_btn active">
+                            Записать ученика в AlfaCRM
+                          </button>
+                          <div class = "additional-info">
+                            <a>Восстановить ссылку на карточку AlfaCRM</a>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-block inactive">
+                    <div class="title">
+                        <div class="block-pos">
+                            03
+                        </div>
+                        <div class="block-desc">
+                            Добавить ученика на урок
+                        </div>
+                    </div>
+                    <div class = "operation-block">
+                      <div class = "calendar-wrapper">
+                        <div class="date_picker">
+                          <div class="date_picker_input" id = "date-picker-input-add-student-to-lesson">
+                            <label>Datepicker</label>
+                            <input type="text" class="date" id = "input-cal-add-student-to-lesson"/>
+                          </div>
+                          <div class="date_picker_calendar" id = "date-picker-cal-add-student-to-lesson"> 
+                            <div class="calendar_header" id = "header-cal-add-student-to-lesson">
+                              <button class="cal-btn back"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='11' viewBox='0 0 10 11' fill='none'%3E%3Cpath d='M1.90039 5.5L7.30039 0.303848L7.30039 10.6962L1.90039 5.5Z' fill='%23AFBCBE'/%3E%3C/svg%3E"></button>
+                              <span></span>
+                              <button class="cal-btn front"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='11' viewBox='0 0 10 11' fill='none'%3E%3Cpath d='M8.59961 5.5L3.19961 10.6962L3.19961 0.303848L8.59961 5.5Z' fill='%23AFBCBE'/%3E%3C/svg%3E"></button>
+                            </div>
+                            <div class="cal_wrapper">
+                              <div class="cal_days" id = "days-cal-add-student-to-lesson"></div>
+                              <div class="calendar_main" id = "main-cal-add-student-to-lesson"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="content-block disabled">
+                    <div class="title">
+                        <div class="block-pos">
+                            04
+                        </div>
+                        <div class="block-desc">
+                            Создать урок
+                        </div>
+                    </div>
+                </div>
+                <div class="content-block inactive">
+                    <div class="title">
+                        <div class="block-pos">
+                            05
+                        </div>
+                        <div class="block-desc">
+                            Добавить ученика в группу
+                        </div>
+                    </div>
+                </div>
+                <div class="content-block inactive">
+                    <div class="title">
+                        <div class="block-pos">
+                            06
+                        </div>
+                        <div class="block-desc">
+                            Передать платеж
+                        </div>
+                    </div>
+                </div>
+                <div class="content-block inactive">
+                    <div class="title">
+                        <div class="block-pos">
+                            07
+                        </div>
+                        <div class="block-desc">
+                            Добавить абонемент
+                        </div>
+                    </div>
+                </div>
+                <div class="content-block inactive">
+                    <div class="title">
+                        <div class="block-pos">
+                            08
+                        </div>
+                        <div class="block-desc">
+                            Коммуникации
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="company-logo"></div>
+                <div class="main-info"></div>
+                <div class="knowledgebase"></div>
+            </div>
+        </div>
+        <script src="../js/selector.js"></script>
+        <script src="../js/tip-behavior.js"></script>
+        <script src="../js/toggle-operations.js"></script>
+        <script src="../js/calendar.js"></script>
+    </body>
+
+</html>

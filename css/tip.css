@@ -1,0 +1,17 @@
+.tip{
+    display: flex;
+    padding: 5px 8px;
+    max-width: 150px;
+    align-items: center;
+    gap: 10px;
+    background: var(--white);
+    box-shadow: 0px 3px 10px 0px rgba(49, 104, 202, 0.24);
+    color: var(--text-gray);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    z-index: 4000;
+}

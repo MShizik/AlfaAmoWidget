@@ -1,0 +1,88 @@
+.itc-select {
+    position: relative;
+    width: 100%;
+  }
+  
+  .itc-select__toggle {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 175px;
+    padding: 6px 10px;
+    color: var(--text-selector);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    background-color: var(--basement);
+    border: 0px;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .itc-select__toggle::after {
+    flex-shrink: 0;
+    width: 12px;
+    height: 6px;
+    margin-left: 1rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6' viewBox='0 0 12 6' fill='none'%3E%3Cpath d='M6 5.6001L0.803848 0.200099L11.1962 0.200098L6 5.6001Z' fill='%23AFBCBE'/%3E%3C/svg%3E");
+    background-size: cover;
+    content: "";
+  }
+  
+  .itc-select__toggle:focus {
+    outline: none;
+  }
+  
+  .itc-select__dropdown {
+    position: absolute;
+    top: 24px;
+    right: 0;
+    left: 0;
+    z-index: 2300;
+    display: none;
+    max-height: 10rem;
+    overflow-y: auto;
+    background-color: var(--basement);
+    border: 0px;
+    color: var(--text-black);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+  }
+
+  .select-opened button{
+    z-index: 2400;
+  }
+  
+  .itc-select_show .itc-select__dropdown {
+    display: block;
+    
+    box-shadow: 0px 1px 10px 0px rgba(60, 161, 235, 0.25); 
+  }
+  
+  .itc-select_show .itc-select__backdrop {
+    display: block;
+  }
+  
+  .itc-select__options {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .itc-select__option {
+    padding: 6px 10px;
+  }
+  
+  .itc-select__option:hover {
+    background-color: #e1f5fe;
+    cursor: pointer;
+    transition: 0.2s background-color ease-in-out;
+  }

@@ -1,0 +1,101 @@
+:root{
+    font-family: Inter;
+}
+
+.basement {
+   width: 800px;
+   height: 100vh;
+   background: var(--basement);
+   position: fixed;
+   top: 0;
+   right: 0;
+   z-index: 3000;
+}
+
+.content-folder{
+   position: fixed;
+   top: 74px;
+   display:flex;
+   gap:4px;
+   flex-direction: column;
+}
+
+.operation-content{
+    display: none;
+    height:fit-content;
+    width:100%;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.basic_btn{
+    cursor: pointer;
+    width: fit-content;
+    border: 0px;
+    color: var(--white);
+    text-align: center;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%;
+    padding: 8px 12px;
+}
+
+.basic_btn.active:hover{
+    background-position:0% 0;
+    transition: background .5s;
+}
+
+.basic_btn.active{
+    background: linear-gradient(90deg, #3168CA 0%, #3C6 25%, #3168CA 25%, #3168CA 100% );
+    background-size: 400% 100% ;
+    background-position:100% 0 ;
+    transition: background .5s ease;
+}
+
+.basic_btn.inactive{
+    background: var(--button-gray);
+}
+
+.custom-checkbox {
+    cursor: pointer;
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+.custom-checkbox+label {
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+    color: var(--01, #101F23);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+}
+.custom-checkbox+label::before {
+    content: '';
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border: 1px solid var(--checkbox-gray);
+    margin-right: 0.5em;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50% 50%;
+}
+
+.custom-checkbox:checked+label::before {
+    background-color: #5ECFFF80;
+    border-color: var(--second-blue);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8' fill='none'%3E%3Cpath d='M6.8141 1.08814C6.89222 1.00752 7.02138 1.00697 7.10018 1.08693L7.86256 1.86053C7.93894 1.93802 7.93935 2.06235 7.86349 2.14035L3.27966 6.85369C3.20156 6.93401 3.07272 6.93451 2.99399 6.8548L0.13866 3.9639C0.0617797 3.88606 0.0617102 3.7609 0.138504 3.68297L0.901265 2.909C0.979508 2.8296 1.10756 2.8295 1.18593 2.90876L3.13739 4.88234L6.8141 1.08814Z' fill='%233168CA'/%3E%3C/svg%3E");
+}
+
+.custom-checkbox:not(:disabled):not(:checked)+label:hover::before {
+    border-color: var(--second-blue);
+}

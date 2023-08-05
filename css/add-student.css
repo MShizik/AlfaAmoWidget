@@ -1,0 +1,27 @@
+.task_checkbox {
+    margin-bottom:16px;
+}
+.task_button{
+    width:fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.task_button .additional-info{
+    width: fit-content;
+    max-width: 150px;
+}
+
+.task_button .additional-info a{
+    cursor: pointer;
+    color: var(--link-blue);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2;
+
+    text-decoration-line: underline;
+}
