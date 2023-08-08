@@ -16,7 +16,7 @@
  }
 
 .content-block.active .operation-content{
-   display: block;
+   display: flex;
 }
 
 .content-block.disabled .operation-content{

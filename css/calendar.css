@@ -1,18 +1,20 @@
 .calendar-wrapper {
     height: 100vh;
     background: var(--dark-body-bg);
-    font-family: Helvetica, sans-serif;
+    box-sizing: content-box;
 }
 
 .date_picker {
     width: 260px;
     margin: 0 auto;
-    transform: scale(1.2);
     position: relative;
     top: 15%;
 }
 
 .date_picker_input {
+    display: flex;
+    flex-direction: column;
+    gap:10px;
     margin-bottom: 8px;
 }
 
@@ -26,26 +28,49 @@ label {
     line-height: 100%;
 }
 
-.date {
-    color: var(--text-selector);
-    text-align: center;
+.cal_input_block { 
+    width:260px;
+    display: flex;
+    flex-direction: row;
+    background: var(--basement);
+    border-color:var(--disabled-block);
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+    justify-content: space-around;
+}
+
+.cal_input_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cal_input_clear{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cal_date_input {
+    color: var(--text-gray );
     font-feature-settings: 'clig' off, 'liga' off;
     font-family: Inter;
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
-    line-height: 16px;
-    border: 1px solid var(--disabled-block);
-    background: var(--basement);
+    line-height: 20px;
+    outline: none;
+    border: 0px;
+    width:85px;
+    background-color: transparent;
 }
 
 .date_picker_calendar {
     min-height: fit-content;
     box-shadow: 0px 1px 10px 0px rgba(60, 161, 235, 0.25); 
     overflow: hidden;
-    padding: 16px 12px;
     background: var(--basement);
-    width: 100%;
+    padding: 16px 13px ;
 }
 
 .calendar_header {
@@ -79,6 +104,10 @@ label {
     height: 10px;
 }
 
+.cal-btn:hover svg path{
+    fill:var(--second-blue);
+}
+
 .cal_days,
 .calendar_main {
     display: grid;
@@ -96,8 +125,8 @@ label {
 }
 
 .cal_days {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 13px;
+    margin-bottom: 4px;
 }
 
 .calendar_main {
@@ -109,6 +138,7 @@ label {
     justify-content: center;
     align-items: center;
     position: relative;
+    width: 30px;
 }
 
 .cal_days .cell_item{
@@ -146,8 +176,14 @@ label {
     color: var(--white);
 }
 
+.isSelected{
+    background: var(--second-blue);
+    color: var(--white);
+}
+
 .additional-active{
-    background: var(--text-selector);
+    color: var(--text-selector);
+    background-color: var(--disabled-block);
 }
 
 .inactive_indicator:after {
