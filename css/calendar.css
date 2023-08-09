@@ -1,5 +1,5 @@
 .calendar-wrapper {
-    height: 100vh;
+    height: fit-content;
     background: var(--dark-body-bg);
     box-sizing: content-box;
 }
@@ -71,6 +71,16 @@ label {
     overflow: hidden;
     background: var(--basement);
     padding: 16px 13px ;
+    position: absolute;
+    z-index: 2500;
+}
+
+.date_picker_input.showCal .cal_input_block .cal_input_icon svg path{
+    fill: var(--second-blue);
+}
+
+.date_picker_calendar.hidden{
+    visibility: hidden;
 }
 
 .calendar_header {
@@ -130,7 +140,7 @@ label {
 }
 
 .calendar_main {
-    grid-template-rows: repeat(5, min(30px));
+    grid-template-rows: repeat(6, min(30px));
 }
 
 .cell_wrapper {
