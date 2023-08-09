@@ -45,7 +45,6 @@
     z-index: 2300;
     display: none;
     max-height: 10rem;
-    overflow-y: auto;
     background-color: var(--basement);
     border: 0px;
     color: var(--text-black);
@@ -55,6 +54,15 @@
     font-style: normal;
     font-weight: 400;
     line-height: 100%;
+  }
+
+  .itc-select__dropdown.scrollable{
+    overflow-y: scroll;
+    max-height: 125px;
+  }
+
+  .itc-select__dropdown.resizeble{
+    height: fit-content;
   }
 
   .select-opened button{
@@ -69,6 +77,20 @@
   
   .itc-select_show .itc-select__backdrop {
     display: block;
+  }
+
+  .itc-select__dropdown::-webkit-scrollbar {
+    width: 4px;
+    height: 20px;
+    background: var(--basement);
+  }
+  
+  .itc-select__dropdown::-webkit-scrollbar-thumb {
+    background: var(--inactive-gray);
+  }
+  
+  .itc-select__dropdown::-webkit-scrollbar-track {
+    background-color: transparent;
   }
   
   .itc-select__options {

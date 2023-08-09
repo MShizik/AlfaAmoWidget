@@ -43,12 +43,14 @@ label {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .cal_input_clear{
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .cal_date_input {

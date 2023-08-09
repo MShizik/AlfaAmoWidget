@@ -5,6 +5,8 @@ class ItcCustomSelect {
     static EL_SHOW = 'itc-select_show';
     static EL_OPTION = 'itc-select__option';
     static EL_OPTION_SELECTED = 'itc-select__option_selected';
+    static ST_SCROLL = "scrollable";
+    static ST_RESIZE = "resizeble";
     static DATA = '[data-select]';
     static DATA_TOGGLE = '[data-select="toggle"]';
   
@@ -42,6 +44,17 @@ class ItcCustomSelect {
         }
       });
     }
+
+    resize(){
+      if (this._el.querySelectorAll(".itc-select__option").length >= 6){
+        this._el.querySelector(".itc-select__dropdown").classList.add("scrollable");
+        this._el.querySelector(".itc-select__dropdown").classList.remove("resizeble");
+      }else{
+        this._el.querySelector(".itc-select__dropdown").classList.add("resizeble");
+        this._el.querySelector(".itc-select__dropdown").classList.remove("scrollable");
+      }
+    }
+
     static create(target, params) {
       this._el = typeof target === 'string' ? document.querySelector(target) : target;
       if (this._el) {
@@ -49,6 +62,7 @@ class ItcCustomSelect {
       }
       return null;
     }
+
     constructor(target, params) {
       this._el = typeof target === 'string' ? document.querySelector(target) : target;
       this._params = params || {};
@@ -59,6 +73,7 @@ class ItcCustomSelect {
       }
       this._elToggle = this._el.querySelector(this.constructor.DATA_TOGGLE);
       this._el.addEventListener('click', this._onClickFn);
+      this.resize();
     }
   
     _onClick(e) {

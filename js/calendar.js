@@ -46,6 +46,7 @@ class CustomCalendar{
     this.calHeaderTitle = head_element.querySelector(".calendar_header span");
     this.calDays = head_element.querySelector(".cal_days");
     this.clearSign = head_element.querySelector(".cal_input_clear");
+    this.calIcon = head_element.querySelector(".cal_input_icon");
     this.todayTimestamp = Date.now() - (Date.now() % this.oneDay) + new Date().getTimezoneOffset() * 1000 * 60;
     this.firstSelectedDay = this.todayTimestamp;
     this.secondSelectedDay = this.todayTimestamp + this.oneDay * 14;
@@ -72,6 +73,13 @@ class CustomCalendar{
 
     this.clearSign.addEventListener('click', () => {
       this._clearInputs();
+    });
+
+    this.calIcon.addEventListener('click', () => {
+
+      this.head_element.querySelector('.date_picker_calendar').classList.toggle('hidden');
+      
+      this.head_element.querySelector('.date_picker_input').classList.toggle('showCal');
     });
   }
 
