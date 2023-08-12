@@ -85,7 +85,7 @@ class ItcCustomSearchSelect {
       const { target } = e;
       const type = target.closest(this.constructor.DATA).dataset.select;
       if (type === 'toggle') {
-          this.toggle();
+          this.toggle(target);
       } else if (type === 'option') {
         this._changeValue(target);
       }
@@ -151,7 +151,7 @@ class ItcCustomSearchSelect {
   
     _changeValue(el) {
       if (el.classList.contains(this.constructor.EL_OPTION_SELECTED)) {
-        return;
+        this.hide();
       }
       this._updateOption(el);
       this.hide();
@@ -175,6 +175,9 @@ class ItcCustomSearchSelect {
     }
   
     toggle() {
+        if (this.targetValue === this.value){
+            this.hide();
+        }
       this.show();
     }
   
