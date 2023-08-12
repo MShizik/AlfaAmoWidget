@@ -50,8 +50,6 @@ class CustomTable{
             td.appendChild(label);
             tr.appendChild(td);
 
-            
-
             for(let i = 0; i < Object.values(row).length; i++){
                 var td = document.createElement('td');
                 var div = document.createElement('div');
@@ -60,13 +58,38 @@ class CustomTable{
                 td.appendChild(div);
                 tr.appendChild(td);
             }
-            
-        
             tbody.appendChild(tr);
+            this.setUpCheckboxBehavior(checkbox, rowID);
+            this.setUpHoverEffect(tr, rowID);
         }
         this.table.appendChild(tbody);
 
         var tableContainer = document.getElementById('table-container');
         tableContainer.appendChild(this.table);
+    }
+
+    setUpCheckboxBehavior(checkbox, id){
+        checkbox.addEventListener('change', ()=> {
+            var trs = this.table.querySelectorAll("tr");
+            if (checkbox.checked){
+                trs[id].classList.add("prev-sibling");
+            }
+        });
+    }
+
+    setUpHoverEffect(tr, id){
+        tr.addEventListener('mouseenter', () => {
+            var trs = this.table.querySelectorAll("tr");
+            trs[id].classList.add("prev-sibling");
+        });
+        tr.addEventListener('mouseleave', () => {
+            var trs = this.table.querySelectorAll("tr");
+            console.log(trs);
+            var checkbox = trs[id + 1].querySelector("input");
+            console.log(checkbox);
+            if (checkbox === null || !checkbox.checked){
+                trs[id].classList.remove("prev-sibling");
+            }
+        });
     }
 }

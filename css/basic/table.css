@@ -1,7 +1,21 @@
 .table {
     border-collapse: collapse;
     width: 100%;
-    table-layout: autoж
+    table-layout: auto;
+    z-index: 2100;
+}
+
+.table th,
+.table td{
+    position: relative;
+    z-index: 2300;
+}
+tbody{
+    z-index: 2200;
+}
+
+thead tr::before{
+    z-index: 2400 !important;
 }
 
 
@@ -17,7 +31,6 @@
     line-height: 1;
     padding-right: 16px;
     max-width: 80px;
-    
     width:0px;
     padding-right: 16px;
     padding-top:8px;
@@ -33,6 +46,7 @@
 }
 
 .table tr td{    
+    background-color: transparent;
     vertical-align:top;
     color: var(--table-text);
     font-feature-settings: 'clig' off, 'liga' off;
@@ -55,10 +69,6 @@
     padding-right: 6px;
 }
 
-.table tr:hover {
-    background: var(--basement);
-}
-
 .table_checkbox+label::before{
     width:12px;
     height: 12px;
@@ -70,9 +80,59 @@
     font-size: 12px;
 }
 
-.table th,
-.table td{
-    border-style: solid;
+.table tr{
+    position: relative;
+    background-color: transparent;
+}
+
+.table tr::after,
+.table tr::before{
+    display: block;
+    position: absolute;
+    content: '';
+    width:calc(100% - 28px);
+    left: 16px;
+}
+
+.table tr::before{
+    top: 0;
+    bottom: 0;
     border-color: var(--disabled-block);
-    border-width:  0px 0px 1px 0px ;
+    border-style: solid;
+    border-width: 0px 0px 1px 0px;
+    background-color: transparent;
+    z-index: 2300;
+}
+
+.table tr::after{
+    top:0;
+    bottom: 0;
+    background-color: transparent;
+    z-index: 2250;
+}
+
+.table tr:hover::after,
+.table tr:has(.table_checkbox:checked)::after
+{
+    background-color: var(--basement);
+}
+
+.table tr:has(.table_checkbox:checked)::after,
+.table tr:hover::after
+{
+    width: 100%;
+    left: 0px;
+}
+
+.table tr:hover::before,
+.table tr:has(.table_checkbox:checked)::before
+{
+    width: 100%;
+    left: 0px;
+    border-width: 0px 0px 1px 0px;
+}
+
+.table .prev-sibling::before{
+    width: 100%;
+    left: 0px;
 }
