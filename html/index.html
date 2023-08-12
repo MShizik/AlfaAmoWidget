@@ -3,18 +3,19 @@
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="stylesheet" href="../css/popup.css"/>
-        <link rel="stylesheet" href="../css/colors.css"/>
-        <link rel="stylesheet" href="../css/tip.css"/>
-        <link rel="stylesheet" href="../css/connection-block.css"/>
-        <link rel="stylesheet" href="../css/content-block.css"/>
+        <link rel="stylesheet" href="../css/basic/popup.css"/>
+        <link rel="stylesheet" href="../css/basic/colors.css"/>
+        <link rel="stylesheet" href="../css/basic/tip.css"/>
+        <link rel="stylesheet" href="../css/basic/connection-block.css"/>
+        <link rel="stylesheet" href="../css/basic/content-block.css"/>
         <link rel="stylesheet" href="../css/student-choser.css"/>
         <link rel="stylesheet" href="../css/add-student.css"/>
-
-        <link rel="stylesheet" href="../css/calendar.css"/>
+        <link rel="stylesheet" href="../css/add_student_to_lesson.css"/>
+        <link rel="stylesheet" href="../css/basic/calendar.css"/>
+        <link rel="stylesheet" href="../css/basic/table.css"/>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="../css/itc-custom-select.css">
+        <link rel="stylesheet" href="../css/basic/itc-custom-select.css">
         <script src="../js/itc-custom-select.js"></script>
         <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
         <script>
@@ -83,6 +84,18 @@
                     ]
                 });
                 let firstCal = new CustomCalendar(document.querySelector("#firstCal"));
+                
+                var data = [
+                    {date : "09.07.2023", time : "18:00", subj : "Ангийский язык", teacher : "Иванов В. А.", room : "24", group_name : "Новички", limit : "3/12", comment : "Комментарий"},
+                    {date : "09.07.2023", time : "18:00", subj : "Ангийский язык", teacher : "Иванов В. А.", room : "24", group_name : "Новички", limit : "3/12", comment : "Комментарий"},
+                    {date : "09.07.2023", time : "18:00", subj : "Ангийский язык", teacher : "Иванов В. А.", room : "24", group_name : "Новички", limit : "3/12", comment : "Комментарий"},
+                    {date : "09.07.2023", time : "18:00", subj : "Ангийский язык", teacher : "Иванов В. А.", room : "24", group_name : "Новички", limit : "3/12", comment : "Комментарий"},
+                    {date : "09.07.2023", time : "18:00", subj : "Ангийский язык", teacher : "Иванов В. А.", room : "24", group_name : "Новички", limit : "3/12", comment : "Комментарий"}
+                ];
+                
+                // Имена столбцов
+                var columns = ['','Дата', 'Время урока', 'Предмет', 'Педагог', 'Аудитория', 'Название группы', 'Лимит учеников','Комментарий'];
+                let firstTable = new CustomTable(document.querySelector("#table-container"), data, columns);
             })
         </script>
     </head>
@@ -216,6 +229,7 @@
                                 </div>
                             </div>
                         </div>
+                        <div class = "table_container" id="table-container"></div>
                     </div>
                 </div>
                 <div class="content-block disabled">
@@ -280,6 +294,7 @@
         <script src="../js/toggle-operations.js"></script>
         <script src="../js/calendar.js"></script>
         <script src="../js/input-mask.js"></script>
+        <script src = "../js/table.js"></script>
     </body>
 
 </html>
