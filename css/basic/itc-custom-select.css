@@ -65,7 +65,7 @@
     height: fit-content;
   }
 
-  .select-opened button{
+  .select-opened .itc-select__toggle{
     z-index: 2400;
   }
   

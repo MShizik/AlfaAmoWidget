@@ -1,6 +1,6 @@
 
 
-class ItcCustomSelect {
+class ItcCustomSearchSelect {
     static EL = 'itc-select';
     static EL_SHOW = 'itc-select_show';
     static EL_OPTION = 'itc-select__option';
@@ -12,7 +12,8 @@ class ItcCustomSelect {
   
     static template(params) {
       const { name, options, targetValue } = params;
-      const items = [];
+      this.basicItems = [];
+      this.basicOptions = [];
       let selectedIndex = -1;
       let selectedValue = '';
       let selectedContent = 'Выберите из списка';
@@ -24,13 +25,15 @@ class ItcCustomSelect {
           selectedValue = option[0];
           selectedContent = option[1];
         }
-        items.push(`<li class="itc-select__option${selectedClass}" data-select="option"
-          data-value="${option[0]}" data-index="${index}">${option[1]}</li>`);
+        this.basicOptions[index] = option[0];
+        console.log(this.basicOptions);
+        this.basicItems.push(`<li class="itc-select__option${selectedClass}" data-select="option"
+          data-value="${option[1]}" data-index="${index}">${option[1]}</li>`);
       });
-      return `<button type="text" class="itc-select__toggle" name="${name}"
-        value="${selectedValue}" data-select="toggle" data-index="${selectedIndex}">
-        ${selectedContent}</button><div class="itc-select__dropdown">
-        <ul class="itc-select__options">${items.join('')}</ul></div>`;
+      return `<div class = "itc-select__container"><input type="text" class="itc-select__toggle" name="${name}"
+        value="${selectedContent}" data-select="toggle" data-index="${selectedIndex}">
+        </input></div><div class="itc-select__dropdown">
+        <ul class="itc-select__options">${this.basicItems.join('')}</ul></div>`;
     }
   
     static hideOpenSelect() {
@@ -56,6 +59,7 @@ class ItcCustomSelect {
     }
 
     static create(target, params) {
+      this.params = params;
       this._el = typeof target === 'string' ? document.querySelector(target) : target;
       if (this._el) {
         return new this(target, params);
@@ -74,6 +78,7 @@ class ItcCustomSelect {
       this._elToggle = this._el.querySelector(this.constructor.DATA_TOGGLE);
       this._el.addEventListener('click', this._onClickFn);
       this.resize();
+      this._searchAnalizer();
     }
   
     _onClick(e) {
@@ -85,6 +90,36 @@ class ItcCustomSelect {
         this._changeValue(target);
       }
     }
+
+    _searchAnalizer(){
+        var optionsWrapper = this._el.querySelector(".itc-select__options");
+        var options = optionsWrapper.querySelectorAll(".itc-select__option");
+        var input = this._el.querySelector(".itc-select__toggle");
+        input.addEventListener('input', e => {
+            let searchTerm = e.target.value;
+            if (e.target.value === ''){
+                let options = this._params['options'];
+                let basicItems = [];
+                options.forEach((option, index) => {
+                    let selectedClass = '';
+                    basicItems.push(`<li class="itc-select__option${selectedClass}" data-select="option"
+                      data-value="${option[1]}" data-index="${index}">${option[1]}</li>`);
+                });
+                optionsWrapper.innerHTML = basicItems.join(' ');
+            }
+            var sharpedOptions = [];
+            options.forEach(opt => {
+                if (opt.innerHTML.toLowerCase().includes(searchTerm.toLowerCase())){
+                    sharpedOptions.push(opt);
+                }
+            });
+
+            if (sharpedOptions.length !== 0){
+                optionsWrapper.innerHTML = '';
+                sharpedOptions.forEach(opt => optionsWrapper.appendChild(opt));
+            }
+        });
+    }
   
     _updateOption(el) {
       const elOption = el.closest(`.${this.constructor.EL_OPTION}`);
@@ -94,7 +129,7 @@ class ItcCustomSelect {
       }
       elOption.classList.add(this.constructor.EL_OPTION_SELECTED);
       this._elToggle.textContent = elOption.textContent;
-      this._elToggle.value = elOption.dataset.value;
+      this._elToggle.value = elOption.textContent;
       this._elToggle.dataset.index = elOption.dataset.index;
       this._el.dispatchEvent(new CustomEvent('itc.select.change'));
       this._params.onSelected ? this._params.onSelected(this, elOption) : null;
@@ -140,7 +175,7 @@ class ItcCustomSelect {
     }
   
     toggle() {
-      this._el.classList.contains(this.constructor.EL_SHOW) ? this.hide() : this.show();
+      this.show();
     }
   
     dispose() {
