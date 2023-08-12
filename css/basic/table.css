@@ -14,13 +14,24 @@ tbody{
     z-index: 2200;
 }
 
-thead tr::before{
-    z-index: 2400 !important;
+.table thead tr::before{
+    z-index: 2300 !important;
+}
+
+.tbody_wrapper{
+    width: fit-content;
+    height: 240px;
+    overflow-y: scroll;
+}
+
+.table thead tr th{
+    position: sticky;
+    top: 0;
 }
 
 
 .table th {
-    background-color: var(--white);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 85%, rgba(255, 255, 255, 0) 100%);
     text-align: left;
     color: var(--text-selector);
     font-feature-settings: 'clig' off, 'liga' off;
@@ -35,6 +46,7 @@ thead tr::before{
     padding-right: 16px;
     padding-top:8px;
     padding-bottom:7px;
+    z-index: 2350;
 }
 
 .table th:last-child{
@@ -111,21 +123,21 @@ thead tr::before{
     z-index: 2250;
 }
 
-.table tr:hover::after,
-.table tr:has(.table_checkbox:checked)::after
+.table tbody tr:hover::after,
+.table tbody tr:has(.table_checkbox:checked)::after
 {
     background-color: var(--basement);
 }
 
-.table tr:has(.table_checkbox:checked)::after,
-.table tr:hover::after
+.table tbody tr:has(.table_checkbox:checked)::after,
+.table tbody tr:hover::after
 {
     width: 100%;
     left: 0px;
 }
 
-.table tr:hover::before,
-.table tr:has(.table_checkbox:checked)::before
+.table tbody tr:hover::before,
+.table tbody tr:has(.table_checkbox:checked)::before
 {
     width: 100%;
     left: 0px;
@@ -136,3 +148,17 @@ thead tr::before{
     width: 100%;
     left: 0px;
 }
+
+.tbody_wrapper::-webkit-scrollbar {
+    width: 4px;
+    height: 20px;
+    background: var(--basement);
+  }
+  
+  .tbody_wrapper::-webkit-scrollbar-thumb {
+    background: var(--inactive-gray);
+  }
+  
+  .tbody_wrapper::-webkit-scrollbar-track {
+    background-color: transparent;
+  }

@@ -158,6 +158,21 @@ class CustomCalendar{
     if (input.value.replace("_", "").replace(/[а-яА-ЯёЁ]/g, "").replace(/\./g, "").replace(" ", "").length === 8){
       let date = this._getTimeStampFromInput(input);
       if (!isNaN(date)){
+        if (date.getTime() === this.firstSelectedDay){
+          if (isFirst){
+            input.value = "с " + this.getDateStringFromTimestamp(this.firstSelectedDay);
+          }else{
+            input.value = "по " + this.getDateStringFromTimestamp(this.secondSelectedDay);
+          }
+          return;
+        }else if ( date.getTime() === this.secondSelectedDay){
+          if (isFirst){
+            input.value = "с " + this.getDateStringFromTimestamp(this.firstSelectedDay);
+          }else{
+            input.value = "по " + this.getDateStringFromTimestamp(this.secondSelectedDay);
+          }
+          return;
+        }
         this.year = date.getFullYear();
         this.month = date.getMonth();
         date = date.getTime();

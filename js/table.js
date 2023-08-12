@@ -23,9 +23,14 @@ class CustomTable{
           tr.appendChild(th);
         });
         thead.appendChild(tr);
-        this.table.appendChild(thead);
+        //this.table.appendChild(thead);
 
         var tbody = document.createElement('tbody');
+
+        var tbodyWrapper = document.createElement('div');
+        tbodyWrapper.classList.add("tbody_wrapper");
+        tbodyWrapper.appendChild(thead);
+        tbodyWrapper.appendChild(tbody);
 
         for (let rowID = 0; rowID < data.length; rowID++){
             let row = data[rowID];
@@ -62,7 +67,12 @@ class CustomTable{
             this.setUpCheckboxBehavior(checkbox, rowID);
             this.setUpHoverEffect(tr, rowID);
         }
-        this.table.appendChild(tbody);
+        this.table.appendChild(tbodyWrapper);
+
+        if (data.length > 5){
+            tbody.style['height'] = "200px";
+            tbody.style['overflow-y'] = "scroll";
+        }
 
         var tableContainer = document.getElementById('table-container');
         tableContainer.appendChild(this.table);
@@ -84,9 +94,7 @@ class CustomTable{
         });
         tr.addEventListener('mouseleave', () => {
             var trs = this.table.querySelectorAll("tr");
-            console.log(trs);
             var checkbox = trs[id + 1].querySelector("input");
-            console.log(checkbox);
             if (checkbox === null || !checkbox.checked){
                 trs[id].classList.remove("prev-sibling");
             }
