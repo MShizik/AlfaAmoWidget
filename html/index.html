@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="../css/basic/tip.css"/>
         <link rel="stylesheet" href="../css/basic/connection-block.css"/>
         <link rel="stylesheet" href="../css/basic/content-block.css"/>
+        <link rel="stylesheet" href="../css/basic/selection_with_table.css"/>
         <link rel="stylesheet" href="../css/student-choser.css"/>
         <link rel="stylesheet" href="../css/add-student.css"/>
         <link rel="stylesheet" href="../css/add_student_to_lesson.css"/>
@@ -22,6 +23,7 @@
         <link rel="stylesheet" href="../css/basic/itc-custom-select.css">
         <link rel="stylesheet" href="../css/basic/itc-custom-search-select.css">
         <script src="../js/itc-custom-select.js"></script>
+        <script src="../js/searchWithTable.js"></script>
         <script src="../js/itc-custom-search-select.js"></script>
         <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
         <script>
@@ -183,24 +185,6 @@
                     ]
                 });
 
-                ItcCustomSearchSelect.create('#add_abonement_selector', {
-                    name: 'Cas selector',
-                    targetValue: 'Выбор',
-                    options: [
-                        [
-                            'choose1', 'Выбор 1'
-                        ],
-                        [
-                            'choose2', 'Выбор 2'
-                        ],
-                        [
-                            'choose3', 'Выбор 3'
-                        ],
-                        [
-                            'choose4', 'Выбор 4'
-                        ]
-                    ]
-                });
                 let firstCal = new CustomCalendar(document.querySelector("#firstCal"));
                 let secondCal = new CustomCalendar(document.querySelector("#secondCal")); 
                 var data = [
@@ -239,7 +223,9 @@
                         name : "Абонемент 4 с очень длинным названием", tariff:  'Тариф 1', price: '20 000 р.', period: '03.08.2023–03.09.2023'
                     }
                 ];
-                let thirdtable = new CustomTable(document.querySelector("#add-abonement-table-container"), abonementTableData, abonementTableColumns);
+
+
+                let searchWithTable = new SearchWithTable(document.querySelector("#add-abonement-table-container"),document.querySelector("#abonement_search_input") , abonementTableData, abonementTableColumns)
             })
         </script>
     </head>
@@ -534,7 +520,9 @@
                                     Абонемент
                                 </div>
                                 <div class="selector">
-                                    <div id="add_abonement_selector"></div>
+                                    <div class = "input-wrapper">
+                                        <input class = "selection_with_table" id = "abonement_search_input" type = "text">
+                                    </div>
                                 </div>
                             </div>
                         </div>

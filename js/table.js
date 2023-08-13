@@ -26,7 +26,6 @@ class CustomTable{
           tr.appendChild(th);
         });
         thead.appendChild(tr);
-        //this.table.appendChild(thead);
 
         var tbody = document.createElement('tbody');
 
@@ -35,6 +34,24 @@ class CustomTable{
         tbodyWrapper.appendChild(thead);
         tbodyWrapper.appendChild(tbody);
 
+        this.insertData(tbody, data);
+        
+        this.table.appendChild(tbodyWrapper);
+
+        if (data.length > 5){
+            tbody.style['height'] = "200px";
+            tbody.style['overflow-y'] = "scroll";
+        }
+
+        this.container.appendChild(this.table);
+    }
+
+    insertData(tbodyCont, data){
+        var tbody = tbodyCont;
+        if (tbody === null){
+            tbody = this.table.querySelector("tbody");;
+        }
+        tbody.innerHTML = "";
         for (let rowID = 0; rowID < data.length; rowID++){
             let row = data[rowID];
 
@@ -69,15 +86,7 @@ class CustomTable{
             tbody.appendChild(tr);
             this.setUpCheckboxBehavior(checkbox, rowID);
             this.setUpHoverEffect(tr, rowID);
-        }
-        this.table.appendChild(tbodyWrapper);
-
-        if (data.length > 5){
-            tbody.style['height'] = "200px";
-            tbody.style['overflow-y'] = "scroll";
-        }
-
-        this.container.appendChild(this.table);
+        }        
     }
 
     setUpCheckboxBehavior(checkbox, id){
