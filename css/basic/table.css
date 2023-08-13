@@ -3,6 +3,7 @@
     width: 100%;
     table-layout: auto;
     z-index: 2100;
+    margin: 0px 0px;
 }
 
 .table th,
@@ -20,13 +21,22 @@ tbody{
 
 .tbody_wrapper{
     width: fit-content;
-    height: 240px;
-    overflow-y: scroll;
+    max-height: 240px;
+    overflow-y: auto;
 }
 
 .table thead tr th{
     position: sticky;
     top: 0;
+    vertical-align: top;
+}
+
+thead,
+tbody tr {
+    /*display: table; */
+    width: 100%;
+    table-layout: fixed; /* even columns width , fix width of table too*/
+    text-align: left;
 }
 
 
@@ -41,8 +51,6 @@ tbody{
     font-weight: 600;
     line-height: 1;
     padding-right: 16px;
-    max-width: 80px;
-    width:0px;
     padding-right: 16px;
     padding-top:8px;
     padding-bottom:7px;

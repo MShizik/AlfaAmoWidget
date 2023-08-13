@@ -19,7 +19,10 @@ class CustomTable{
         var tr = document.createElement('tr');
         this.columns.forEach(function(column) {
           var th = document.createElement('th');
-          th.textContent = column;
+          var div = document.createElement('div');
+          div.classList.add("td_text_holder");
+          div.innerHTML = column;
+          th.appendChild(div);
           tr.appendChild(th);
         });
         thead.appendChild(tr);
@@ -43,7 +46,7 @@ class CustomTable{
             checkbox.type = "checkbox";
             checkbox.className = "custom-checkbox";
             checkbox.classList.add("table_checkbox");
-            checkbox.id = this.tableID + "_row_" + rowID + "_checkbox";
+            checkbox.id = this.container.id.replace("-container" ,"") + "_row_" + rowID + "_checkbox";
             checkbox.name = checkbox.id;
             checkbox.value = "yes";
             td.appendChild(checkbox);
@@ -74,8 +77,7 @@ class CustomTable{
             tbody.style['overflow-y'] = "scroll";
         }
 
-        var tableContainer = document.getElementById('table-container');
-        tableContainer.appendChild(this.table);
+        this.container.appendChild(this.table);
     }
 
     setUpCheckboxBehavior(checkbox, id){

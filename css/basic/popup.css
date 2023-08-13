@@ -30,6 +30,7 @@
     margin-right: 20px;
     flex-direction: column;
     align-items: flex-start;
+    gap:16px;
 }
 
 .basic_btn{
@@ -102,4 +103,36 @@
 
 .custom-checkbox:not(:disabled):not(:checked)+label:hover::before {
     border-color: var(--second-blue);
+}
+
+.selection-row{
+    display: flex;
+    flex-direction: row;
+}
+
+.selection-row .title{
+    color: var(--text-black, #101F23);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.selection-row .note{
+   display: flex;
+
+   color: #FF616C;
+   font-feature-settings: 'clig' off, 'liga' off;
+   font-family: Inter;
+   font-size: 12px;
+   font-style: normal;
+   font-weight: 400;
+   line-height: 100%;
+   margin-left : 20px;
+   text-align: left;
+   align-items: center;
 }

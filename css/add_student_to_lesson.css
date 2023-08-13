@@ -1,3 +1,35 @@
 .table_container{
     width: 100%;
 }
+
+
+#lesson-selector{
+    width: 260px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#lesson-selector .selection-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.itc-select__toggle{
+    z-index: 2400;
+}
+
+.itc-select__dropdown{
+    z-index: 2400;
+}
+
+.itc-select_show .itc-select__toggle{
+    z-index: 2450 !important;
+}
+
+.itc-select_show .itc-select__dropdown{
+    z-index: 2425 !important;
+}
+

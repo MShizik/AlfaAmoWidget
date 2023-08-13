@@ -119,6 +119,12 @@ class ItcCustomSearchSelect {
                 sharpedOptions.forEach(opt => optionsWrapper.appendChild(opt));
             }
         });
+
+        input.addEventListener('blur', e => {
+          if (e.target.value === ''){
+            e.target.value = "Выберите из списка";
+          }
+        });
     }
   
     _updateOption(el) {

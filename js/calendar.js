@@ -155,6 +155,21 @@ class CustomCalendar{
   }
 
   _changeDateFromInput(input, isFirst){
+    console.log(input);
+    console.log(input.value.replace(/\_/g, "").replace(/[а-яА-ЯёЁ]/g, "").replace(/\./g, "").replace(" ", ""));
+    if (input.value.replace(/\_/g, "").replace(/[а-яА-ЯёЁ]/g, "").replace(/\./g, "").replace(" ", "").length === 0){
+      if (isFirst){
+        this.firstSelectedDay = this.secondSelectedDay;
+      }
+      else{
+        this.secondSelectedDay = this.firstSelectedDay;
+      }
+      this.removeMiddleSelected();
+      this.selectOnClick();
+          this.calendar.innerHTML = "";
+          this.setCalBody();
+          this.updateInput();
+    }
     if (input.value.replace("_", "").replace(/[а-яА-ЯёЁ]/g, "").replace(/\./g, "").replace(" ", "").length === 8){
       let date = this._getTimeStampFromInput(input);
       if (!isNaN(date)){
@@ -305,6 +320,13 @@ class CustomCalendar{
         });
       }
     }
+  }
+
+  removeMiddleSelected(){
+    let days = this.calendar.querySelectorAll(".cal_date");
+    days.forEach(day => {
+      day.classList.remove("additional-active");
+    });
   }
   
   setSelectedDate(cell){

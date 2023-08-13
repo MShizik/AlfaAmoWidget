@@ -1,0 +1,14 @@
+#add-abonement-table-container .table td{
+    max-width: 150px;
+    min-width: 120px;
+}
+
+#add-abonement-table-container .table td:first-child{
+    max-width: 150px;
+    min-width: 0px !important;
+}
+
+#add_abonement_selector_wrapper .selection-row{
+    width:320px;
+    justify-content: space-between;
+}

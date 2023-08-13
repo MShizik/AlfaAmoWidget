@@ -1,0 +1,13 @@
+#add-payment-selector{
+    width: 320px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#add-payment-selector .selection-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
