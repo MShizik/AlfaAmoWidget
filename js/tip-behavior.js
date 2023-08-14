@@ -41,3 +41,27 @@ connectionIndicators.forEach(element => {
         connectionTip.style.top = e.clientY + 'px';
     });
 });
+
+
+var forbiddenBlocks = document.querySelectorAll(".forbidden");
+var forbiddenTip = document.createElement('div');
+forbiddenTip.innerHTML = "Вы не выбрали ученика";
+forbiddenTip.classList.add("tip");
+
+forbiddenBlocks.forEach(element => {
+    
+    element.addEventListener("mouseenter", function(e) {
+        if (element.classList.contains("forbidden")) document.body.appendChild(forbiddenTip);
+    });
+
+    element.addEventListener("mouseleave", function(e){
+        if (element.classList.contains("forbidden")) document.body.removeChild(forbiddenTip);
+    });
+    
+    element.addEventListener("mousemove", function(e){
+        
+        forbiddenTip.style.position = "absolute";
+        forbiddenTip.style.left = e.clientX + 15 +'px';
+        forbiddenTip.style.top = e.clientY + 'px';
+    });
+});

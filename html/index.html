@@ -23,7 +23,7 @@
         <link rel="stylesheet" href="../css/basic/table.css">
         <link rel="stylesheet" href="../css/basic/tip.css">
         <link rel="stylesheet" href="../css/basic/chat.css">
-        
+
         <link rel="stylesheet" href="../css/basic/footer.css">
         <link rel="stylesheet" href="../css/levels/add_student.css">
         <link rel="stylesheet" href="../css/levels/add_abonement.css">
@@ -332,19 +332,50 @@
                     <div class="connection-indicator connection-succeed"></div>
                     <div class="connection-name">Alfa</div>
                 </div>
+                <div class="close-sign" id="main-close-sign"></div>
             </div>
-            <div class = "top-blur-module">
-
-            </div>
+            <div class="top-blur-module"></div>
             <div class="content-folder-wrapper">
                 <div class="content-folder">
-                    <div class="content-block active block-fixed">
+                    <div class="content-block inactive">
                         <div class="title">
                             <div class="block-pos">
                                 01
                             </div>
                             <div class="block-desc">
                                 Выбрать учащегося в AlfaCRM
+                            </div>
+                        </div>
+                        <div class = "inactive-info">
+                            <div class= "selection-result">
+                                <div class = "result">
+                                    <div class = "result-label">
+                                        Родитель/заказчик
+                                    </div>
+                                    <div class = "result-value">
+                                        Имя Фамилия
+                                    </div>
+                                </div>
+                            </div>
+                            <div class= "selection-result">
+                                <div class = "result">
+                                    <div class = "result-label">
+                                        Ученик
+                                    </div>
+                                    <div class = "result-value">
+                                        Имя Фамилия
+                                    </div>
+                                </div>
+                            </div>
+                            <div class= "selection-result">
+                                <div class = "result">
+                                    <div class = "result-label">
+                                        Филлиал
+                                    </div>
+                                    <div class = "result-value">
+                                        Филлиал 3
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="operation-content">
@@ -356,7 +387,17 @@
                                     <div class="selector">
                                         <div id="select-1"></div>
                                     </div>
-                                    <div class="note"></div>
+                                    <div class="note hidden"></div>
+                                    <div class= "selection-result">
+                                        <div class = "result">
+                                            <div class = "result-label">
+                                                Родитель/заказчик
+                                            </div>
+                                            <div class = "result-value">
+                                                Имя Фамилия
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="selection-row">
                                     <div class="title">
@@ -365,8 +406,18 @@
                                     <div class="selector">
                                         <div id="select-2"></div>
                                     </div>
-                                    <div class="note">
+                                    <div class="note hidden">
                                         Ученик не выбран
+                                    </div>
+                                    <div class= "selection-result">
+                                        <div class = "result">
+                                            <div class = "result-label">
+                                                Ученик
+                                            </div>
+                                            <div class = "result-value">
+                                                Имя Фамилия
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="selection-row">
@@ -376,12 +427,22 @@
                                     <div class="selector">
                                         <div id="select-3"></div>
                                     </div>
-                                    <div class="note"></div>
+                                    <div class="note hidden"></div>
+                                    <div class= "selection-result">
+                                        <div class = "result">
+                                            <div class = "result-label">
+                                                Филлиал
+                                            </div>
+                                            <div class = "result-value">
+                                                Филлиал 3
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="content-block inactive">
+                    <div class="content-block inactive  forbidden">
                         <div class="title">
                             <div class="block-pos">
                                 02
@@ -405,7 +466,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="content-block inactive">
+                    <div class="content-block inactive  forbidden">
                         <div class="title">
                             <div class="block-pos">
                                 03
@@ -480,7 +541,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="content-block disabled">
+                    <div class="content-block disabled ">
                         <div class="title">
                             <div class="block-pos">
                                 04
@@ -490,7 +551,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="content-block inactive">
+                    <div class="content-block inactive  forbidden">
                         <div class="title">
                             <div class="block-pos">
                                 05
@@ -559,7 +620,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="content-block inactive">
+                    <div class="content-block inactive  forbidden">
                         <div class="title">
                             <div class="block-pos">
                                 06
@@ -600,7 +661,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="content-block inactive">
+                    <div class="content-block inactive  forbidden">
                         <div class="title">
                             <div class="block-pos">
                                 07
@@ -628,7 +689,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="content-block inactive">
+                    <div class="content-block inactive forbidden">
                         <div class="title">
                             <div class="block-pos">
                                 08
@@ -683,14 +744,22 @@
                     </div>
                 </div>
             </div>
-            <div class = "bottom-blur-module">
-                
-            </div>
+            <div class="bottom-blur-module"></div>
             <div class="footer">
                 <div class="company-logo">
-                    <div class="main-info"></div>
-                    <div class="knowledgebase"></div>
+                    <div class="main-info">
+                        Сделано<br> на платформе
+                    </div>
+                    <div class="logo"></div>
                 </div>
+                <div class = "footer-info">
+                    <div class = "info-block">
+                        Подписка 82 дня
+                    </div>
+                </div>
+                <button class="basic_btn active" id = "footer-knowledgebase-btn">
+                    База знаний
+                </button>
             </div>
             <script src="../js/selector.js"></script>
             <script src="../js/tip-behavior.js"></script>
