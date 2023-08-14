@@ -1,3 +1,11 @@
+.content-block.active .inactive-info{
+    display: none;
+}
+
+.content-block.inactive .inactive-info{
+    display: flex;
+}
+
 .inactive-info{
     display: flex;
     flex-direction: row;
