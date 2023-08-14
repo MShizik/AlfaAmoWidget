@@ -1,0 +1,16 @@
+@import url(basic/calendar.css);
+@import url(basic/connection-block.css);
+@import url(basic/content-block.css);
+@import url(basic/itc-custom-search-select.css);
+@import url(basic/popup.css);
+@import url(basic/selection_with_table.css);
+@import url(basic/table.css);
+@import url(basic/tip.css);
+
+@import url(levels/add-student.css);
+@import url(levels/add-abonement.css);
+@import url(levels/add-payment.css);
+@import url(levels/add_student_to_group.css);
+@import url(levels/add_student_to_lesson.css);
+@import url(levels/add_student.css);
+@import url(levels/student-choser.css);
