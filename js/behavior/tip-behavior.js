@@ -45,7 +45,7 @@ connectionIndicators.forEach(element => {
 
 var forbiddenBlocks = document.querySelectorAll(".forbidden");
 var forbiddenTip = document.createElement('div');
-forbiddenTip.innerHTML = "Вы не выбрали ученика";
+forbiddenTip.innerHTML = "Вы не выбрали учащегося";
 forbiddenTip.classList.add("tip");
 
 forbiddenBlocks.forEach(element => {

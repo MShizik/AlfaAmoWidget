@@ -6,11 +6,13 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
 
-        <script src="../js/itc-custom-select.js"></script>
-        <script src="../js/searchWithTable.js"></script>
-        <script src="../js/itc-custom-search-select.js"></script>
+        <script src="../js/utils/calendar.js"></script>
+        <script src="../js/utils/itc-custom-search-select.js"></script>
+        <script src="../js/utils/itc-custom-select.js"></script>
+        <script src="../js/utils/searchWithTable.js"></script>
+        <script src="../js/utils/table.js"></script>
 
         <link rel="stylesheet" href="../css/basic/colors.css">
         <link rel="stylesheet" href="../css/basic/calendar.css">
@@ -35,290 +37,11 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-                ItcCustomSelect.create('#select-1', {
-                    name: 'Parent',
-                    targetValue: 'Выбор',
-                    options: [
-                        [
-                            'choose1', 'Выбор 1'
-                        ],
-                        [
-                            'choose2', 'Выбор 2'
-                        ],
-                        [
-                            'choose3', 'Выбор 3'
-                        ],
-                        [
-                            'choose4', 'Выбор 4'
-                        ],
-                        [
-                            'choose4', 'Выбор 4'
-                        ],
-                        [
-                            'choose4', 'Выбор 4'
-                        ],
-                        [
-                            'choose4', 'Выбор 4'
-                        ]
-                    ]
-                });
-                ItcCustomSelect.create('#select-2', {
-                    name: 'Student',
-                    targetValue: 'Выбор',
-                    options: [
-                        [
-                            'choose1', 'Выбор 1'
-                        ],
-                        [
-                            'choose2', 'Выбор 2'
-                        ],
-                        [
-                            'choose3', 'Выбор 3'
-                        ],
-                        [
-                            'choose4', 'Выбор 4'
-                        ]
-                    ]
-                });
-                ItcCustomSearchSelect.create('#select-3', {
-                    name: 'Filial',
-                    targetValue: 'Выбор',
-                    options: [
-                        [
-                            'choose1', 'Выбор 1'
-                        ],
-                        [
-                            'choose2', 'Выбор 2'
-                        ],
-                        [
-                            'choose3', 'Выбор 3'
-                        ],
-                        [
-                            'choose4', 'Выбор 4'
-                        ]
-                    ]
-                });
-                ItcCustomSelect.create('#lesson-select', {
-                    name: 'Filial',
-                    targetValue: 'Выбор',
-                    options: [
-                        [
-                            'choose1', 'Выбор 1'
-                        ],
-                        [
-                            'choose2', 'Выбор 2'
-                        ],
-                        [
-                            'choose3', 'Выбор 3'
-                        ],
-                        [
-                            'choose4', 'Выбор 4'
-                        ]
-                    ]
-                });
-                ItcCustomSelect.create('#subj-select', {
-                    name: 'Filial',
-                    targetValue: 'Выбор',
-                    options: [
-                        [
-                            'choose1', 'Выбор 1'
-                        ],
-                        [
-                            'choose2', 'Выбор 2'
-                        ],
-                        [
-                            'choose3', 'Выбор 3'
-                        ],
-                        [
-                            'choose4', 'Выбор 4'
-                        ]
-                    ]
-                });
+                
 
-                ItcCustomSelect.create('#add_payment_cas_selector', {
-                    name: 'Cas selector',
-                    targetValue: 'Выбор',
-                    options: [
-                        [
-                            'choose1', 'Выбор 1'
-                        ],
-                        [
-                            'choose2', 'Выбор 2'
-                        ],
-                        [
-                            'choose3', 'Выбор 3'
-                        ],
-                        [
-                            'choose4', 'Выбор 4'
-                        ]
-                    ]
-                });
-
-                ItcCustomSelect.create('#add_payment_category_selector', {
-                    name: 'Cas selector',
-                    targetValue: 'Выбор',
-                    options: [
-                        [
-                            'choose1', 'Выбор 1'
-                        ],
-                        [
-                            'choose2', 'Выбор 2'
-                        ],
-                        [
-                            'choose3', 'Выбор 3'
-                        ],
-                        [
-                            'choose4', 'Выбор 4'
-                        ]
-                    ]
-                });
-
-                ItcCustomSelect.create('#add_payment_income_selector', {
-                    name: 'Cas selector',
-                    targetValue: 'Выбор',
-                    options: [
-                        [
-                            'choose1', 'Выбор 1'
-                        ],
-                        [
-                            'choose2', 'Выбор 2'
-                        ],
-                        [
-                            'choose3', 'Выбор 3'
-                        ],
-                        [
-                            'choose4', 'Выбор 4'
-                        ]
-                    ]
-                });
-
-                let firstCal = new CustomCalendar(document.querySelector("#firstCal"));
                 let secondCal = new CustomCalendar(document.querySelector("#secondCal"));
-                var data = [
-                    {
-                        date: "09.07.2023",
-                        time: "18:00",
-                        subj: "Ангийский язык",
-                        teacher: "Иванов В. А.",
-                        room: "24",
-                        group_name: "Новички",
-                        limit: "3/12",
-                        comment: "Комментарий"
-                    },
-                    {
-                        date: "09.07.2023",
-                        time: "18:00",
-                        subj: "Ангийский язык",
-                        teacher: "Иванов В. А.",
-                        room: "24",
-                        group_name: "Новички",
-                        limit: "3/12",
-                        comment: "Комментарий"
-                    },
-                    {
-                        date: "09.07.2023",
-                        time: "18:00",
-                        subj: "Ангийский язык",
-                        teacher: "Иванов В. А.",
-                        room: "24",
-                        group_name: "Новички",
-                        limit: "3/12",
-                        comment: "Комментарий"
-                    },
-                    {
-                        date: "09.07.2023",
-                        time: "18:00",
-                        subj: "Ангийский язык",
-                        teacher: "Иванов В. А.",
-                        room: "24",
-                        group_name: "Новички",
-                        limit: "3/12",
-                        comment: "Комментарий"
-                    }, {
-                        date: "09.07.2023",
-                        time: "18:00",
-                        subj: "Ангийский язык",
-                        teacher: "Иванов В. А.",
-                        room: "24",
-                        group_name: "Новички",
-                        limit: "3/12",
-                        comment: "Комментарий"
-                    }, {
-                        date: "09.07.2023",
-                        time: "18:00",
-                        subj: "Ангийский язык",
-                        teacher: "Иванов В. А.",
-                        room: "24",
-                        group_name: "Новички",
-                        limit: "3/12",
-                        comment: "Комментарий"
-                    }
-
-                ];
-
-                var columns = [
-                    '',
-                    'Дата',
-                    'Время урока',
-                    'Предмет',
-                    'Педагог',
-                    'Аудитория',
-                    'Название группы',
-                    'Лимит учеников',
-                    'Комментарий'
-                ];
-                let firstTable = new CustomTable(document.querySelector("#add-student-to-lesson-table-container"), data, columns);
-
-                var secondTableData = [{
-                        name: "Группа 1",
-                        teacher: "Иванов В.А. ",
-                        limit: "9/12",
-                        comment: "Комментарий"
-                    }];
-
-                var secondTableColumns = [
-                    '',
-                    'Название группы',
-                    'Педагог',
-                    'Количество/лимит учеников',
-                    'Комментарий'
-                ];
-                let secondTable = new CustomTable(document.querySelector("#add-student-to-group-table-container"), secondTableData, secondTableColumns);
-
-                var abonementTableColumns = [
-                    '',
-                    'Название абонемента',
-                    'Тарификация',
-                    'Стоимость',
-                    'Период действия'
-                ];
-                var abonementTableData = [
-                    {
-                        name: "Абонемент 1",
-                        tariff: 'Тариф 1',
-                        price: '20 000 р.',
-                        period: '03.08.2023–03.09.2023'
-                    }, {
-                        name: "Абонемент 2",
-                        tariff: 'Тариф 1',
-                        price: '20 000 р.',
-                        period: '03.08.2023–03.09.2023'
-                    }, {
-                        name: "Абонемент 3",
-                        tariff: 'Тариф 1',
-                        price: '20 000 р.',
-                        period: '03.08.2023–03.09.2023'
-                    }, {
-                        name: "Абонемент 4 с очень длинным названием",
-                        tariff: 'Тариф 1',
-                        price: '20 000 р.',
-                        period: '03.08.2023–03.09.2023'
-                    }
-                ];
-
-
-                let searchWithTable = new SearchWithTable(document.querySelector("#add-abonement-table-container"), document.querySelector("#abonement_search_input"), abonementTableData, abonementTableColumns)
-            })
+                
+                })
         </script>
     </head>
     <body>
@@ -337,7 +60,7 @@
             <div class="top-blur-module"></div>
             <div class="content-folder-wrapper">
                 <div class="content-folder">
-                    <div class="content-block inactive">
+                    <div class="content-block active static">
                         <div class="title">
                             <div class="block-pos">
                                 01
@@ -347,7 +70,7 @@
                             </div>
                         </div>
                         <div class = "inactive-info">
-                            <div class= "selection-result">
+                            <div class= "selection-result" id = "student_choser_parent_inactive_result">
                                 <div class = "result">
                                     <div class = "result-label">
                                         Родитель/заказчик
@@ -357,7 +80,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class= "selection-result">
+                            <div class= "selection-result" id = "student_choser_student_inactive_result">
                                 <div class = "result">
                                     <div class = "result-label">
                                         Ученик
@@ -367,7 +90,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class= "selection-result">
+                            <div class= "selection-result" id = "student_choser_filial_inactive_result">
                                 <div class = "result">
                                     <div class = "result-label">
                                         Филлиал
@@ -380,15 +103,17 @@
                         </div>
                         <div class="operation-content">
                             <div id="student-selector">
-                                <div class="selection-row">
+                                <div class="selection-row unselected">
                                     <div class="title">
                                         Родитель/заказчик
                                     </div>
                                     <div class="selector">
-                                        <div id="select-1"></div>
+                                        <div id="student_choser_parent_selector"></div>
                                     </div>
-                                    <div class="note hidden"></div>
-                                    <div class= "selection-result">
+                                    <div class="note">
+                                        Родитель/заказчик не выбран
+                                    </div>
+                                    <div class= "selection-result hidden" id = "student_choser_parent_result">
                                         <div class = "result">
                                             <div class = "result-label">
                                                 Родитель/заказчик
@@ -399,17 +124,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="selection-row">
+                                <div class="selection-row unselected">
                                     <div class="title">
                                         Ученик
                                     </div>
                                     <div class="selector">
-                                        <div id="select-2"></div>
+                                        <div id="student_choser_student_selector"></div>
                                     </div>
-                                    <div class="note hidden">
+                                    <div class="note">
                                         Ученик не выбран
                                     </div>
-                                    <div class= "selection-result">
+                                    <div class= "selection-result hidden" id = "student_choser_student_result">
                                         <div class = "result">
                                             <div class = "result-label">
                                                 Ученик
@@ -420,15 +145,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="selection-row">
+                                <div class="selection-row unselected">
                                     <div class="title">
                                         Филлиал
                                     </div>
                                     <div class="selector">
-                                        <div id="select-3"></div>
+                                        <div id="student_choser_filial_selector"></div>
                                     </div>
-                                    <div class="note hidden"></div>
-                                    <div class= "selection-result">
+                                    <div class="note">
+                                        Филлиал не выбран
+                                    </div>
+                                    <div class= "selection-result hidden" id = "student_choser_filial_result">
                                         <div class = "result">
                                             <div class = "result-label">
                                                 Филлиал
@@ -457,10 +184,10 @@
                                 <label for="add_as_lead">Записать как лид</label>
                             </div>
                             <div class="task_button">
-                                <button class="basic_btn active">
+                                <button class="basic_btn active" id = "add-student-btn">
                                     Записать ученика в AlfaCRM
                                 </button>
-                                <div class="additional-info">
+                                <div class="additional-info" id = "add-student-refresh">
                                     <a>Восстановить ссылку на карточку AlfaCRM</a>
                                 </div>
                             </div>
@@ -482,7 +209,7 @@
                                         Урок
                                     </div>
                                     <div class="selector">
-                                        <div id="subj-select"></div>
+                                        <div id="add-student-to-lesson-lesson-selector"></div>
                                     </div>
                                 </div>
                                 <div class="selection-row">
@@ -490,12 +217,12 @@
                                         Предмет
                                     </div>
                                     <div class="selector">
-                                        <div id="lesson-select"></div>
+                                        <div id="add-student-to-lesson-subject-selector"></div>
                                     </div>
                                 </div>
 
-                                <div class="calendar-wrapper" id="firstCal">
-                                    <div class="date_picker" id="cal-add-student-to-lesson">
+                                <div class="calendar-wrapper" id="add-student-to-lesson-calendar-wrapper">
+                                    <div class="date_picker" id="add-student-to-lesson-calendar">
                                         <div class="date_picker_input" id="date-picker-input-add-student-to-lesson">
                                             <label>Datepicker</label>
                                             <div class="cal_input_block">
@@ -536,7 +263,7 @@
                                 </div>
                             </div>
                             <div class="table_container" id="add-student-to-lesson-table-container"></div>
-                            <button class="basic_btn active">
+                            <button class="basic_btn active" id = "add-student-to-lesson-btn">
                                 Добавить ученика на урок
                             </button>
                         </div>
@@ -615,7 +342,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button class="basic_btn active">
+                            <button class="basic_btn active" id = "add-student-to-group-btn">
                                 Добавить ученика в группу
                             </button>
                         </div>
@@ -678,12 +405,12 @@
                                     </div>
                                     <div class="selector">
                                         <div class="input-wrapper">
-                                            <input autocomplete="off" class="selection_with_table" id="abonement_search_input" type="text">
+                                            <input autocomplete="off" class="selection_with_table" id="add_abonement_search_input" type="text">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="table_container" id="add-abonement-table-container"></div>
+                            <div class="table_container" id="add_abonement_table_container"></div>
                             <button class="basic_btn active">
                                 Добавить абонемент
                             </button>
@@ -737,7 +464,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button class="basic_btn active">
+                            <button class="basic_btn active" id = "communication-btn">
                                 Загрузить следующие 10 сообщений
                             </button>
                         </div>
@@ -761,12 +488,18 @@
                     База знаний
                 </button>
             </div>
-            <script src="../js/selector.js"></script>
-            <script src="../js/tip-behavior.js"></script>
-            <script src="../js/toggle-operations.js"></script>
-            <script src="../js/calendar.js"></script>
-            <script src="../js/input-mask.js"></script>
-            <script src="../js/table.js"></script>
+
+            <script src="../js/behavior/tip-behavior.js"></script>
+            <script src="../js/behavior/toggle-operations.js"></script>
+            <script src="../js/behavior/input-mask.js"></script>
+
+            <script src="../js/blocks/add-abonement.js"></script>
+            <script src="../js/blocks/add-payment.js"></script>
+            <script src="../js/blocks/add-student-to-group.js"></script>
+            <script src="../js/blocks/add-student-to-lesson.js"></script>
+            <script src="../js/blocks/add-student.js"></script>
+            <script src="../js/blocks/communication.js"></script>
+            <script src="../js/blocks/student-choser.js"></script>
         </body>
     </body>
 </html>

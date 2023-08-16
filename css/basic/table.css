@@ -20,7 +20,12 @@ tbody{
 }
 
 .tbody_wrapper{
-    width: fit-content;
+    display: table;
+    width: 100%;
+    
+}
+
+.scrollable_wrapper{
     max-height: 240px;
     overflow-y: auto;
 }
@@ -31,7 +36,7 @@ tbody{
     vertical-align: top;
 }
 
-thead,
+thead tr,
 tbody tr {
     /*display: table; */
     width: 100%;
@@ -157,16 +162,16 @@ tbody tr {
     left: 0px;
 }
 
-.tbody_wrapper::-webkit-scrollbar {
+.scrollable_wrapper::-webkit-scrollbar {
     width: 4px;
     height: 20px;
     background: var(--basement);
   }
   
-  .tbody_wrapper::-webkit-scrollbar-thumb {
+  .scrollable_wrapper::-webkit-scrollbar-thumb {
     background: var(--inactive-gray);
   }
   
-  .tbody_wrapper::-webkit-scrollbar-track {
+  .scrollable_wrapper::-webkit-scrollbar-track {
     background-color: transparent;
   }

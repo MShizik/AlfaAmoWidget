@@ -11,7 +11,7 @@ class ItcCustomSelect {
     static DATA_TOGGLE = '[data-select="toggle"]';
   
     static template(params) {
-      const { name, options, targetValue } = params;
+      const { name, options, targetValue, callback } = params;
       const items = [];
       let selectedIndex = -1;
       let selectedValue = '';
@@ -119,6 +119,7 @@ class ItcCustomSelect {
         return;
       }
       this._updateOption(el);
+      (this._params['callback'])(this._el);
       this.hide();
     }
   

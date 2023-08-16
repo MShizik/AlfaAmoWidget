@@ -43,7 +43,7 @@
 .input-wrapper input:focus,
 .input-wrapper .used{
     background-color: var(--white);
-    box-shadow: 0px 0px 0px 1px var(--basement) inset;
+    box-shadow: 0px 0px 0px 1px var(--light-blue-border) inset;
     color: var(--text-black);
 }
     

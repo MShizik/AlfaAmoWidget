@@ -13,6 +13,10 @@
     align-items: start;
  }
 
+ .content-block.static{
+   background-color: var(--white) !important;
+ }
+
  .content-block.disabled,
  .content-block.forbidden{
    background-color: var(--disabled-block) !important;
@@ -38,7 +42,7 @@
  }
 
  .content-block.inactive{
-   background-color: var(--white);
+   background-color: var(--disabled-block);
  }
 
  .content-block.inactive:hover{

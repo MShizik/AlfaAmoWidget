@@ -155,8 +155,6 @@ class CustomCalendar{
   }
 
   _changeDateFromInput(input, isFirst){
-    console.log(input);
-    console.log(input.value.replace(/\_/g, "").replace(/[а-яА-ЯёЁ]/g, "").replace(/\./g, "").replace(" ", ""));
     if (input.value.replace(/\_/g, "").replace(/[а-яА-ЯёЁ]/g, "").replace(/\./g, "").replace(" ", "").length === 0){
       if (isFirst){
         this.firstSelectedDay = this.secondSelectedDay;
@@ -246,7 +244,6 @@ class CustomCalendar{
   
   getMonthDetails(year, month) {
     let firstDay = new Date(year, month).getDay();
-    console.log(firstDay);
     let numberOfDays = this.getNumberOfDays(year, month);
     let monthArray = [];
     let rows = 5;

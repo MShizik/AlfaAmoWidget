@@ -31,12 +31,15 @@ class CustomTable{
 
         var tbodyWrapper = document.createElement('div');
         tbodyWrapper.classList.add("tbody_wrapper");
+        var scrollabelWrapper = document.createElement('div');
+        scrollabelWrapper.classList.add("scrollable_wrapper");
         tbodyWrapper.appendChild(thead);
         tbodyWrapper.appendChild(tbody);
+        scrollabelWrapper.appendChild(tbodyWrapper);
 
         this.insertData(tbody, data);
         
-        this.table.appendChild(tbodyWrapper);
+        this.table.appendChild(scrollabelWrapper);
 
         if (data.length > 5){
             tbody.style['height'] = "200px";

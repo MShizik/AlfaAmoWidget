@@ -25,7 +25,13 @@
     width:fit-content;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    /*grid-template-areas: "label selector note empty";*/
+}
+
+#student-selector .selection-row.unselected{
+    grid-template-areas: "label selector note empty";
+}
+
+#student-selector .selection-row.selected{
     grid-template-areas: "label selector list list";
 }
 

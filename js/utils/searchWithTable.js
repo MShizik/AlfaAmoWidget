@@ -52,6 +52,7 @@ class SearchWithTable{
           if (e.target.value === ''){
             e.target.value = "Поиск...";
           }
+          e.target.classList.remove("used");
         });
 
         this.input.addEventListener('focus', e => {

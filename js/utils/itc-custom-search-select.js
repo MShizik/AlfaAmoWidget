@@ -26,7 +26,6 @@ class ItcCustomSearchSelect {
           selectedContent = option[1];
         }
         this.basicOptions[index] = option[0];
-        console.log(this.basicOptions);
         this.basicItems.push(`<li class="itc-select__option${selectedClass}" data-select="option"
           data-value="${option[1]}" data-index="${index}">${option[1]}</li>`);
       });
@@ -222,4 +221,4 @@ class ItcCustomSearchSelect {
     }
   }
   
-  ItcCustomSelect.hideOpenSelect();
+  ItcCustomSearchSelect.hideOpenSelect();
