@@ -44,6 +44,7 @@ class SearchWithTable{
                 });
                 if(sharpedData.length !== 0){
                     this.tableObj.insertData(null, sharpedData);
+                    this.tableObj.setUpRowOnClickHandler();
                 }
             }
         });

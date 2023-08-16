@@ -40,6 +40,8 @@ class CustomTable{
         this.insertData(tbody, data);
         
         this.table.appendChild(scrollabelWrapper);
+        
+        this.setUpRowOnClickHandler();    
 
         if (data.length > 5){
             tbody.style['height'] = "200px";
@@ -89,7 +91,7 @@ class CustomTable{
             tbody.appendChild(tr);
             this.setUpCheckboxBehavior(checkbox, rowID);
             this.setUpHoverEffect(tr, rowID);
-        }        
+        }    
     }
 
     setUpCheckboxBehavior(checkbox, id){
@@ -112,6 +114,25 @@ class CustomTable{
             if (checkbox === null || !checkbox.checked){
                 trs[id].classList.remove("prev-sibling");
             }
+        });
+    }
+
+    setUpRowOnClickHandler(){
+        console.log(this.table);
+        var rows = this.table.querySelectorAll("tr");
+        rows.forEach(currentRow => {
+            var createClickHandler = function(row) {
+                return function() {
+                    console.log(row);
+                    var checkbox = row.querySelector(".table-checkbox input");
+                    if (checkbox.checked){
+                        checkbox.checked = false;
+                    }else{
+                        checkbox.checked = true;
+                    }
+                };
+            };
+            currentRow.onclick = createClickHandler(currentRow);
         });
     }
 }

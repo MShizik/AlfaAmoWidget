@@ -106,6 +106,7 @@ tbody tr {
 }
 
 .table tr{
+    cursor: pointer;
     position: relative;
     background-color: transparent;
 }
@@ -140,6 +141,10 @@ tbody tr {
 .table tbody tr:has(.table_checkbox:checked)::after
 {
     background-color: var(--basement);
+}
+
+.table tbody tr:hover .table-checkbox label::before{
+    border-color: var(--second-blue);
 }
 
 .table tbody tr:has(.table_checkbox:checked)::after,

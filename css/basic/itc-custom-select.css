@@ -36,6 +36,22 @@
   .itc-select__toggle:focus {
     outline: none;
   }
+
+  .itc-select__toggle:hover::after{
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6' viewBox='0 0 12 6' fill='none'%3E%3Cpath d='M6 5.6001L0.803848 0.200099L11.1962 0.200098L6 5.6001Z' fill='%23233DB9'/%3E%3C/svg%3E");
+  }
+
+  .itc-select__toggle:hover{
+    color: var(--link-blue);
+  }
+
+  .itc-select_show .itc-select__toggle{
+    color: var(--text-selector);
+  }
+
+  .itc-select_show .itc-select__toggle::after{
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6' viewBox='0 0 12 6' fill='none'%3E%3Cpath d='M6 5.6001L0.803848 0.200099L11.1962 0.200098L6 5.6001Z' fill='%23AFBCBE'/%3E%3C/svg%3E");
+  }
   
   .itc-select__dropdown {
     position: absolute;

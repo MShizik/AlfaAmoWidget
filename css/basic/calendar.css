@@ -67,6 +67,23 @@ label {
     background-color: transparent;
 }
 
+.cal_input_block:hover .cal_input_icon svg path{
+    fill: var(--second-blue);
+}
+
+.cal_input_block:hover .cal_date_input{
+    font-weight: 600;
+}
+
+.cal_input_block:has(.cal_date_input:focus){
+    font-weight: 600;
+    background-color: var(--white);
+}
+
+.cal_input_block:has(.cal_date_input:focus) .cal_date_input{
+    font-weight: 600;
+}
+
 .date_picker_calendar {
     min-height: fit-content;
     box-shadow: 0px 1px 10px 0px rgba(60, 161, 235, 0.25); 
@@ -78,6 +95,10 @@ label {
 }
 
 .date_picker_input.showCal .cal_input_block .cal_input_icon svg path{
+    fill: var(--second-blue);
+}
+
+.cal_input_clear:hover svg path{
     fill: var(--second-blue);
 }
 

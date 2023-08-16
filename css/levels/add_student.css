@@ -22,3 +22,12 @@
 
     text-decoration-line: underline;
 }
+
+.task_button .additional-info a:hover{
+    font-weight: 600;
+}
+
+.task_button .additional-info a:visited{
+    font-weight: 600;
+    color: var(--button-gray);
+}
