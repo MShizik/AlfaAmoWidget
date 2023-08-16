@@ -1,8 +1,7 @@
 .itc-select {
     position: relative;
     width: 100%;
-  }
-  
+}
   .itc-select__toggle {
     position: relative;
     display: flex;

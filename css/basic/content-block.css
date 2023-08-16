@@ -19,6 +19,8 @@
 
  .content-block.disabled,
  .content-block.forbidden{
+   
+   cursor: default;
    background-color: var(--disabled-block) !important;
  }
 
@@ -30,9 +32,13 @@
    display: none;
 }
 
+.content-block.used .title .block-desc,
+.content-block.used .title .block-pos{
+   color: var(--link-blue)!important;
+}
+
  .content-block.inactive,
  .content-block.disabled{
-    
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -42,7 +48,7 @@
  }
 
  .content-block.inactive{
-   background-color: var(--disabled-block);
+   background-color: var(--white);
  }
 
  .content-block.inactive:hover{
@@ -51,6 +57,7 @@
  }
 
  .content-block> .title{
+   
     margin:  16px 20px 16px 20px;
     display: flex;
     flex-direction: row;

@@ -90,6 +90,17 @@ class ItcCustomSearchSelect {
       }
     }
 
+    updateData(data){
+      var optionsWrapper = this._el.querySelector(".itc-select__options");
+      let dataToBeOptions = [];
+      data.forEach((option, index) => {
+        let selectedClass = '';
+        dataToBeOptions.push(`<li class="itc-select__option${selectedClass}" data-select="option"
+          data-value="${option[1]}" data-index="${index}">${option[1]}</li>`);
+      });
+      optionsWrapper.innerHTML = dataToBeOptions.join(' ');
+    }
+
     _searchAnalizer(){
         var optionsWrapper = this._el.querySelector(".itc-select__options");
         var options = optionsWrapper.querySelectorAll(".itc-select__option");
@@ -120,9 +131,9 @@ class ItcCustomSearchSelect {
         });
 
         input.addEventListener('blur', e => {
-          if (e.target.value === ''){
-            e.target.value = "Выберите из списка";
-          }
+            setTimeout(function(){
+              if (e.target.value === '') e.target.value = "Выберите из списка";
+            },100);
         });
     }
   
@@ -171,6 +182,9 @@ class ItcCustomSearchSelect {
           });
         this._el.classList.add(`${this.constructor.EL_SHOW}`);
         this._el.classList.add("select-opened");
+        if (this._el.querySelector("input").value === "Выберите из списка"){
+          this._el.querySelector("input").value = "";
+        }
       }
     }
   
@@ -180,9 +194,9 @@ class ItcCustomSearchSelect {
     }
   
     toggle() {
-        if (this.targetValue === this.value){
-            this.hide();
-        }
+      if (this.targetValue === this.value){
+          this.hide();
+      }
       this.show();
     }
   

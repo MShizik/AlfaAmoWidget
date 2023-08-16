@@ -147,6 +147,17 @@ class ItcCustomSelect {
     dispose() {
       this._el.removeEventListener('click', this._onClickFn);
     }
+
+    updateData(data){
+      var optionsWrapper = this._el.querySelector(".itc-select__options");
+      let dataToBeOptions = [];
+      data.forEach((option, index) => {
+        let selectedClass = '';
+        dataToBeOptions.push(`<li class="itc-select__option${selectedClass}" data-select="option"
+          data-value="${option[1]}" data-index="${index}">${option[1]}</li>`);
+      });
+      optionsWrapper.innerHTML = dataToBeOptions.join(' ');
+    }
   
     get value() {
       return this._elToggle.value;

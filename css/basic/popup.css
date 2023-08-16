@@ -102,6 +102,7 @@
 
 .basic_btn.inactive{
     background: var(--button-gray);
+    cursor: default;
 }
 
 .custom-checkbox {

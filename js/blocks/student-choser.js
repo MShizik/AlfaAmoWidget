@@ -15,73 +15,26 @@ let removeNoteAndWriteIntoResultField = function(_el){
 }
 
 
-ItcCustomSelect.create('#student_choser_parent_selector', {
+//Создание селекторов
+let parentSelector = ItcCustomSelect.create('#student_choser_parent_selector', {
     name: 'student_choser_parent_selector',
     targetValue: 'Выбор',
     options: [
-        [
-            'choose1', 'Выбор 1'
-        ],
-        [
-            'choose2', 'Выбор 2'
-        ],
-        [
-            'choose3', 'Выбор 3'
-        ],
-        [
-            'choose4', 'Выбор 4'
-        ],
-        [
-            'choose4', 'Выбор 4'
-        ],
-        [
-            'choose4', 'Выбор 4'
-        ],
-        [
-            'choose4', 'Выбор 4'
-        ]
     ],
     callback : removeNoteAndWriteIntoResultField
 });
-
-
-ItcCustomSelect.create('#student_choser_student_selector', {
+let studentSelector = ItcCustomSelect.create('#student_choser_student_selector', {
     name: 'student_choser_student_selector',
     targetValue: 'Выбор',
     options: [
-        [
-            'choose1', 'Выбор 1'
-        ],
-        [
-            'choose2', 'Выбор 2'
-        ],
-        [
-            'choose3', 'Выбор 3'
-        ],
-        [
-            'choose4', 'Выбор 4'
-        ]
+       
     ],
     callback : removeNoteAndWriteIntoResultField
 });
-
-
-ItcCustomSelect.create('#student_choser_filial_selector', {
+let filialSelector = ItcCustomSelect.create('#student_choser_filial_selector', {
     name: 'student_choser_filial_selector',
     targetValue: 'Выбор',
     options: [
-        [
-            'choose1', 'Выбор 1'
-        ],
-        [
-            'choose2', 'Выбор 2'
-        ],
-        [
-            'choose3', 'Выбор 3'
-        ],
-        [
-            'choose4', 'Выбор 4'
-        ]
     ],
     callback : function(_el){
         removeNoteAndWriteIntoResultField(_el);
@@ -92,3 +45,27 @@ ItcCustomSelect.create('#student_choser_filial_selector', {
     }
 });
 
+//Наполнение селекторов
+let parentData = [
+    ["chose 1", "Выбор 1"],
+    ["chose 2", "Выбор 2"],
+    ["chose 3", "Выбор 3"],
+    ["chose 4", "Выбор 4"]
+];
+parentSelector.updateData(parentData);
+
+let studentData = [
+    ["chose 1", "Выбор 1"],
+    ["chose 2", "Выбор 2"],
+    ["chose 3", "Выбор 3"],
+    ["chose 4", "Выбор 4"]
+];
+studentSelector.updateData(studentData);
+
+let filialData = [
+    ["chose 1", "Выбор 1"],
+    ["chose 2", "Выбор 2"],
+    ["chose 3", "Выбор 3"],
+    ["chose 4", "Выбор 4"]
+];
+filialSelector.updateData(filialData);

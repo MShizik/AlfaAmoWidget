@@ -33,6 +33,10 @@
     width : 175px;
   }
 
+  .itc-select__container+.itc-select__dropdown{
+    top:27px;
+  }
+
   .itc-select_show .itc-select__container input{
     box-sizing: border-box;
     -moz-box-sizing: border-box;
