@@ -1,3 +1,9 @@
+var studentChoserContentBlock = document.querySelector("#student-choser-content-block");
+
+studentChoserContentBlock.addEventListener("click", () => {
+    toggleContentBlock(studentChoserContentBlock);
+})
+
 let removeNoteAndWriteIntoResultField = function(_el){
 
     let chosenResult = _el.querySelector('[data-select="toggle"]').textContent;
@@ -12,6 +18,14 @@ let removeNoteAndWriteIntoResultField = function(_el){
 
     let inactiveResult = document.querySelector("#student_choser_" + _el.id.replace("student_choser_", "").replace("_selector", "") + "_inactive_result");
     inactiveResult.querySelector(".result-value").innerHTML = chosenResult;
+    let wrapper = document.querySelector("#student-choser-content-block");
+
+    if (wrapper.querySelectorAll(".itc-select__option_selected").length === 3){
+        let forbiddentBlocks = document.querySelectorAll(".forbidden");
+        forbiddentBlocks.forEach(block => {
+            block.classList.remove("forbidden");
+        });
+    }
 }
 
 
@@ -36,13 +50,7 @@ let filialSelector = ItcCustomSelect.create('#student_choser_filial_selector', {
     targetValue: 'Выбор',
     options: [
     ],
-    callback : function(_el){
-        removeNoteAndWriteIntoResultField(_el);
-        let forbiddenBlocks = document.querySelectorAll(".content-block.forbidden");
-        forbiddenBlocks.forEach(block => {
-            block.classList.remove("forbidden");
-        });
-    }
+    callback :  removeNoteAndWriteIntoResultField
 });
 
 //Наполнение селекторов

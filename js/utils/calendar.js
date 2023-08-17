@@ -1,6 +1,6 @@
 class CustomCalendar{
 
-  constructor(head_element){
+  constructor(head_element, inputChangedCallBack, clearCallBack){
     this.calendar = null;
     this.firstInput = null;
     this.secondInput = null;
@@ -34,19 +34,21 @@ class CustomCalendar{
     this.todayTimestamp = null;
     this.oneDay = 60 * 60 * 24 * 1000;
     this.selectedDay = null;
-    this.init(head_element);
+    this.inputChangedCallBack = null;
+    this.clearCallBack = null;
+    this.init(head_element, inputChangedCallBack, clearCallBack);
   }
   
-  init(head_element){
+  init(head_element, inputChangedCallBack, clearCallBack){
     this.head_element = head_element;
-    this.calendar = head_element.querySelector(".calendar_main");
-    this.firstInput = head_element.querySelector(".cal_date_input.first");
-    this.secondInput = head_element.querySelector(".cal_date_input.second");
-    this.calHeader = head_element.querySelector(".calendar_header");
-    this.calHeaderTitle = head_element.querySelector(".calendar_header span");
-    this.calDays = head_element.querySelector(".cal_days");
-    this.clearSign = head_element.querySelector(".cal_input_clear");
-    this.calIcon = head_element.querySelector(".cal_input_icon");
+    this.calendar = this.head_element.querySelector(".calendar_main");
+    this.firstInput = this.head_element.querySelector(".cal_date_input.first");
+    this.secondInput = this.head_element.querySelector(".cal_date_input.second");
+    this.calHeader = this.head_element.querySelector(".calendar_header");
+    this.calHeaderTitle = this.head_element.querySelector(".calendar_header span");
+    this.calDays = this.head_element.querySelector(".cal_days");
+    this.clearSign = this.head_element.querySelector(".cal_input_clear");
+    this.calIcon = this.head_element.querySelector(".cal_input_icon");
     this.todayTimestamp = Date.now() - (Date.now() % this.oneDay) + new Date().getTimezoneOffset() * 1000 * 60;
     this.firstSelectedDay = this.todayTimestamp;
     this.secondSelectedDay = this.todayTimestamp + this.oneDay * 14;
@@ -54,6 +56,9 @@ class CustomCalendar{
     this.year = this.date.getFullYear();
     this.month = this.date.getMonth();
     this.monthDetails = this.getMonthDetails(this.year, this.month);
+
+    this.inputChangedCallBack = inputChangedCallBack;
+    this.clearCallBack = clearCallBack;
 
     this.setDateToInput(this.firstSelectedDay, this.firstInput);
     this.setDateToInput(this.secondSelectedDay, this.secondInput);
@@ -81,6 +86,12 @@ class CustomCalendar{
       
       this.head_element.querySelector('.date_picker_input').classList.toggle('showCal');
     });
+
+    document.addEventListener('click', (event) => {
+      if (!head_element.contains(event.target) && head_element.querySelector('.date_picker_input').classList.contains('showCal')) {
+        this._closeCalendar(50);
+      }
+    });
   }
 
   _setInputBehavior(){
@@ -95,6 +106,7 @@ class CustomCalendar{
     });
 
     this.firstInput.addEventListener('focus', () => {
+      console.log("first");
       this.firstInput.classList.add('onFocus');
       this.secondInput.classList.contains('onFocus') && this.secondInput.classList.remove('onFocus');
     });
@@ -108,6 +120,7 @@ class CustomCalendar{
     this.firstInput.addEventListener('input', () => {
       setTimeout(() => {
         this._changeDateFromInput(this.firstInput, true);
+        this.inputChangedCallBack(this);
       }, 100);
     });
 
@@ -135,6 +148,7 @@ class CustomCalendar{
     this.secondInput.addEventListener('input', () => {
       setTimeout(() => {
         this._changeDateFromInput(this.secondInput, false);
+        this.inputChangedCallBack(this);
       }, 100);
     });
   }
@@ -152,15 +166,16 @@ class CustomCalendar{
 
     this.firstInput.value = "";
     this.secondInput.value = "";
+    this.clearCallBack();
   }
 
   _changeDateFromInput(input, isFirst){
     if (input.value.replace(/\_/g, "").replace(/[а-яА-ЯёЁ]/g, "").replace(/\./g, "").replace(" ", "").length === 0){
       if (isFirst){
-        this.firstSelectedDay = this.secondSelectedDay;
+        this.firstSelectedDay = null;
       }
       else{
-        this.secondSelectedDay = this.firstSelectedDay;
+        this.secondSelectedDay = null;
       }
       this.removeMiddleSelected();
       this.selectOnClick();
@@ -168,7 +183,7 @@ class CustomCalendar{
           this.setCalBody();
           this.updateInput();
     }
-    if (input.value.replace("_", "").replace(/[а-яА-ЯёЁ]/g, "").replace(/\./g, "").replace(" ", "").length === 8){
+    if (input.value.replace(/\_/g, "").replace(/[а-яА-ЯёЁ]/g, "").replace(/\./g, "").replace(" ", "").length === 8){
       let date = this._getTimeStampFromInput(input);
       if (!isNaN(date)){
         if (date.getTime() === this.firstSelectedDay){
@@ -191,13 +206,13 @@ class CustomCalendar{
         date = date.getTime();
         this.setHeader(this.year, this.month);
         this.monthDetails = this.getMonthDetails(this.year, this.month);
-        if (isFirst && date < this.secondSelectedDay){
+        if (isFirst && (date < this.secondSelectedDay || this.secondSelectedDay === null)){
           this.firstSelectedDay = date;
         }
-        else if (!isFirst && date > this.firstSelectedDay){
+        else if (!isFirst && date > this.firstSelectedDay && this.firstSelectedDay !== null){
           this.secondSelectedDay = date
         }
-        else if (!isFirst && date < this.firstSelectedDay){
+        else if (!isFirst && ( date < this.firstSelectedDay || this.firstSelectedDay === null)){
           this.secondInput = "по " + this.getDateStringFromTimestamp(this.firstSelectedDay);
           this.firstSelectedDay = date;
           this.firstInput.value = "с " + this.getDateStringFromTimestamp(date);
@@ -212,6 +227,14 @@ class CustomCalendar{
         this.calendar.innerHTML = "";
         this.setCalBody();
         this.updateInput();
+      }
+      else{
+        if (isFirst){
+          this.firstSelectedDay = null;
+        }
+        else{
+          this.secondSelectedDay = null;
+        }
       }
     }
   }
@@ -465,10 +488,12 @@ class CustomCalendar{
                 else{
                   this.secondSelectedDay = this.monthDetails[i].timestamp;
                   this.setDateToInput(this.secondSelectedDay, this.secondInput);
-                  this._closeCalendar();
+                  this._closeCalendar(500);
                 }
                 this.selectOnClick();
                 this.setSelectedDate(cell);
+
+                this.inputChangedCallBack(this);
                 
                 cell.querySelector('span').classList.contains('inactive_indicator') 
                 && cell.querySelector('span').classList.remove('inactive_indicator');
@@ -508,11 +533,29 @@ class CustomCalendar{
     }
   }
 
-  _closeCalendar(){
+  _closeCalendar(time){
     setTimeout(() => {
       this.head_element.querySelector('.date_picker_calendar').classList.add('hidden');
       this.head_element.querySelector('.date_picker_input').classList.remove('showCal');
-    }, 1000);
+    }, time);
+  }
+
+  getValues(){
+    return {
+      "firstInput" : this.firstSelectedDay,
+      "secondInput" : this.secondSelectedDay
+    }
+  }
+
+  getInputs(){
+    return {
+      "firstInput" : this.firstInput,
+      "secondInput" : this.secondInput
+    }
+  }
+
+  getId(){
+    return this.head_element.id;
   }
 }
   

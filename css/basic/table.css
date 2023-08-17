@@ -128,6 +128,7 @@ tbody tr {
     border-width: 0px 0px 1px 0px;
     background-color: transparent;
     z-index: 2300;
+    transition: .3s all;
 }
 
 .table tr::after{
@@ -135,6 +136,7 @@ tbody tr {
     bottom: 0;
     background-color: transparent;
     z-index: 2250;
+    transition: .3s all;
 }
 
 .table tbody tr:hover::after,

@@ -11,7 +11,7 @@ class ItcCustomSearchSelect {
     static DATA_TOGGLE = '[data-select="toggle"]';
   
     static template(params) {
-      const { name, options, targetValue } = params;
+      const { name, options, targetValue, callback } = params;
       this.basicItems = [];
       this.basicOptions = [];
       let selectedIndex = -1;
@@ -170,6 +170,9 @@ class ItcCustomSearchSelect {
         this.hide();
       }
       this._updateOption(el);
+      if (this._params['callback'] !== undefined){
+        this._params['callback']();
+      }
       this.hide();
     }
   

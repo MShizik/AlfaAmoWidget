@@ -86,6 +86,8 @@
     line-height: 100%;
     padding: 8px 12px;
     height: fit-content;
+    background: linear-gradient(90deg, #3168CA 0%, #3C6 25%, #3168CA 25%, #3168CA 100% );
+    background-position:100% 0 ;
 }
 
 .basic_btn.active:hover{
@@ -94,14 +96,17 @@
 }
 
 .basic_btn.active{
+    
+    
     background: linear-gradient(90deg, #3168CA 0%, #3C6 25%, #3168CA 25%, #3168CA 100% );
-    background-size: 400% 100% ;
     background-position:100% 0 ;
+    background-size: 400% 100% ;
     transition: background .5s ease;
 }
 
 .basic_btn.inactive{
-    background: var(--button-gray);
+    background: linear-gradient(90deg, var(--button-gray), var(--button-gray));
+    background-position:100% 0 ;
     cursor: default;
 }
 

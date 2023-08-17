@@ -1,15 +1,17 @@
 
 class CustomTable{
-    constructor(container, data, columns, tableID){
+    constructor(container, data, columns, checkboxCallBack){
         this.data = [];
         this.columns = [];
         this.container = container;
+        container.innerHTML = "";
         this.table = null;
-        this.tableID = tableID;
-        this.create(data, columns);
+        this.checkboxCallBack = null;
+        this.create(data, columns,checkboxCallBack);
     }
 
-    create(data, columns){
+    create(data, columns, checkboxCallBack){
+        this.checkboxCallBack = checkboxCallBack;
         this.data = data;
         this.columns = columns;
         this.table = document.createElement('div');
@@ -100,6 +102,9 @@ class CustomTable{
             if (checkbox.checked){
                 trs[id].classList.add("prev-sibling");
             }
+            if (this.checkboxCallBack !== undefined){
+                this.checkboxCallBack(this.table, checkbox);
+            }
         });
     }
 
@@ -118,21 +123,22 @@ class CustomTable{
     }
 
     setUpRowOnClickHandler(){
-        console.log(this.table);
         var rows = this.table.querySelectorAll("tr");
         rows.forEach(currentRow => {
-            var createClickHandler = function(row) {
+            var createClickHandler = function(row, table, checkboxCallBack) {
                 return function() {
-                    console.log(row);
                     var checkbox = row.querySelector(".table-checkbox input");
                     if (checkbox.checked){
                         checkbox.checked = false;
                     }else{
                         checkbox.checked = true;
                     }
+                    if (checkboxCallBack !== undefined){
+                        checkboxCallBack(table, checkbox);
+                    }
                 };
             };
-            currentRow.onclick = createClickHandler(currentRow);
+            currentRow.onclick = createClickHandler(currentRow, this.table, this.checkboxCallBack);
         });
     }
 }

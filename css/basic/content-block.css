@@ -11,6 +11,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: start;
+    z-index: 2500 !important;
  }
 
  .content-block.static{

@@ -1,15 +1,17 @@
 class SearchWithTable{
-    constructor(tableContainer, input, data, columns){
+    constructor(tableContainer, input, data, columns, checkBoxCallBack, connectedBtn){
         this.input = null;
         this.basicData = null;
         this.columns = null;
         this.tableContainer = null;
         this.tableObj = null;
         this.currentValue = null;
-        this.create(tableContainer, input, data, columns);
+        this.checkBoxCallBack = null;
+        this.connectedBtn = null;
+        this.create(tableContainer, input, data, columns, checkBoxCallBack, connectedBtn);
     }
 
-    create(tableContainer, input, data, columns){
+    create(tableContainer, input, data, columns, checkBoxCallBack, connectedBtn){
         this.input = input;
         this.basicData = data;
         this.columns = columns;
@@ -17,7 +19,10 @@ class SearchWithTable{
 
         this.input.value = "Поиск...";
         this.currentValue = "";
-        this.tableObj = new CustomTable(this.tableContainer, this.basicData, this.columns);
+        this.tableObj = new CustomTable(this.tableContainer, this.basicData, this.columns, checkBoxCallBack);
+
+        this.checkBoxCallBack = checkBoxCallBack;
+        this.connectedBtn = connectedBtn;
 
         this.setUpInputBehavior()
     }
@@ -28,6 +33,9 @@ class SearchWithTable{
             let searchTerm = e.target.value;
             if (e.target.value === ''){
                 this.tableObj.insertData(null, this.basicData);
+                this.tableObj.setUpRowOnClickHandler();
+                this.connectedBtn.classList.remove("active");
+                this.connectedBtn.classList.add("inactive");
                 this.input.classList.add("used");
             }else{
                 let sharpedData = [];
@@ -45,6 +53,8 @@ class SearchWithTable{
                 if(sharpedData.length !== 0){
                     this.tableObj.insertData(null, sharpedData);
                     this.tableObj.setUpRowOnClickHandler();
+                    this.connectedBtn.classList.remove("active");
+                    this.connectedBtn.classList.add("inactive");
                 }
             }
         });
