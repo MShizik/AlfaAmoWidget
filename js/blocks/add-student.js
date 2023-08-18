@@ -11,5 +11,20 @@ addStudentContentBlock.addEventListener("click" , () => {
 addStudentBtn.addEventListener("click", e => {
     if (addStudentBtn.classList.contains("active")){
         addStudentContentBlock.classList.add("used");
+
+        var parentSelectorData = parentSelector.value;
+        var studentSelectorData = studentSelector.value;
+        var filialSelectorData = filialSelector.value;
+
+        var isLead = addStudentAsLeadCheckBox.checked;
+
+        var parsedData = 
+            {
+                "selectedParent" : parentSelectorData,
+                "selectedStudent" : studentSelectorData,
+                "filialSelectorData" : filialSelectorData,
+                "isLead" : isLead
+            }
+        console.log(parsedData);        
     }
 });

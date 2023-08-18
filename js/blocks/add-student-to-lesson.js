@@ -21,6 +21,7 @@ var lessonsColumns = [
 ];
 
 var calInputChangedHandler = function(cal){
+    console.log(lessonsData);
     var inputValues = cal.getValues();
     var inputs = cal.getInputs();
     var firstDate = inputValues['firstInput'];
@@ -28,12 +29,12 @@ var calInputChangedHandler = function(cal){
     if (addStudentToLessonTable !== null && firstDate !== null && ((secondDate === null && inputs['secondInput'].value.replace(/\./g, "").replace(/[а-яА-ЯёЁ]/g, "").replace(/\./g, "").replace(" ", "").length === 0) || secondDate !== null)){
         var cropedData = [];
         lessonsData.forEach(data=> {
-            var parsedData = Date.parse(data.date.split(".").reverse().join("-"));
+            var parsedData = Date.parse(data['date'].split(".").reverse().join("-"));
             if (parsedData >= firstDate && (parsedData <= secondDate || secondDate === null)){
                 cropedData.push(data);
             }
         });
-        addStudentToLessonTable.insertData(null,cropedData);
+        addStudentToLessonTable.insertData(null , cropedData);
         addStudentToLessonTable.setUpRowOnClickHandler();
         addStudentToLessonBtn.classList.add("inactive");
     }
@@ -63,55 +64,39 @@ var selectorAfterSelectHandler = function(){
         var tableWrapper = document.querySelector("#add-student-to-lesson-table-container");
         tableWrapper.innerHTML = "";
 
-        lessonsData = [
-            {
-                date: "18.08.2023",
-                time: "18:00",
-                subj: "Ангийский язык",
-                teacher: "Иванов В. А.",
-                room: "24",
-                group_name: "Новички",
-                limit: "3/12",
-                comment: "Комментарий"
-            },
-            {
-                date: "21.08.2023",
-                time: "18:00",
-                subj: "Ангийский язык",
-                teacher: "Иванов В. А.",
-                room: "24",
-                group_name: "Новички",
-                limit: "3/12",
-                comment: "Комментарий"
-            },
-            {
-                date: "23.08.2023",
-                time: "18:00",
-                subj: "Ангийский язык",
-                teacher: "Иванов В. А.",
-                room: "24",
-                group_name: "Новички",
-                limit: "3/12",
-                comment: "Комментарий"
-            }
-        
-        ];
 
-        var cropedData = [];
-        var inputValues = addStudentToLessonCalendar.getValues();
-        var inputs = addStudentToLessonCalendar.getInputs();
-        var firstDate = inputValues['firstInput'];
-        var secondDate = inputValues['secondInput'];
-        if (firstDate !== null && ((secondDate === null && inputs['secondInput'].value.replace(/\./g, "").replace(/[а-яА-ЯёЁ]/g, "").replace(/\./g, "").replace(" ", "").length === 0)) || secondDate !== null){
+        fetch('https://alfa-amo.ru/testwidget/load_lessons.php?branchId=' + filialSelector.option + "&lesson_type_id=" + lessonSearchSelector.option + "&subject_id=" + subjectSearchSelector.option , {
+            method: 'GET'
+        })
+        .then(response => response.json()) 
+        .then(data => {
+            console.log(data);
+            connectionSignAmo.querySelector(".connection-indicator").classList.add(data['amo'] ? "connection-succeed" : "connection-failure");
+            connectionSignAlfa.querySelector(".connection-indicator").classList.add(data['alfa'] ? "connection-succeed" : "connection-failure");
+            lessonsData = data["lessons"];
             var cropedData = [];
-            lessonsData.forEach(data=> {
-                var parsedData = Date.parse(data.date.split(".").reverse().join("-"));
-                if (parsedData >= firstDate && (parsedData <= secondDate || secondDate === null)){
-                    cropedData.push(data);
-                }
-            });
-        }
-        addStudentToLessonTable = new CustomTable(tableWrapper, cropedData, lessonsColumns, checkboxHandler);
+            var inputValues = addStudentToLessonCalendar.getValues();
+            var inputs = addStudentToLessonCalendar.getInputs();
+            var firstDate = inputValues['firstInput'];
+            var secondDate = inputValues['secondInput'];
+            if (firstDate !== null && ((secondDate === null && inputs['secondInput'].value.replace(/\./g, "").replace(/[а-яА-ЯёЁ]/g, "").replace(/\./g, "").replace(" ", "").length === 0)) || secondDate !== null){
+
+                lessonsData.forEach(lsData=> {
+                    var parsedData = Date.parse(lsData['date'].split(".").reverse().join("-"));
+                    if (parsedData >= firstDate && (parsedData <= secondDate || secondDate === null)){
+                        cropedData.push(lsData);
+                    }
+                });
+            }
+
+            addStudentToLessonTable.insertData(null, cropedData);
+            addStudentToLessonTable.setUpRowOnClickHandler();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+        addStudentToLessonTable = new CustomTable(tableWrapper, [], lessonsColumns, checkboxHandler);
         tableWrapper.classList.remove("hidden");
     }
 }
@@ -121,46 +106,39 @@ addStudentToLessonContentBlock.addEventListener("click" ,() =>{
 
     if (addStudentToLessonContentBlock.classList.contains("active") || addStudentToLessonContentBlock.classList.contains("forbidden")) return;
     toggleContentBlock(addStudentToLessonContentBlock);
+    addStudentToLessonBtn.classList.remove("active");
+    addStudentToLessonBtn.classList.add("inactive");
 
-    subjectSearchSelector = ItcCustomSearchSelect.create('#add-student-to-lesson-subject-selector', {
-        name: 'add-student-to-lesson-subject-selector',
-        targetValue: 'Выбор',
-        options: [
-            [
-                'choose1', 'Выбор 1'
-            ],
-            [
-                'choose2', 'Выбор 2'
-            ],
-            [
-                'choose3', 'Выбор 3'
-            ],
-            [
-                'choose4', 'Выбор 4'
-            ]
-        ],
-        callback: selectorAfterSelectHandler
-    });
-    
     lessonSearchSelector = ItcCustomSearchSelect.create('#add-student-to-lesson-lesson-selector', {
         name: 'add-student-to-lesson-lesson-selector',
         targetValue: 'Выбор',
         options: [
             [
-                'choose1', 'Выбор 1'
+                '1', 'Индивидуальный'
             ],
             [
-                'choose2', 'Выбор 2'
+                '2', 'Груповой'
             ],
             [
-                'choose3', 'Выбор 3'
-            ],
-            [
-                'choose4', 'Выбор 4'
+                '3', 'Пробный'
             ]
         ],
         callback: selectorAfterSelectHandler
     });
+
+    
+    var filialSelectorIndex = filialSelector.option;
+
+    var subjects = reconstructSubjects(filialSelectorIndex, subjectsByBranches);
+
+    subjectSearchSelector = ItcCustomSearchSelect.create('#add-student-to-lesson-subject-selector', {
+        name: 'add-student-to-lesson-subject-selector',
+        targetValue: 'Выбор',
+        options: subjects,
+        callback: selectorAfterSelectHandler
+    });
+
+
 
     addStudentToLessonCalendar = new CustomCalendar(document.querySelector("#add-student-to-lesson-calendar"), calInputChangedHandler, calClearHandler);
 
@@ -170,8 +148,37 @@ addStudentToLessonContentBlock.addEventListener("click" ,() =>{
 addStudentToLessonBtn.addEventListener("click", () => {
     if (addStudentToLessonBtn.classList.contains("active")){
         addStudentToLessonContentBlock.classList.add("used");
+
+        var checkedRows = document.querySelector("#add-student-to-lesson-table-container").querySelectorAll("input:checked");
+        var parsedTableData = [];
+
+        checkedRows.forEach(checkbox => parsedTableData.push(lessonsData[Number(checkbox.id.replace("add-student-to-lesson-table_row_", "").replace("_checkbox", ""))]));
+
+        var parentSelectorData = parentSelector.value;
+        var studentSelectorData = studentSelector.value;
+        var filialSelectorData = filialSelector.value;
+
+
+        var parsedData = {
+            "selectedParent" : parentSelectorData,
+            "selectedStudent" : studentSelectorData,
+            "selectedFilial" : filialSelectorData,
+            "data" : parsedTableData
+        };
     }
 });
+
+
+function reconstructSubjects(branchId, subjectsByBranches){
+    var reconstructed = [];
+    var subjects = subjectsByBranches[branchId + ""];
+
+    for (var key in subjects){
+        reconstructed.push([key, subjects[key]]);
+    }
+
+    return reconstructed;
+}
 
 
 

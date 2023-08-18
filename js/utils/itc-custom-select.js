@@ -28,7 +28,7 @@ class ItcCustomSelect {
           data-value="${option[0]}" data-index="${index}">${option[1]}</li>`);
       });
       return `<button type="text" class="itc-select__toggle" name="${name}"
-        value="${selectedValue}" data-select="toggle" data-index="${selectedIndex}">
+        value="${selectedValue}" data-select="toggle" data-index="${selectedIndex}" data-option="${selectedValue}">
         ${selectedContent}</button><div class="itc-select__dropdown">
         <ul class="itc-select__options">${items.join('')}</ul></div>`;
     }
@@ -95,6 +95,7 @@ class ItcCustomSelect {
       elOption.classList.add(this.constructor.EL_OPTION_SELECTED);
       this._elToggle.textContent = elOption.textContent;
       this._elToggle.value = elOption.dataset.value;
+      this._elToggle.dataset.option = elOption.dataset.option;
       this._elToggle.dataset.index = elOption.dataset.index;
       this._el.dispatchEvent(new CustomEvent('itc.select.change'));
       this._params.onSelected ? this._params.onSelected(this, elOption) : null;
@@ -132,6 +133,8 @@ class ItcCustomSelect {
           });
         this._el.classList.add(`${this.constructor.EL_SHOW}`);
         this._el.classList.add("select-opened");
+        var topOffset = this._elToggle.offsetHeight;
+        this._el.querySelector(".itc-select__dropdown").style.top = topOffset + "px";
       }
     }
   
@@ -153,10 +156,14 @@ class ItcCustomSelect {
       let dataToBeOptions = [];
       data.forEach((option, index) => {
         let selectedClass = '';
-        dataToBeOptions.push(`<li class="itc-select__option${selectedClass}" data-select="option"
+        dataToBeOptions.push(`<li class="itc-select__option${selectedClass}" data-select="option" data-option="${option[0]}"
           data-value="${option[1]}" data-index="${index}">${option[1]}</li>`);
       });
       optionsWrapper.innerHTML = dataToBeOptions.join(' ');
+    }
+
+    get option(){
+      return this._elToggle.dataset.option;
     }
   
     get value() {

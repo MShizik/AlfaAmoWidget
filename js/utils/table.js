@@ -82,7 +82,7 @@ class CustomTable{
             td.appendChild(label);
             tr.appendChild(td);
 
-            for(let i = 0; i < Object.values(row).length; i++){
+            for(let i = 0; i < Object.values(row).length - 1; i++){
                 var td = document.createElement('td');
                 var div = document.createElement('div');
                 div.classList.add("td_text_holder");
@@ -128,13 +128,15 @@ class CustomTable{
             var createClickHandler = function(row, table, checkboxCallBack) {
                 return function() {
                     var checkbox = row.querySelector(".table-checkbox input");
-                    if (checkbox.checked){
-                        checkbox.checked = false;
-                    }else{
-                        checkbox.checked = true;
-                    }
-                    if (checkboxCallBack !== undefined){
-                        checkboxCallBack(table, checkbox);
+                    if (checkbox !== null){
+                        if (checkbox.checked){
+                            checkbox.checked = false;
+                        }else{
+                            checkbox.checked = true;
+                        }
+                        if (checkboxCallBack !== undefined){
+                            checkboxCallBack(table, checkbox);
+                        }
                     }
                 };
             };

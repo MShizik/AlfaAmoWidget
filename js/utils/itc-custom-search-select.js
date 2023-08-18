@@ -26,10 +26,10 @@ class ItcCustomSearchSelect {
           selectedContent = option[1];
         }
         this.basicOptions[index] = option[0];
-        this.basicItems.push(`<li class="itc-select__option${selectedClass}" data-select="option"
+        this.basicItems.push(`<li class="itc-select__option${selectedClass}" data-select="option" data-option="${option[0]}"
           data-value="${option[1]}" data-index="${index}">${option[1]}</li>`);
       });
-      return `<div class = "itc-select__container"><input type="text" class="itc-select__toggle" name="${name}"
+      return `<div class = "itc-select__container"><input type="text" class="itc-select__toggle" name="${name}" data-option="${selectedIndex}"
         value="${selectedContent}" data-select="toggle" data-index="${selectedIndex}">
         </input></div><div class="itc-select__dropdown">
         <ul class="itc-select__options">${this.basicItems.join('')}</ul></div>`;
@@ -95,7 +95,7 @@ class ItcCustomSearchSelect {
       let dataToBeOptions = [];
       data.forEach((option, index) => {
         let selectedClass = '';
-        dataToBeOptions.push(`<li class="itc-select__option${selectedClass}" data-select="option"
+        dataToBeOptions.push(`<li class="itc-select__option${selectedClass}" data-select="option" data-option="${option[0]}"
           data-value="${option[1]}" data-index="${index}">${option[1]}</li>`);
       });
       optionsWrapper.innerHTML = dataToBeOptions.join(' ');
@@ -144,6 +144,7 @@ class ItcCustomSearchSelect {
         elOptionSel.classList.remove(this.constructor.EL_OPTION_SELECTED);
       }
       elOption.classList.add(this.constructor.EL_OPTION_SELECTED);
+      this._elToggle.dataset.option = elOption.dataset.option;
       this._elToggle.textContent = elOption.textContent;
       this._elToggle.value = elOption.textContent;
       this._elToggle.dataset.index = elOption.dataset.index;
@@ -223,6 +224,10 @@ class ItcCustomSearchSelect {
       if (!isExists) {
         this._reset();
       }
+    }
+
+    get option(){
+      return this._elToggle.dataset.option;
     }
   
     get selectedIndex() {

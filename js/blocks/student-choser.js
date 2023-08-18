@@ -9,7 +9,6 @@ let removeNoteAndWriteIntoResultField = function(_el){
     let chosenResult = _el.querySelector('[data-select="toggle"]').textContent;
     let selection_row = _el.parentElement.parentElement;
 
-    console.log(selection_row);
     selection_row.querySelector(".note").classList.add("hidden");
     selection_row.querySelector(".result-value").innerHTML =chosenResult ;
     selection_row.classList.remove("unselected");
@@ -70,10 +69,4 @@ let studentData = [
 ];
 studentSelector.updateData(studentData);
 
-let filialData = [
-    ["chose 1", "Выбор 1"],
-    ["chose 2", "Выбор 2"],
-    ["chose 3", "Выбор 3"],
-    ["chose 4", "Выбор 4"]
-];
-filialSelector.updateData(filialData);
+

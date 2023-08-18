@@ -106,7 +106,6 @@ class CustomCalendar{
     });
 
     this.firstInput.addEventListener('focus', () => {
-      console.log("first");
       this.firstInput.classList.add('onFocus');
       this.secondInput.classList.contains('onFocus') && this.secondInput.classList.remove('onFocus');
     });
@@ -120,7 +119,9 @@ class CustomCalendar{
     this.firstInput.addEventListener('input', () => {
       setTimeout(() => {
         this._changeDateFromInput(this.firstInput, true);
-        this.inputChangedCallBack(this);
+        if (this.inputChangedCallBack !== null){
+          this.inputChangedCallBack(this);
+        }
       }, 100);
     });
 
@@ -148,7 +149,9 @@ class CustomCalendar{
     this.secondInput.addEventListener('input', () => {
       setTimeout(() => {
         this._changeDateFromInput(this.secondInput, false);
-        this.inputChangedCallBack(this);
+        if (this.inputChangedCallBack !== null){
+          this.inputChangedCallBack(this);
+        }
       }, 100);
     });
   }
@@ -382,6 +385,7 @@ class CustomCalendar{
   }
   
   fillCalendarDays(){
+    this.calDays.innerHTML = "";
     for (let i = 0; i < this.days.length; i++) {
       let div = document.createElement("div");
       let span = document.createElement("span");
@@ -396,6 +400,7 @@ class CustomCalendar{
   }
   
   setCalBody(){
+    this.calendar.innerHTML = "";
     let firstSelected;
     let secondSelected;
     for (let i = 0; i < this.monthDetails.length; i++) {

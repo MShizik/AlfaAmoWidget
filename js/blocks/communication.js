@@ -7,6 +7,8 @@ communiactionContentBlock.addEventListener("click" , () => {
 
     var communiactionWrapper = communiactionContentBlock.querySelector(".chat-wrapper");
 
+    communiactionWrapper.innerHTML = "";
+
     var messagesData = [
         {
             date : "12.03.2023",

@@ -24,14 +24,15 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
+    background-color: var(--disabled-block);
 }
  
 .connection-indicator.connection-succeed{
-    background-color: var(--indicator-green);
+    background-color: var(--indicator-green) !important;
 }
  
 .connection-indicator.connection-failure{
-    background-color: var(--indicator-red);
+    background-color: var(--indicator-red) !important;
 }
 
 .close-sign{

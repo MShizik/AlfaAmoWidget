@@ -3,38 +3,42 @@ var addStudentToGroupContentBlock = document.querySelector("#add-student-to-grou
 
 var addStudentToGroupActiveCals = [];
 
-var groupData = [{
-    name: "Группа 1",
-    teacher: "Иванов В.А. ",
-    limit: "9/12",
-    comment: "Комментарий"
-},
-{
-    name: "Группа 2",
-    teacher: "Иванов В.А. ",
-    limit: "9/12",
-    comment: "Комментарий"
-},
-{
-    name: "Группа 3",
-    teacher: "Иванов В.А. ",
-    limit: "9/12",
-    comment: "Комментарий"
-}
-];
+var groupData = [];
 
-var groupColumns = [
-'',
-'Название группы',
-'Педагог',
-'Количество/лимит<br> учеников',
-'Комментарий'
-];
+var groupColumns = [];
 
 
 addStudentToGroupContentBlock.addEventListener("click", () => {
     if (addStudentToGroupContentBlock.classList.contains("active") || addStudentToGroupContentBlock.classList.contains("forbidden")) return;
     toggleContentBlock(addStudentToGroupContentBlock);
+
+    groupData = [{
+        name: "Группа 1",
+        teacher: "Иванов В.А. ",
+        limit: "9/12",
+        comment: "Комментарий"
+    },
+    {
+        name: "Группа 2",
+        teacher: "Иванов В.А. ",
+        limit: "9/12",
+        comment: "Комментарий"
+    },
+    {
+        name: "Группа 3",
+        teacher: "Иванов В.А. ",
+        limit: "9/12",
+        comment: "Комментарий"
+    }];
+
+    groupColumns = [
+        '',
+        'Название группы',
+        'Педагог',
+        'Количество/лимит<br> учеников',
+        'Комментарий'
+    ];
+    
     let groupTable = new CustomTable(document.querySelector("#add-student-to-group-table-container"), groupData, groupColumns, addStudentToGroupCheckboxCallBack);
     addStudentToGroupActiveCals.forEach(element => {
         deleteCalendar(element.getId(), "#add-student-to-group-calendars");
@@ -45,6 +49,31 @@ addStudentToGroupContentBlock.addEventListener("click", () => {
 addStudentToGroupBtn.addEventListener("click", () => {
     if (addStudentToGroupBtn.classList.contains("active")){
         addStudentToGroupContentBlock.classList.add("used");
+        
+        var parsedTableData = [];
+
+        var activeCheckboxes = addStudentToGroupContentBlock.querySelectorAll("input:checked");
+        
+
+        activeCheckboxes.forEach(checkbox => parsedTableData.push(groupData[Number(checkbox.id.replace("add-student-to-group-table_row_", "").replace("_checkbox", ""))]));
+        
+        parsedTableData.forEach(dataRow =>  {
+            var connectedCalendar = addStudentToGroupActiveCals.find((cal) => cal.getId() === getIdFromString(dataRow['name']));
+            var calendarData = connectedCalendar.getValues();
+            dataRow['startTime'] = calendarData['firstInput'];
+            dataRow['endTime'] = calendarData['secondInput'];
+        });
+
+        var parentSelectorData = parentSelector.value;
+        var studentSelectorData = studentSelector.value;
+        var filialSelectorData = filialSelector.value;
+
+        var parsedData = {
+            "selectedParent" : parentSelectorData,
+            "selectedStudent" : studentSelectorData,
+            "selectedFilial" : filialSelectorData,
+            "data" : parsedTableData
+        };
     }
 });
 

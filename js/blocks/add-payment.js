@@ -75,6 +75,16 @@ addPaymentContentBlock.addEventListener("click", () => {
 addPaymentBtn.addEventListener("click" , () => {
     if (addPaymentBtn.classList.contains("active")){
         addPaymentBtn.classList.add("used");
+
+        var selectedCas = addPaymentCasSelector.value;
+        var selectedCategory = addPaymentCategorySelector.value;
+        var selectedIncome = addPaymentIncomeSelector.value;
+
+        var parsedData = {
+            "selectedCas" : selectedCas,
+            "selectedCategory" : selectedCategory,
+            "selectedIncome" : selectedIncome
+        }
     }
 });
 

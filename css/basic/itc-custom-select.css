@@ -20,6 +20,7 @@
     border: 0px;
     cursor: pointer;
     user-select: none;
+    text-align: left;
   }
   
   .itc-select__toggle::after {
