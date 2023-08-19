@@ -154,17 +154,19 @@ addStudentToLessonBtn.addEventListener("click", () => {
 
         checkedRows.forEach(checkbox => parsedTableData.push(lessonsData[Number(checkbox.id.replace("add-student-to-lesson-table_row_", "").replace("_checkbox", ""))]));
 
-        var parentSelectorData = parentSelector.value;
-        var studentSelectorData = studentSelector.value;
-        var filialSelectorData = filialSelector.value;
+        var parentSelectorData = parentSelector.option;
+        var studentSelectorData = studentSelector.option;
+        var filialSelectorData = filialSelector.option;
 
 
         var parsedData = {
-            "selectedParent" : parentSelectorData,
-            "selectedStudent" : studentSelectorData,
-            "selectedFilial" : filialSelectorData,
+            "parent_id" : parentSelectorData,
+            "student_id" : studentSelectorData,
+            "branch_id" : filialSelectorData,
             "data" : parsedTableData
         };
+
+        console.log(JSON.stringify(parsedData));
     }
 });
 

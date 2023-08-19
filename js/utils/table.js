@@ -82,7 +82,7 @@ class CustomTable{
             td.appendChild(label);
             tr.appendChild(td);
 
-            for(let i = 0; i < Object.values(row).length - 1; i++){
+            for(let i = 0; i < this.columns.length - 1; i++){
                 var td = document.createElement('td');
                 var div = document.createElement('div');
                 div.classList.add("td_text_holder");

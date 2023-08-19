@@ -125,17 +125,15 @@ class ItcCustomSelect {
     }
   
     show() {
-      
-      if (document.querySelector(".select-opened") === null){
-        document.querySelectorAll(this.constructor.EL_SHOW)
+        document.querySelectorAll(".select-opened")
           .forEach((el) => {
             el.classList.remove(this.constructor.EL_SHOW);
+            el.classList.remove(".select-opened");
           });
         this._el.classList.add(`${this.constructor.EL_SHOW}`);
         this._el.classList.add("select-opened");
         var topOffset = this._elToggle.offsetHeight;
         this._el.querySelector(".itc-select__dropdown").style.top = topOffset + "px";
-      }
     }
   
     hide() {
