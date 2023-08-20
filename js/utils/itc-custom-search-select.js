@@ -178,20 +178,15 @@ class ItcCustomSearchSelect {
     }
   
     show() {
-      
-      if (document.querySelector(".select-opened") === null){
-        document.querySelectorAll(this.constructor.EL_SHOW)
-          .forEach((el) => {
-            el.classList.remove(this.constructor.EL_SHOW);
-          });
-        this._el.classList.add(`${this.constructor.EL_SHOW}`);
-        this._el.classList.add("select-opened");
-        
-        if (this._el.querySelector(".input").dataset.option === "-1"){
-          this._el.querySelector(".input").innerHTML = "";
-        }
-        var topOffset = this._elToggle.offsetHeight;
-        this._el.querySelector(".itc-select__dropdown").style.top = topOffset + "px";
+      document.querySelectorAll(".select-opened")
+        .forEach((el) => {
+          el.classList.remove(this.constructor.EL_SHOW);
+          el.classList.remove(".select-opened");
+        });
+      this._el.classList.add(`${this.constructor.EL_SHOW}`);
+      this._el.classList.add("select-opened");
+      if (this._el.querySelector("input").value === "Выберите из списка"){
+        this._el.querySelector("input").value = "";
       }
     }
   
