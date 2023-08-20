@@ -54,18 +54,18 @@ let filialSelector = ItcCustomSelect.create('#student_choser_filial_selector', {
 
 //Наполнение селекторов
 let parentData = [
-    ["chose 1", "Выбор 1"],
-    ["chose 2", "Выбор 2"],
-    ["chose 3", "Выбор 3"],
-    ["chose 4", "Выбор 4"]
+    ["1", "Выбор 1"],
+    ["2", "Выбор 2"],
+    ["3", "Выбор 3"],
+    ["4", "Выбор 4"]
 ];
 parentSelector.updateData(parentData);
 
 let studentData = [
-    ["chose 1", "Выбор 1"],
-    ["chose 2", "Выбор 2"],
-    ["chose 3", "Выбор 3"],
-    ["chose 4", "Выбор 4"]
+    ["1", "Выбор 1"],
+    ["2", "Выбор 2"],
+    ["3", "Выбор 3"],
+    ["4", "Выбор 4"]
 ];
 studentSelector.updateData(studentData);
 

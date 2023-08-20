@@ -29,9 +29,9 @@ class ItcCustomSearchSelect {
         this.basicItems.push(`<li class="itc-select__option${selectedClass}" data-select="option" data-option="${option[0]}"
           data-value="${option[1]}" data-index="${index}">${option[1]}</li>`);
       });
-      return `<div class = "itc-select__container"><input type="text" class="itc-select__toggle" name="${name}" data-option="${selectedIndex}"
-        value="${selectedContent}" data-select="toggle" data-index="${selectedIndex}">
-        </input></div><div class="itc-select__dropdown">
+      return `<div class = "itc-select__container itc-search-select__container"><div contenteditable="true" type="text" class="input itc-select__toggle" name="${name}" data-option="${selectedIndex}"
+        value="${selectedContent}" data-select="toggle" data-index="${selectedIndex}">${selectedContent}
+        </div></div><div class="itc-select__dropdown">
         <ul class="itc-select__options">${this.basicItems.join('')}</ul></div>`;
     }
   
@@ -106,8 +106,8 @@ class ItcCustomSearchSelect {
         var options = optionsWrapper.querySelectorAll(".itc-select__option");
         var input = this._el.querySelector(".itc-select__toggle");
         input.addEventListener('input', e => {
-            let searchTerm = e.target.value;
-            if (e.target.value === ''){
+            let searchTerm = e.target.innerHTML;
+            if (e.target.innerHTML === ''){
                 let options = this._params['options'];
                 let basicItems = [];
                 options.forEach((option, index) => {
@@ -132,7 +132,7 @@ class ItcCustomSearchSelect {
 
         input.addEventListener('blur', e => {
             setTimeout(function(){
-              if (e.target.value === '') e.target.value = "Выберите из списка";
+              if (e.target.innerHTML === '') e.target.innerHTML = "Выберите из списка";
             },100);
         });
     }
@@ -146,11 +146,11 @@ class ItcCustomSearchSelect {
       elOption.classList.add(this.constructor.EL_OPTION_SELECTED);
       this._elToggle.dataset.option = elOption.dataset.option;
       this._elToggle.textContent = elOption.textContent;
-      this._elToggle.value = elOption.textContent;
+      this._elToggle.innerHTML = elOption.textContent;
       this._elToggle.dataset.index = elOption.dataset.index;
       this._el.dispatchEvent(new CustomEvent('itc.select.change'));
       this._params.onSelected ? this._params.onSelected(this, elOption) : null;
-      return elOption.dataset.value;
+      return elOption.dataset.innerHTML;
     }
   
     _reset() {
@@ -159,7 +159,7 @@ class ItcCustomSearchSelect {
         selected.classList.remove(this.constructor.EL_OPTION_SELECTED);
       }
       this._elToggle.textContent = 'Выбрать';
-      this._elToggle.value = '';
+      this._elToggle.innerHTML = '';
       this._elToggle.dataset.index = '-1';
       this._el.dispatchEvent(new CustomEvent('itc.select.change'));
       this._params.onSelected ? this._params.onSelected(this, null) : null;
@@ -186,9 +186,12 @@ class ItcCustomSearchSelect {
           });
         this._el.classList.add(`${this.constructor.EL_SHOW}`);
         this._el.classList.add("select-opened");
-        if (this._el.querySelector("input").value === "Выберите из списка"){
-          this._el.querySelector("input").value = "";
+        
+        if (this._el.querySelector(".input").dataset.option === "-1"){
+          this._el.querySelector(".input").innerHTML = "";
         }
+        var topOffset = this._elToggle.offsetHeight;
+        this._el.querySelector(".itc-select__dropdown").style.top = topOffset + "px";
       }
     }
   
@@ -216,7 +219,7 @@ class ItcCustomSearchSelect {
       let isExists = false;
       this._el.querySelectorAll('.select__option')
         .forEach((option) => {
-          if (option.dataset.value === value) {
+          if (option.dataset.innerHTML === value) {
             isExists = true;
             this._updateOption(option);
           }

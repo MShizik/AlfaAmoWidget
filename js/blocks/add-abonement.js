@@ -28,32 +28,27 @@ addAbonementContentBlock.addEventListener("click", () => {
         'Период действия'
     ];
     abonementTableData = [
-        {
-            name: "Абонемент 1",
-            tariff: 'Тариф 1',
-            price: '20 000 р.',
-            period: '03.08.2023–03.09.2023'
-        }, {
-            name: "Абонемент 2",
-            tariff: 'Тариф 1',
-            price: '20 000 р.',
-            period: '03.08.2023–03.09.2023'
-        }, {
-            name: "Абонемент 3",
-            tariff: 'Тариф 1',
-            price: '20 000 р.',
-            period: '03.08.2023–03.09.2023'
-        }, {
-            name: "Абонемент 4 с очень длинным названием",
-            tariff: 'Тариф 1',
-            price: '20 000 р.',
-            period: '03.08.2023–03.09.2023'
-        }
     ];
     
     
     addAbonementSearchTable = new SearchWithTable(document.querySelector("#add_abonement_table_container"), document.querySelector("#add_abonement_search_input"), abonementTableData, abonementTableColumns, addAbonementTableCheckBoxBehavior, addAbonementBtn);
     
+
+    fetch('https://alfa-amo.ru/testwidget/load_abonements.php?branchId=' + filialSelector.option , {
+            method: 'GET'
+    })
+    .then(response => response.json()) 
+    .then(data => {
+        console.log(data);
+        connectionSignAmo.querySelector(".connection-indicator").classList.add(data['amo'] ? "connection-succeed" : "connection-failure");
+        connectionSignAlfa.querySelector(".connection-indicator").classList.add(data['alfa'] ? "connection-succeed" : "connection-failure");
+        abonementTableData = data["abonements"];
+        addAbonementSearchTable.tableObj.insertData(null, abonementTableData);
+        addAbonementSearchTable.tableObj.setUpRowOnClickHandler();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 });
 
 addAbonementBtn.addEventListener("click", () => {

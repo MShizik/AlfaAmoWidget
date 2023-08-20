@@ -13,6 +13,10 @@
     z-index: 2400;
   }
 
+  .itc-search-select__container .itc-select__toggle::after{
+    display: none;
+  }
+
   .itc-select_show .itc-select__container::after{
     width: 10px;
     height: 10px;

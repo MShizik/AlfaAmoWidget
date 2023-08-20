@@ -7,29 +7,16 @@ var groupData = [];
 
 var groupColumns = [];
 
+var addStudentToGroupTable = null;
+
 
 addStudentToGroupContentBlock.addEventListener("click", () => {
     if (addStudentToGroupContentBlock.classList.contains("active") || addStudentToGroupContentBlock.classList.contains("forbidden")) return;
     toggleContentBlock(addStudentToGroupContentBlock);
 
-    groupData = [{
-        name: "Группа 1",
-        teacher: "Иванов В.А. ",
-        limit: "9/12",
-        comment: "Комментарий"
-    },
-    {
-        name: "Группа 2",
-        teacher: "Иванов В.А. ",
-        limit: "9/12",
-        comment: "Комментарий"
-    },
-    {
-        name: "Группа 3",
-        teacher: "Иванов В.А. ",
-        limit: "9/12",
-        comment: "Комментарий"
-    }];
+
+
+    groupData = [];
 
     groupColumns = [
         '',
@@ -39,11 +26,27 @@ addStudentToGroupContentBlock.addEventListener("click", () => {
         'Комментарий'
     ];
     
-    let groupTable = new CustomTable(document.querySelector("#add-student-to-group-table-container"), groupData, groupColumns, addStudentToGroupCheckboxCallBack);
+    addStudentToGroupTable = new CustomTable(document.querySelector("#add-student-to-group-table-container"), groupData, groupColumns, addStudentToGroupCheckboxCallBack);
     addStudentToGroupActiveCals.forEach(element => {
         deleteCalendar(element.getId(), "#add-student-to-group-calendars");
     });
     addStudentToGroupActiveCals = [];
+
+    fetch('https://alfa-amo.ru/testwidget/load_groups.php?branchId=' + filialSelector.option , {
+            method: 'GET'
+    })
+    .then(response => response.json()) 
+    .then(data => {
+        console.log(data);
+        connectionSignAmo.querySelector(".connection-indicator").classList.add(data['amo'] ? "connection-succeed" : "connection-failure");
+        connectionSignAlfa.querySelector(".connection-indicator").classList.add(data['alfa'] ? "connection-succeed" : "connection-failure");
+        groupData = data["groups"];
+        addStudentToGroupTable.insertData(null, groupData);
+        addStudentToGroupTable.setUpRowOnClickHandler();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 });
 
 addStudentToGroupBtn.addEventListener("click", () => {
@@ -59,21 +62,32 @@ addStudentToGroupBtn.addEventListener("click", () => {
         
         parsedTableData.forEach(dataRow =>  {
             var connectedCalendar = addStudentToGroupActiveCals.find((cal) => cal.getId() === getIdFromString(dataRow['name']));
-            var calendarData = connectedCalendar.getValues();
-            dataRow['startTime'] = calendarData['firstInput'];
-            dataRow['endTime'] = calendarData['secondInput'];
+            var calendarValue = connectedCalendar.getValues();
+            var calendarData = connectedCalendar.getInputs();
+            dataRow['start_date'] = (calendarValue['firstInput'] !== null ) ? calendarData['firstInput'].value.replace("с ", "") : null;
+            dataRow['end_date'] =  (calendarValue['secondInput'] !== null ) ? calendarData['secondInput'].value.replace("по ", "") : null;
         });
 
-        var parentSelectorData = parentSelector.value;
-        var studentSelectorData = studentSelector.value;
-        var filialSelectorData = filialSelector.value;
+        var parentSelectorData = parentSelector.option;
+        var studentSelectorData = studentSelector.option;
+        var filialSelectorData = filialSelector.option;
 
         var parsedData = {
-            "selectedParent" : parentSelectorData,
-            "selectedStudent" : studentSelectorData,
-            "selectedFilial" : filialSelectorData,
+            "parent_id" : parentSelectorData,
+            "student_id" : studentSelectorData,
+            "branch_id" : filialSelectorData,
             "data" : parsedTableData
         };
+
+        console.log(JSON.stringify(parsedData));
+
+        fetch('https://alfa-amo.ru/adm/?token=aiUWVpSyAFs0BoEcMJTa9n3v&action=widget_add_student_to_group' , {
+            method: 'POST',
+            body : JSON.stringify(parsedData)
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
 });
 

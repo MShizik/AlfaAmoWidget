@@ -86,13 +86,16 @@ class CustomTable{
                 var td = document.createElement('td');
                 var div = document.createElement('div');
                 div.classList.add("td_text_holder");
-                div.innerHTML = Object.values(row)[i]
+                div.innerHTML = Object.values(row)[i];
+
                 td.appendChild(div);
                 tr.appendChild(td);
             }
             tbody.appendChild(tr);
             this.setUpCheckboxBehavior(checkbox, rowID);
             this.setUpHoverEffect(tr, rowID);
+
+            
         }    
     }
 

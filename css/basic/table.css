@@ -84,6 +84,7 @@ tbody tr {
     padding-top:8px;
     padding-bottom:7px;
     height: 10px;
+    text-wrap: balance;
 }
 .table td:last-child {
     padding-right:16px;

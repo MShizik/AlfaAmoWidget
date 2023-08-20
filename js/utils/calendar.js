@@ -498,7 +498,7 @@ class CustomCalendar{
                 this.selectOnClick();
                 this.setSelectedDate(cell);
 
-                this.inputChangedCallBack(this);
+                this.inputChangedCallBack != null && this.inputChangedCallBack(this);
                 
                 cell.querySelector('span').classList.contains('inactive_indicator') 
                 && cell.querySelector('span').classList.remove('inactive_indicator');
