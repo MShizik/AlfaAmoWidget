@@ -34,15 +34,15 @@ addAbonementContentBlock.addEventListener("click", () => {
     addAbonementSearchTable = new SearchWithTable(document.querySelector("#add_abonement_table_container"), document.querySelector("#add_abonement_search_input"), abonementTableData, abonementTableColumns, addAbonementTableCheckBoxBehavior, addAbonementBtn);
     
 
-    fetch('https://alfa-amo.ru/testwidget/load_abonements.php?branchId=' + filialSelector.option , {
+    fetch('https://alfa-amo.ru/testwidget/load_abonements.php?branchId=' + filialSelector.option + "&user_id=" + user_id , {
             method: 'GET'
     })
     .then(response => response.json()) 
     .then(data => {
         console.log(data);
-        connectionSignAmo.querySelector(".connection-indicator").classList.add(data['amo'] ? "connection-succeed" : "connection-failure");
-        connectionSignAlfa.querySelector(".connection-indicator").classList.add(data['alfa'] ? "connection-succeed" : "connection-failure");
+        toggleConnectionMarks(data['amo'], data['alfa']);
         abonementTableData = data["abonements"];
+        addAbonementSearchTable.basicData = data["abonements"];
         addAbonementSearchTable.tableObj.insertData(null, abonementTableData);
         addAbonementSearchTable.tableObj.setUpRowOnClickHandler();
     })
@@ -67,6 +67,7 @@ addAbonementBtn.addEventListener("click", () => {
 
 
         var parsedData = {
+            "user_id" : user_id,
             "selectedParent" : parentSelectorData,
             "selectedStudent" : studentSelectorData,
             "selectedFilial" : filialSelectorData,

@@ -1,8 +1,8 @@
-.content-block.active .inactive-info{
+.widget-content-block.active .inactive-info{
     display: none;
 }
 
-.content-block.inactive .inactive-info{
+.widget-content-block.inactive .inactive-info{
     display: flex;
 }
 

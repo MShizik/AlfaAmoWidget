@@ -12,6 +12,11 @@
    z-index: 3000;
 }
 
+.basement div{
+    box-sizing: unset !important;
+    -webkit-box-sizing: unset  !important;
+}
+
 .content-folder-wrapper{
     padding-top: 20px;
     padding-bottom: 25px;
@@ -20,7 +25,7 @@
     overflow-y: auto;
 }
 
-.top-blur-module{
+.basement .top-blur-module{
     position: absolute;
     height: 20px;
     background: linear-gradient(to bottom, var(--basement), transparent);
@@ -29,7 +34,7 @@
     z-index: 3000;
 }
 
-.bottom-blur-module{
+.basement .bottom-blur-module{
     position: absolute;
     height: 25px;
     background: linear-gradient(to top, var(--basement), #f3f5f542 80%, transparent);

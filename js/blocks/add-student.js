@@ -20,6 +20,7 @@ addStudentBtn.addEventListener("click", e => {
 
         var parsedData = 
             {
+                "user_id" : user_id,
                 "parent_name" : parentSelectorData,
                 "student_name" : studentSelectorData,
                 "branch_id" : filialSelectorData,

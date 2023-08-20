@@ -185,9 +185,11 @@ class ItcCustomSearchSelect {
         });
       this._el.classList.add(`${this.constructor.EL_SHOW}`);
       this._el.classList.add("select-opened");
-      if (this._el.querySelector("input").value === "Выберите из списка"){
-        this._el.querySelector("input").value = "";
+      if (this._el.querySelector(".input").innerHTML === "Выберите из списка"){
+        this._el.querySelector(".input").innerHTML = "";
       }
+      var topOffset = this._elToggle.offsetHeight;
+      this._el.querySelector(".itc-select__dropdown").style.top = topOffset + "px";
     }
   
     hide() {

@@ -65,14 +65,12 @@ var selectorAfterSelectHandler = function(){
         tableWrapper.innerHTML = "";
 
 
-        fetch('https://alfa-amo.ru/testwidget/load_lessons.php?branchId=' + filialSelector.option + "&lesson_type_id=" + lessonSearchSelector.option + "&subject_id=" + subjectSearchSelector.option , {
+        fetch('https://alfa-amo.ru/testwidget/load_lessons.php?branchId=' + filialSelector.option + "&lesson_type_id=" + lessonSearchSelector.option + "&subject_id=" + subjectSearchSelector.option + "&user_id=" + user_id , {
             method: 'GET'
         })
         .then(response => response.json()) 
         .then(data => {
-            console.log(data);
-            connectionSignAmo.querySelector(".connection-indicator").classList.add(data['amo'] ? "connection-succeed" : "connection-failure");
-            connectionSignAlfa.querySelector(".connection-indicator").classList.add(data['alfa'] ? "connection-succeed" : "connection-failure");
+            toggleConnectionMarks(data['amo'], data['alfa']);
             lessonsData = data["lessons"];
             var cropedData = [];
             var inputValues = addStudentToLessonCalendar.getValues();
@@ -160,6 +158,7 @@ addStudentToLessonBtn.addEventListener("click", () => {
 
 
         var parsedData = {
+            "user_id" : user_id,
             "parent_id" : parentSelectorData,
             "student_id" : studentSelectorData,
             "branch_id" : filialSelectorData,

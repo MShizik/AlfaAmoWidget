@@ -81,6 +81,7 @@ addPaymentBtn.addEventListener("click" , () => {
         var selectedIncome = addPaymentIncomeSelector.value;
 
         var parsedData = {
+            "user_id" : user_id,
             "selectedCas" : selectedCas,
             "selectedCategory" : selectedCategory,
             "selectedIncome" : selectedIncome
