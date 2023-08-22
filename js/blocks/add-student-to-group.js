@@ -22,7 +22,6 @@ addStudentToGroupContentBlock.addEventListener("click", () => {
         '',
         'Название группы',
         'Педагог',
-        'Количество/лимит<br> учеников',
         'Комментарий'
     ];
     

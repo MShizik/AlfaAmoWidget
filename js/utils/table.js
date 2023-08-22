@@ -7,6 +7,8 @@ class CustomTable{
         container.innerHTML = "";
         this.table = null;
         this.checkboxCallBack = null;
+        this.scrollabelWrapper = null;
+        this.tbody = null;
         this.create(data, columns,checkboxCallBack);
     }
 
@@ -29,27 +31,22 @@ class CustomTable{
         });
         thead.appendChild(tr);
 
-        var tbody = document.createElement('tbody');
+        this.tbody = document.createElement('tbody');
 
         var tbodyWrapper = document.createElement('div');
         tbodyWrapper.classList.add("tbody_wrapper");
-        var scrollabelWrapper = document.createElement('div');
-        scrollabelWrapper.classList.add("scrollable_wrapper");
+        this.scrollabelWrapper = document.createElement('div');
+        this.scrollabelWrapper.classList.add("scrollable_wrapper");
         tbodyWrapper.appendChild(thead);
-        tbodyWrapper.appendChild(tbody);
-        scrollabelWrapper.appendChild(tbodyWrapper);
+        tbodyWrapper.appendChild(this.tbody);
+        this.scrollabelWrapper.appendChild(tbodyWrapper);
 
-        this.insertData(tbody, data);
+        this.insertData(this.tbody, data);
         
-        this.table.appendChild(scrollabelWrapper);
+        this.table.appendChild(this.scrollabelWrapper);
+        
         
         this.setUpRowOnClickHandler();    
-
-        if (data.length > 5){
-            tbody.style['height'] = "200px";
-            tbody.style['overflow-y'] = "scroll";
-        }
-
         this.container.appendChild(this.table);
     }
 
@@ -94,9 +91,15 @@ class CustomTable{
             tbody.appendChild(tr);
             this.setUpCheckboxBehavior(checkbox, rowID);
             this.setUpHoverEffect(tr, rowID);
+        }  
 
-            
-        }    
+        if (tbody.offsetHeight > 240){
+            this.scrollabelWrapper.style['max-height'] = Math.min(240, tbody.offsetHeight - 10) + 'px';
+            console.log("tmp");
+        }else{
+            this.scrollabelWrapper.style['max-height'] = 'none';
+            console.log("tmp2");
+        }
     }
 
     setUpCheckboxBehavior(checkbox, id){

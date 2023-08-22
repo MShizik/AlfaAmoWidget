@@ -95,7 +95,6 @@ var selectorAfterSelectHandler = function(){
                 'Педагог',
                 'Аудитория',
                 'Название группы',
-                'Лимит учеников',
                 'Комментарий'
             ];
         }else{
@@ -106,7 +105,6 @@ var selectorAfterSelectHandler = function(){
                 'Предмет',
                 'Педагог',
                 'Аудитория',
-                'Лимит учеников',
                 'Комментарий'
             ];
         }
