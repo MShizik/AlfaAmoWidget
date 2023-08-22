@@ -2,7 +2,7 @@
 var connectionSignAmo = document.querySelector("#amo-connection");
 var connectionSignAlfa = document.querySelector("#alfa-connection");
 
-var isLeadBasicState = true;
+var isLeadBasicState = false;
 
 var subjectsByBranches = [];
 
@@ -67,6 +67,8 @@ function basicLoad(){
             parentSelector.updateData(parentDataForSelector);
 
             studentSelector.updateData(studentDataForSelector);
+
+            isLeadBasicState = Boolean(data['isLead']);
 
 
         }

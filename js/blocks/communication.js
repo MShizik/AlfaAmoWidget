@@ -1,6 +1,9 @@
 var communiactionContentBlock = document.querySelector("#communication-content-block");
 var communiactionBtn = document.querySelector("#communiaction-btn");
 
+var offset = 0;
+var messagesData = 0;
+
 communiactionContentBlock.addEventListener("click" , () => {
     if (communiactionContentBlock.classList.contains("active") || communiactionContentBlock.classList.contains("forbidden")) return;
     toggleContentBlock(communiactionContentBlock);
@@ -9,25 +12,57 @@ communiactionContentBlock.addEventListener("click" , () => {
 
     communiactionWrapper.innerHTML = "";
 
-    var messagesData = [
-        {
-            date : "12.03.2023",
-            name  : "Клиент Клиентов",
-            isManager : false,
-            text : "Текстовое сообщение от клиента любой длины и текстуры"
-        },
-        {
-            date : "28.03.2023",
-            name  : "Менеджеров Менеджер",
-            isManager : true,
-            text : "Текстовое сообщение от менеджера любой длины и текстуры"
-        },
-    ];
+    fetch('https://alfa-amo.ru/testwidget/load_lessons.php?branch_id=' + filialSelector.option + "&user_id=" + user_id + "&offset=" + offset + "&student_id=" + studentSelector.option, {
+        method: 'GET'
+    })
+    .then(response => response.json()) 
+    .then(data => {
+        toggleConnectionMarks(data['amo'], data['alfa']);
+        createConnectionTips();
 
-    messagesData.forEach(data => {
-        communiactionWrapper.appendChild(generateChatMessage(data));
+        messagesData = data['communications'];
+
+        messagesData.forEach(data => {
+            communiactionWrapper.appendChild(generateChatMessage(data));
+        });
+        
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+    
+});
+
+communiactionBtn.addEventListener("click", () => {
+    var communiactionWrapper = communiactionContentBlock.querySelector(".chat-wrapper");
+    offset += 10;
+
+    fetch('https://alfa-amo.ru/testwidget/load_lessons.php?branch_id=' + filialSelector.option + "&user_id=" + user_id + "&offset=" + offset + "&student_id=" + studentSelector.option, {
+        method: 'GET'
+    })
+    .then(response => response.json()) 
+    .then(data => {
+        toggleConnectionMarks(data['amo'], data['alfa']);
+        createConnectionTips();
+
+        messagesData = data['communications'];
+
+        messagesData.forEach(data => {
+            communiactionWrapper.appendChild(generateChatMessage(data));
+        });
+        
+    })
+    .catch(error => {
+        console.error('Error:', error);
     });
 });
+
+function resetCommunication(){
+    offset = 0;
+    var communiactionWrapper = communiactionContentBlock.querySelector(".chat-wrapper");
+    communiactionWrapper = "";
+}
 
 
 function generateChatMessage(message){

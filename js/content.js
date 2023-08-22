@@ -11,6 +11,7 @@ if (prevLinkMatch){
 }else{
     circle.classList.add("hidden");
 }
+circle.innerHTML = getCircle();
 document.body.appendChild(circle);
 
 
@@ -56,6 +57,73 @@ circle.addEventListener('click', () => {
 function createPopup(){
   mainBody.classList.remove("hidden");
   basicLoad();
+}
+
+function getCircle(){
+    return `<div class = "tech-logo">
+    <div class = "first-row">
+        <svg id = "logo-letter-c" xmlns="http://www.w3.org/2000/svg" width="9" height="16" viewBox="0 0 9 16" fill="none">
+            <path d="M0 11.0777V3.33534C0 0.721153 1.71 0 4.15 0C6.61 0 8.18 0.751202 8.18 3.33534V5.09816H5.39V3.21514C5.39 1.97316 4.87 1.72276 4.15 1.72276C3.4 1.72276 2.91 1.97316 2.91 3.21514V12.0994C2.91 13.3714 3.41 13.5917 4.15 13.5917C4.87 13.5917 5.39 13.3714 5.39 12.0994V10.0961H8.17V11.0777C8.17 14.6835 6.6 15.2344 4.12 15.2344C1.69 15.2344 0 14.6635 0 11.0777Z" fill="#101F23"/>
+        </svg>
+        <svg id = "logo-letter-o" xmlns="http://www.w3.org/2000/svg" width="9" height="14" viewBox="0 0 9 14" fill="none">
+            <path d="M0.400146 9.09771V3.81927C0.400146 1.5256 1.47015 0.413818 4.25014 0.413818C7.03014 0.413818 8.10014 1.53561 8.10014 3.81927V9.06766C8.10014 12.2327 6.93014 13.1241 4.25014 13.1241C1.57015 13.1342 0.400146 12.2327 0.400146 9.09771ZM5.37014 9.99915V3.54883C5.37014 2.67744 5.22014 2.0264 4.25014 2.0264C3.28014 2.0264 3.13014 2.67744 3.13014 3.54883V9.99915C3.13014 10.8705 3.28014 11.5216 4.25014 11.5216C5.22014 11.5116 5.37014 10.8705 5.37014 9.99915Z" fill="#101F23"/>
+        </svg>
+        <svg id = "logo-letter-m" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+            <path d="M0.379761 0.614364H2.68976L2.90976 2.10675C3.25976 1.1352 4.12976 0.444092 5.29976 0.444092C6.83976 0.444092 7.55976 1.015 7.85976 2.06669C8.25976 1.12518 9.09976 0.444092 10.2198 0.444092C12.3298 0.444092 12.9298 1.48576 12.9298 3.52903V12.9341H10.1998V3.74938C10.1998 2.75779 9.89975 2.37718 9.17975 2.37718C8.57975 2.37718 8.10976 2.74778 8.00976 3.24858V12.9341H5.27976V3.64922C5.27976 2.77782 5.00976 2.37718 4.25976 2.37718C3.65976 2.37718 3.28976 2.6977 3.11976 3.07831V12.9341H0.38976V0.614364H0.379761Z" fill="#101F23"/>
+        </svg>
+        <svg id = "logo-letter-comma" xmlns="http://www.w3.org/2000/svg" width="4" height="4" viewBox="0 0 4 4" fill="none">
+            <path d="M0.419922 3.66593L1.15992 0.280518H3.49992L1.91992 3.66593H0.419922Z" fill="#101F23"/>
+        </svg>
+        <svg id = "logo-letter-o" xmlns="http://www.w3.org/2000/svg" width="9" height="14" viewBox="0 0 9 14" fill="none">
+            <path d="M0.319702 9.09771V3.81927C0.319702 1.5256 1.3897 0.413818 4.1697 0.413818C6.9497 0.413818 8.0197 1.53561 8.0197 3.81927V9.06766C8.0197 12.2327 6.8497 13.1241 4.1697 13.1241C1.4897 13.1342 0.319702 12.2327 0.319702 9.09771ZM5.2897 9.99915V3.54883C5.2897 2.67744 5.1397 2.0264 4.1697 2.0264C3.1997 2.0264 3.0497 2.67744 3.0497 3.54883V9.99915C3.0497 10.8705 3.1997 11.5216 4.1697 11.5216C5.1397 11.5216 5.2897 10.8705 5.2897 9.99915Z" fill="#101F23"/>
+        </svg>
+        <svg id = "logo-letter-n" xmlns="http://www.w3.org/2000/svg" width="8" height="13" viewBox="0 0 8 13" fill="none">
+            <path d="M0.300049 0.614364H2.61005L2.83005 2.08672C3.15005 1.04505 4.12005 0.444092 5.19004 0.444092C7.58004 0.444092 8.00004 1.76621 8.00004 3.70931V12.9441H5.27005V3.86957C5.27005 3.06829 5.22004 2.34714 4.15005 2.34714C3.45005 2.34714 3.16005 2.76781 3.03005 3.06829V12.9241H0.300049V0.614364Z" fill="#101F23"/>
+        </svg>
+    </div>
+    <div class = "second-row">
+    <svg id = "logo-letter-t" xmlns="http://www.w3.org/2000/svg" width="12" height="23" viewBox="0 0 12 23" fill="none">
+        <path d="M3.54957 3.86192H0.189575V0.967285H11.0596V3.86192H7.65957V22.6219H3.55957V3.86192H3.54957Z" fill="url(#paint0_linear_22_6528)"/>
+        <defs>
+            <linearGradient id="paint0_linear_22_6528" x1="-1.47092" y1="11.7943" x2="57.9824" y2="11.7943" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#33CC66"/>
+                <stop offset="0.6455" stop-color="#0099CC"/>
+                <stop offset="0.9974" stop-color="#0033FF"/>
+            </linearGradient>
+        </defs>
+    </svg>
+    <svg id = "logo-letter-e" xmlns="http://www.w3.org/2000/svg" width="11" height="23" viewBox="0 0 11 23" fill="none">
+        <path d="M0.189575 0.967285H10.0996V3.86192H4.46957V9.80142H9.25957V13.0266H4.46957V19.8074H10.0996V22.6319H0.189575V0.967285Z" fill="url(#paint0_linear_22_6529)"/>
+        <defs>
+        <linearGradient id="paint0_linear_22_6529" x1="-13.4709" y1="11.7943" x2="45.9824" y2="11.7943" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#33CC66"/>
+            <stop offset="0.6455" stop-color="#0099CC"/>
+            <stop offset="0.9974" stop-color="#0033FF"/>
+        </linearGradient>
+        </defs>
+    </svg>
+    <svg id = "logo-letter-c2" xmlns="http://www.w3.org/2000/svg" width="13" height="24" viewBox="0 0 13 24" fill="none">
+        <path d="M0.890137 16.9426V5.54432C0.890137 1.69817 3.41014 0.636475 7.00013 0.636475C10.6201 0.636475 12.9301 1.73824 12.9301 5.54432V8.75947H8.83013V5.36404C8.83013 3.5311 8.06013 3.16051 7.00013 3.16051C5.90013 3.16051 5.17014 3.5311 5.17014 5.36404V18.445C5.17014 20.318 5.90013 20.6485 7.00013 20.6485C8.06013 20.6485 8.83013 20.318 8.83013 18.445V15.1898H12.9301V16.9526C12.9301 22.2611 10.6301 23.0724 6.97014 23.0724C3.37014 23.0623 0.890137 22.221 0.890137 16.9426Z" fill="url(#paint0_linear_22_6530)"/>
+        <defs>
+        <linearGradient id="paint0_linear_22_6530" x1="-24.4703" y1="11.849" x2="34.983" y2="11.849" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#33CC66"/>
+            <stop offset="0.6455" stop-color="#0099CC"/>
+            <stop offset="0.9974" stop-color="#0033FF"/>
+        </linearGradient>
+        </defs>
+    </svg>
+    <svg id = "logo-letter-h" xmlns="http://www.w3.org/2000/svg" width="12" height="23" viewBox="0 0 12 23" fill="none">
+        <path d="M0.0402832 0.967285H4.14028V9.87153H7.94028V0.967285H12.0003V22.6219H7.94028V12.9164H4.14028V22.6219H0.0402832V0.967285Z" fill="url(#paint0_linear_22_6531)"/>
+        <defs>
+            <linearGradient id="paint0_linear_22_6531" x1="-39.4702" y1="11.7943" x2="19.9832" y2="11.7943" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#33CC66"/>
+                <stop offset="0.6455" stop-color="#0099CC"/>
+                <stop offset="0.9974" stop-color="#0033FF"/>
+            </linearGradient>
+        </defs>
+    </svg>
+    </div>
+</div>`;
 }
 
 
@@ -424,10 +492,12 @@ function getHtml(){
       База знаний
   </button>
 </div>
-<div class = "tg-logo">
-<svg xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 19 17" fill="none">
-    <path d="M19 0.602225L15.9946 16.2923C15.9946 16.2923 15.5741 17.3801 14.4189 16.8584L7.48458 11.3526L7.45242 11.3364C8.38909 10.4654 15.6524 3.70266 15.9698 3.39612C16.4613 2.92136 16.1562 2.63873 15.5856 2.99736L4.85679 10.053L0.717638 8.61077C0.717638 8.61077 0.0662573 8.37083 0.00359284 7.84911C-0.0598962 7.32653 0.739076 7.0439 0.739076 7.0439L17.6131 0.188948C17.6131 0.188948 19 -0.44207 19 0.602225Z" fill="#3CA1EB"/>
-</svg>
+<div class = "widget-tg-circle">
+    <div class = "tg-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 19 17" fill="none">
+            <path d="M19 0.602225L15.9946 16.2923C15.9946 16.2923 15.5741 17.3801 14.4189 16.8584L7.48458 11.3526L7.45242 11.3364C8.38909 10.4654 15.6524 3.70266 15.9698 3.39612C16.4613 2.92136 16.1562 2.63873 15.5856 2.99736L4.85679 10.053L0.717638 8.61077C0.717638 8.61077 0.0662573 8.37083 0.00359284 7.84911C-0.0598962 7.32653 0.739076 7.0439 0.739076 7.0439L17.6131 0.188948C17.6131 0.188948 19 -0.44207 19 0.602225Z" fill="#3CA1EB"/>
+        </svg>
+    </div>
 </div>`
 }
 
@@ -459,4 +529,5 @@ function fullReset(){
     resetAddStudentToGroup();
     resetAddStudent();
     resetStudentChoser();
+    resetCommunication();
 }
