@@ -41,6 +41,7 @@ addAbonementContentBlock.addEventListener("click", () => {
     .then(data => {
         console.log(data);
         toggleConnectionMarks(data['amo'], data['alfa']);
+        createConnectionTips();
         abonementTableData = data["abonements"];
         addAbonementSearchTable.basicData = data["abonements"];
         addAbonementSearchTable.tableObj.insertData(null, abonementTableData);
@@ -53,7 +54,7 @@ addAbonementContentBlock.addEventListener("click", () => {
 
 addAbonementBtn.addEventListener("click", () => {
     if (addAbonementBtn.classList.contains("active")){
-        addAbonementBtn.classList.add("used");
+        addAbonementContentBlock.classList.add("used");
 
         var checkedCheckboxes = addAbonementContentBlock.querySelectorAll("input:checked");
 
@@ -61,17 +62,38 @@ addAbonementBtn.addEventListener("click", () => {
 
         checkedCheckboxes.forEach(checkbox => parsedTableData.push(abonementTableData[Number(checkbox.id.replace("add_abonement_table_container_row_", "").replace("_checkbox", ""))]));
     
-        var parentSelectorData = parentSelector.value;
-        var studentSelectorData = studentSelector.value;
-        var filialSelectorData = filialSelector.value;
+        var parentSelectorData = parentSelector.option;
+        var studentSelectorData = studentSelector.option;
+        var filialSelectorData = filialSelector.option;
 
 
         var parsedData = {
             "user_id" : user_id,
-            "selectedParent" : parentSelectorData,
-            "selectedStudent" : studentSelectorData,
-            "selectedFilial" : filialSelectorData,
+            "parent_id" : parentSelectorData,
+            "student_id" : studentSelectorData,
+            "branch_id" : filialSelectorData,
             "data" : parsedTableData
         };
+
+        fetch('https://alfa-amo.ru/adm/?token=aiUWVpSyAFs0BoEcMJTa9n3v&action=widget_add_abonement' , {
+            method: 'POST',
+            body : JSON.stringify(parsedData)
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
 });
+
+function resetAddAbonement(){
+    addAbonementContentBlock.classList.remove("used");
+    addAbonementBtn.classList.remove("active");
+    addAbonementBtn.classList.add("inactive");
+
+    abonementTableData = [];
+    if (addAbonementSearchTable != null){
+        addAbonementSearchTable.basicData = abonementTableData;
+        addAbonementSearchTable.tableObj.insertData(null, abonementTableData);
+        addAbonementSearchTable.tableObj.setUpRowOnClickHandler();
+    }
+}

@@ -28,7 +28,7 @@
 }
 
 #student-selector .selection-row.unselected{
-    grid-template-areas: "label selector note empty";
+    grid-template-areas: "label selector widget-note empty";
 }
 
 #student-selector .selection-row.selected{
@@ -43,8 +43,8 @@
     grid-area: selector;
 }
 
-#student-selector .note{
-    grid-area: note;
+#student-selector .widget-note{
+    grid-area: widget-note;
 }
 
 #student-selector .hidden{

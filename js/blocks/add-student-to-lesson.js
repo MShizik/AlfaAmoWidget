@@ -8,17 +8,7 @@ let addStudentToLessonCalendar = null;
 let addStudentToLessonTable = null;
 
 var lessonsData = [];
-var lessonsColumns = [
-    '',
-    'Дата',
-    'Время урока',
-    'Предмет',
-    'Педагог',
-    'Аудитория',
-    'Название группы',
-    'Лимит учеников',
-    'Комментарий'
-];
+var lessonsColumns = [];
 
 var calInputChangedHandler = function(cal){
     console.log(lessonsData);
@@ -64,6 +54,7 @@ var selectorAfterSelectHandler = function(){
         var tableWrapper = document.querySelector("#add-student-to-lesson-table-container");
         tableWrapper.innerHTML = "";
 
+        console.log('https://alfa-amo.ru/testwidget/load_lessons.php?branchId=' + filialSelector.option + "&lesson_type_id=" + lessonSearchSelector.option + "&subject_id=" + subjectSearchSelector.option + "&user_id=" + user_id);
 
         fetch('https://alfa-amo.ru/testwidget/load_lessons.php?branchId=' + filialSelector.option + "&lesson_type_id=" + lessonSearchSelector.option + "&subject_id=" + subjectSearchSelector.option + "&user_id=" + user_id , {
             method: 'GET'
@@ -71,6 +62,7 @@ var selectorAfterSelectHandler = function(){
         .then(response => response.json()) 
         .then(data => {
             toggleConnectionMarks(data['amo'], data['alfa']);
+            createConnectionTips();
             lessonsData = data["lessons"];
             var cropedData = [];
             var inputValues = addStudentToLessonCalendar.getValues();
@@ -94,6 +86,31 @@ var selectorAfterSelectHandler = function(){
             console.error('Error:', error);
         });
 
+        if (lessonSearchSelector.option === "2"){
+            lessonsColumns = [
+                '',
+                'Дата',
+                'Время урока',
+                'Предмет',
+                'Педагог',
+                'Аудитория',
+                'Название группы',
+                'Лимит учеников',
+                'Комментарий'
+            ];
+        }else{
+            lessonsColumns = [
+                '',
+                'Дата',
+                'Время урока',
+                'Предмет',
+                'Педагог',
+                'Аудитория',
+                'Лимит учеников',
+                'Комментарий'
+            ];
+        }
+
         addStudentToLessonTable = new CustomTable(tableWrapper, [], lessonsColumns, checkboxHandler);
         tableWrapper.classList.remove("hidden");
     }
@@ -115,7 +132,7 @@ addStudentToLessonContentBlock.addEventListener("click" ,() =>{
                 '1', 'Индивидуальный'
             ],
             [
-                '2', 'Груповой'
+                '2', 'Групповой'
             ],
             [
                 '3', 'Пробный'
@@ -166,6 +183,14 @@ addStudentToLessonBtn.addEventListener("click", () => {
         };
 
         console.log(JSON.stringify(parsedData));
+
+        fetch('https://alfa-amo.ru/adm/?token=aiUWVpSyAFs0BoEcMJTa9n3v&action=widget_add_student_to_lesson' , {
+            method: 'POST',
+            body : JSON.stringify(parsedData)
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
 });
 
@@ -179,6 +204,19 @@ function reconstructSubjects(branchId, subjectsByBranches){
     }
 
     return reconstructed;
+}
+
+
+function resetAddStudentToLesson(){
+    addStudentToLessonContentBlock.classList.remove("used");
+    addStudentToLessonBtn.classList.remove("active");
+    addStudentToLessonBtn.classList.add("inactive");
+
+    lessonSearchSelector != null && lessonSearchSelector.updateData([]);
+
+    lessonsData = [];
+
+    addStudentToLessonTable != null && addStudentToLessonTable.insertData(null, []);
 }
 
 

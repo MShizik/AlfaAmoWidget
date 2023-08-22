@@ -39,6 +39,7 @@ addStudentToGroupContentBlock.addEventListener("click", () => {
     .then(data => {
         console.log(data);
         toggleConnectionMarks(data['amo'], data['alfa']);
+        createConnectionTips();
         groupData = data["groups"];
         addStudentToGroupTable.insertData(null, groupData);
         addStudentToGroupTable.setUpRowOnClickHandler();
@@ -280,4 +281,21 @@ function generateCalendarBody(id, name, parent){
     div1.appendChild(div2);
 
     parent.appendChild(div1);
+}
+
+function resetAddStudentToGroup(){
+
+    addStudentToGroupContentBlock.classList.remove("used");
+    addStudentToGroupBtn.classList.remove("active");
+    addStudentToGroupBtn.classList.add("inactive");
+
+    groupData = [];
+
+    addStudentToGroupTable != null && addStudentToGroupTable.insertData(null, []);
+
+    addStudentToGroupActiveCals.forEach(element => {
+        deleteCalendar(element.getId(), "#add-student-to-group-calendars");
+    });
+    addStudentToGroupActiveCals = [];
+
 }

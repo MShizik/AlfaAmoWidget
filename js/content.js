@@ -1,7 +1,16 @@
+var basicLinkRegex = /^.*:\/\/.*\.amocrm\.ru\/leads\/detail\/.*$/;
+
+var prevLinkMatch = document.location.href.match(basicLinkRegex);
+
 getFont();
 
 const circle = document.createElement('div');
 circle.id = 'comon-tech-circle';
+if (prevLinkMatch){
+    circle.classList.remove("hidden");
+}else{
+    circle.classList.add("hidden");
+}
 document.body.appendChild(circle);
 
 
@@ -14,13 +23,34 @@ mainBody.innerHTML = getHtml();
 
 document.body.appendChild(mainBody);
 
+
+setInterval(function() {
+    if (!document.location.href.match(basicLinkRegex) && prevLinkMatch !== true) {
+        circle.classList.add("hidden");
+        fullReset();
+        mainBody.classList.add("hidden");
+    }else if (document.location.href.match(basicLinkRegex)){
+        circle.classList.remove("hidden");
+    }
+    prevLinkMatch = document.location.href.match(basicLinkRegex);
+  }, 5000);
+
+
 circle.addEventListener('click', () => {
-    console.log("smth");
-    const width = 800;
-    const height = window.innerHeight;
-  
-    createPopup();
-  });
+
+    if (document.location.href.match(basicLinkRegex)){
+        const width = 800;
+        const height = window.innerHeight;
+      
+        createPopup();
+        var mainCloseSign = document.querySelector("#main-close-sign");
+        mainCloseSign.addEventListener("click", () => {
+            mainBody.classList.add("hidden");
+        });
+    }else{
+        console.log("nope");
+    }
+});
 
 
 function createPopup(){
@@ -54,7 +84,7 @@ function getHtml(){
               </div>
           </div>
           <div class = "inactive-info">
-              <div class= "selection-result" id = "student_choser_parent_inactive_result">
+              <div class= "selection-result hidden" id = "student_choser_parent_inactive_result">
                   <div class = "result">
                       <div class = "result-label">
                           Родитель/заказчик
@@ -64,7 +94,7 @@ function getHtml(){
                       </div>
                   </div>
               </div>
-              <div class= "selection-result" id = "student_choser_student_inactive_result">
+              <div class= "selection-result hidden" id = "student_choser_student_inactive_result">
                   <div class = "result">
                       <div class = "result-label">
                           Ученик
@@ -74,7 +104,7 @@ function getHtml(){
                       </div>
                   </div>
               </div>
-              <div class= "selection-result" id = "student_choser_filial_inactive_result">
+              <div class= "selection-result hidden" id = "student_choser_filial_inactive_result">
                   <div class = "result">
                       <div class = "result-label">
                           Филлиал
@@ -94,8 +124,7 @@ function getHtml(){
                       <div class="selector">
                           <div id="student_choser_parent_selector"></div>
                       </div>
-                      <div class="note">
-                          Родитель/заказчик не выбран
+                      <div class="widget-note">
                       </div>
                       <div class= "selection-result hidden" id = "student_choser_parent_result">
                           <div class = "result">
@@ -115,7 +144,7 @@ function getHtml(){
                       <div class="selector">
                           <div id="student_choser_student_selector"></div>
                       </div>
-                      <div class="note">
+                      <div class="widget-note">
                           Ученик не выбран
                       </div>
                       <div class= "selection-result hidden" id = "student_choser_student_result">
@@ -136,7 +165,7 @@ function getHtml(){
                       <div class="selector">
                           <div id="student_choser_filial_selector"></div>
                       </div>
-                      <div class="note">
+                      <div class="widget-note">
                           Филлиал не выбран
                       </div>
                       <div class= "selection-result hidden" id = "student_choser_filial_result">
@@ -388,13 +417,14 @@ function getHtml(){
   </div>
   <div class = "footer-info">
       <div class = "info-block">
-          Подписка 82 дня
+          
       </div>
   </div>
   <button class="basic_btn active" id = "footer-knowledgebase-btn">
       База знаний
   </button>
-</div>`
+</div>
+<div class = "widget-tg-circle"></div>`
 }
 
 function getFont(){
@@ -416,4 +446,13 @@ function getFont(){
     fonts.href = "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&display=swap";
 
     document.head.appendChild(fonts);
+}
+
+function fullReset(){
+    resetAddAbonement();
+    resetAddPayment();
+    resetAddStudentToLesson();
+    resetAddStudentToGroup();
+    resetAddStudent();
+    resetStudentChoser();
 }

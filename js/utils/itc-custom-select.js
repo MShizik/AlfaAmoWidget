@@ -11,7 +11,7 @@ class ItcCustomSelect {
     static DATA_TOGGLE = '[data-select="toggle"]';
   
     static template(params) {
-      const { name, options, targetValue, callback } = params;
+      const { name, options, targetValue, callback, additionalData } = params;
       const items = [];
       let selectedIndex = -1;
       let selectedValue = '';
@@ -117,6 +117,7 @@ class ItcCustomSelect {
   
     _changeValue(el) {
       if (el.classList.contains(this.constructor.EL_OPTION_SELECTED)) {
+        this.hide();
         return;
       }
       this._updateOption(el);
@@ -157,7 +158,21 @@ class ItcCustomSelect {
         dataToBeOptions.push(`<li class="itc-select__option${selectedClass}" data-select="option" data-option="${option[0]}"
           data-value="${option[1]}" data-index="${index}">${option[1]}</li>`);
       });
+
       optionsWrapper.innerHTML = dataToBeOptions.join(' ');
+      if (data.length === 1){
+        this._changeValue(optionsWrapper.querySelector("li"));
+      }
+      else if (data.length === 0){
+        this._elToggle.innerHTML = "Выбор отсутствует";
+        this._elToggle.dataset.option = "-1";
+      }else{
+        this._elToggle.innerHTML = "Выберите из списка";
+        this._elToggle.dataset.option = "-1";
+      }
+
+      this.resize();
+
     }
 
     get option(){
@@ -166,6 +181,10 @@ class ItcCustomSelect {
   
     get value() {
       return this._elToggle.value;
+    }
+
+    get index(){
+      return this._elToggle.dataset.index;
     }
   
     set value(value) {

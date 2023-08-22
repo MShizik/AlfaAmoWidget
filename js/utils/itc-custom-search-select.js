@@ -99,6 +99,7 @@ class ItcCustomSearchSelect {
           data-value="${option[1]}" data-index="${index}">${option[1]}</li>`);
       });
       optionsWrapper.innerHTML = dataToBeOptions.join(' ');
+      this.resize();
     }
 
     _searchAnalizer(){
@@ -185,7 +186,7 @@ class ItcCustomSearchSelect {
         });
       this._el.classList.add(`${this.constructor.EL_SHOW}`);
       this._el.classList.add("select-opened");
-      if (this._el.querySelector(".input").innerHTML === "Выберите из списка"){
+      if (this._el.querySelector(".input").dataset.option === "-1"){
         this._el.querySelector(".input").innerHTML = "";
       }
       var topOffset = this._elToggle.offsetHeight;

@@ -1,4 +1,5 @@
 .connection-block{
+    width: 800px;
     position: relative;
     display: flex;
     flex-shrink: 0;
@@ -9,6 +10,16 @@
     gap: 6px;
 }
  
+.connection-block .connection-name{
+    color: var(--text-selector);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+}
+
 .connection-mark{
     cursor:default;
     background-color: var(--white, #FFFFFf);

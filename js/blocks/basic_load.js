@@ -2,13 +2,32 @@
 var connectionSignAmo = document.querySelector("#amo-connection");
 var connectionSignAlfa = document.querySelector("#alfa-connection");
 
+var isLeadBasicState = true;
+
 var subjectsByBranches = [];
+
+let studentsData = [];
+let parentsData = [];
+
+let studentDataForSelector = [];
+
+let parentDataForSelector = [];
 
 let user_id = -1;
 
 function basicLoad(){
 
-    fetch('https://alfa-amo.ru/testwidget/basic_load.php?cur_url=' + document.location.href.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n]+)/im)[1].split(".")[0], {
+    var basicLoadUrl = "https://alfa-amo.ru/testwidget/basic_load.php";
+
+    var subdomain = document.location.href.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n]+)/im)[1].split(".")[0];
+
+    var foundedPeople = findStudentAndParent();
+
+    
+
+    console.log(basicLoadUrl + '?cur_url=' + subdomain + (foundedPeople['student_id'] !== undefined ? "&studentId=" + foundedPeople['student_id'] : "&studentId=null") + (foundedPeople['parents'][0] !== undefined ? "&parentId=" + foundedPeople['parents'][0]['id'] : "&parentId=null"));
+
+    fetch(basicLoadUrl + '?cur_url=' + subdomain + (foundedPeople['student_id'] !== undefined ? "&studentId=" + foundedPeople['student_id'] : "&studentId=null") + (foundedPeople['parents'][0] !== undefined ? "&parentId=" + foundedPeople['parents'][0]['id'] : "&parentId=null"), {
     method: 'GET'
     })
     .then(response => response.json()) 
@@ -30,6 +49,26 @@ function basicLoad(){
             }
 
             createConnectionTips();
+
+            updateSubscriptionValue(data['subEnd']);
+
+            studentsData = data['students'];
+            parentsData = data['parents'];
+
+            studentDataForSelector = parseStudentsData(studentsData);
+
+            if (parentsData.length >= foundedPeople['parents'].length){
+                parentDataForSelector = parseParentsData(parentsData);
+            }else{
+                parentDataForSelector = parseParentsData(foundedPeople['parents']);
+            }
+
+
+            parentSelector.updateData(parentDataForSelector);
+
+            studentSelector.updateData(studentDataForSelector);
+
+
         }
     })
     .catch(error => {
@@ -37,6 +76,51 @@ function basicLoad(){
     });
 }
 
+function parseStudentsData(students){
+    var result = [];
+
+    students.forEach(student => {
+        result.push([student['alfa_id'], student['name'], student['id']]);
+    });
+
+    return result;
+}
+
+function parseParentsData(parents){
+    var result = [];
+
+    parents.forEach(parent => {
+        result.push([parent['id'], parent['name']]);
+    });
+
+    return result;
+}
+
+function findStudentAndParent(){
+    var result = [];
+    result['parents'] = [];
+    var contactsList = document.querySelector("#contacts_list");
+
+    if (contactsList != null){
+        var contacts = contactsList.querySelectorAll(".linked-forms__item");
+
+        contacts.forEach(contact => {
+            console.log(contact);
+            var isPupil = contact.querySelector('.linked-form__field__label[title="Ученик"]').parentElement.querySelector(".control-checkbox").classList.contains("is-checked");
+            if (isPupil){
+                result['student_id'] = contact.querySelector('input[name="ID"]').value;
+                result['student_name'] = getNameFromContact(contact);
+            }else{
+                result['parents'].push({
+                    "id" : contact.querySelector('input[name="ID"]').value,
+                    "name" :  getNameFromContact(contact)
+                });
+            }
+        });
+    }
+
+    return result;
+}
 
 function parseBranchData(branchesData){
 
@@ -65,4 +149,22 @@ function toggleConnectionMarks(firstMarkValue, secondMarkValue){
         connectionSignAlfa.querySelector(".connection-indicator").classList.add("connection-failure");
         connectionSignAlfa.querySelector(".connection-indicator").classList.remove("connection-succeed");
     }
+}
+
+function updateSubscriptionValue(dateOfEnd){
+    var subLen = Math.floor((new Date(dateOfEnd) - new Date()) / (1000 * 60 * 60 * 24));
+    var footerSubscriptionInfo = document.querySelector(".footer .info-block");
+    footerSubscriptionInfo.innerHTML = "Подписка " + subLen + " " + declOfNum(subLen, ["день", "дня", "дней"]);
+}
+
+function declOfNum(number, words) {  
+    return words[(number % 100 > 4 && number % 100 < 20) ? 2 : [2, 0, 1, 1, 1, 2][(number % 10 < 5) ? Math.abs(number) % 10 : 5]];
+}
+
+function getNameFromContact(contact){
+    var name = "";
+    var nameFields = contact.querySelectorAll('div>tester');
+    console.log(nameFields);
+    name += (nameFields[0].innerHTML !== "Имя") ? nameFields[0].innerHTML : "";
+    name += (nameFields.length > 0 && nameFields[1].innerHTML !== "Фамилия") ? nameFields[1].innerHTML : "";
 }

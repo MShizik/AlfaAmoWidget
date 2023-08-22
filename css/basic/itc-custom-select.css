@@ -9,7 +9,7 @@
     align-items: center;
     width: 175px;
     padding: 6px 10px;
-    color: var(--text-selector);
+    color: var(--text-selector) !important;
     font-feature-settings: 'clig' off, 'liga' off;
     font-family: Inter;
     font-size: 12px;
@@ -43,7 +43,7 @@
   }
 
   .itc-select__toggle:hover{
-    color: var(--link-blue);
+    color: var(--link-blue) !important;
   }
 
   .itc-select_show .itc-select__toggle{

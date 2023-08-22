@@ -14,6 +14,8 @@
         <script src="../js/utils/searchWithTable.js"></script>
         <script src="../js/utils/table.js"></script>
 
+        <link rel="stylesheet" href="../css/activation.css">
+
         <link rel="stylesheet" href="../css/basic/colors.css">
         <link rel="stylesheet" href="../css/basic/calendar.css">
         <link rel="stylesheet" href="../css/basic/connection-block.css">
@@ -37,7 +39,8 @@
 
     </head>
     <body>
-        <div class="basement">
+        <div id="comon-tech-circle"></div>
+        <div class="basement hidden">
             <div class="connection-block">
                 <div class="connection-mark" id="amo-connection">
                     <div class="connection-indicator"></div>
@@ -62,7 +65,7 @@
                             </div>
                         </div>
                         <div class = "inactive-info">
-                            <div class= "selection-result" id = "student_choser_parent_inactive_result">
+                            <div class= "selection-result hidden" id = "student_choser_parent_inactive_result">
                                 <div class = "result">
                                     <div class = "result-label">
                                         Родитель/заказчик
@@ -72,7 +75,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class= "selection-result" id = "student_choser_student_inactive_result">
+                            <div class= "selection-result hidden" id = "student_choser_student_inactive_result">
                                 <div class = "result">
                                     <div class = "result-label">
                                         Ученик
@@ -82,7 +85,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class= "selection-result" id = "student_choser_filial_inactive_result">
+                            <div class= "selection-result hidden" id = "student_choser_filial_inactive_result">
                                 <div class = "result">
                                     <div class = "result-label">
                                         Филлиал
@@ -102,8 +105,7 @@
                                     <div class="selector">
                                         <div id="student_choser_parent_selector"></div>
                                     </div>
-                                    <div class="note">
-                                        Родитель/заказчик не выбран
+                                    <div class="widget-note">
                                     </div>
                                     <div class= "selection-result hidden" id = "student_choser_parent_result">
                                         <div class = "result">
@@ -123,7 +125,7 @@
                                     <div class="selector">
                                         <div id="student_choser_student_selector"></div>
                                     </div>
-                                    <div class="note">
+                                    <div class="widget-note">
                                         Ученик не выбран
                                     </div>
                                     <div class= "selection-result hidden" id = "student_choser_student_result">
@@ -144,7 +146,7 @@
                                     <div class="selector">
                                         <div id="student_choser_filial_selector"></div>
                                     </div>
-                                    <div class="note">
+                                    <div class="widget-note">
                                         Филлиал не выбран
                                     </div>
                                     <div class= "selection-result hidden" id = "student_choser_filial_result">
@@ -396,12 +398,15 @@
                 </div>
                 <div class = "footer-info">
                     <div class = "info-block">
-                        Подписка 82 дня
+                        
                     </div>
                 </div>
                 <button class="basic_btn active" id = "footer-knowledgebase-btn">
                     База знаний
                 </button>
+            </div>
+            <div class = "widget-tg-circle">
+                
             </div>
 
             <script src="../js/blocks/student-choser.js"></script>
