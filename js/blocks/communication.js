@@ -12,7 +12,7 @@ communiactionContentBlock.addEventListener("click" , () => {
 
     communiactionWrapper.innerHTML = "";
 
-    fetch('https://alfa-amo.ru/testwidget/load_lessons.php?branch_id=' + filialSelector.option + "&user_id=" + user_id + "&offset=" + offset + "&student_id=" + studentSelector.option, {
+    fetch('https://alfa-amo.ru/testwidget/load_communication.php?branch_id=' + filialSelector.option + "&user_id=" + user_id + "&offset=" + offset + "&student_id=" + studentSelector.option, {
         method: 'GET'
     })
     .then(response => response.json()) 
@@ -38,7 +38,9 @@ communiactionBtn.addEventListener("click", () => {
     var communiactionWrapper = communiactionContentBlock.querySelector(".chat-wrapper");
     offset += 10;
 
-    fetch('https://alfa-amo.ru/testwidget/load_lessons.php?branch_id=' + filialSelector.option + "&user_id=" + user_id + "&offset=" + offset + "&student_id=" + studentSelector.option, {
+    
+
+    fetch('https://alfa-amo.ru/testwidget/load_communication.php?branch_id=' + filialSelector.option + "&user_id=" + user_id + "&offset=" + offset + "&student_id=" + studentSelector.option, {
         method: 'GET'
     })
     .then(response => response.json()) 
@@ -86,10 +88,14 @@ function generateChatMessage(message){
     let messageWriter = document.createElement('div');
     messageWriter.classList.add("message-writer");
 
+    if (name != ""){
+        let writerName = document.createElement('div');
+        writerName.classList.add("writer-name");
+        writerName.innerHTML = name;
+        messageWriter.appendChild(writerName);
+    }
 
-    let writerName = document.createElement('div');
-    writerName.classList.add("writer-name");
-    writerName.innerHTML = name;
+    
 
     let writerStatus = document.createElement('div');
     writerStatus.classList.add("writer-status");
@@ -100,7 +106,7 @@ function generateChatMessage(message){
     messageText.classList.add("message-text");
     messageText.innerHTML = text;
 
-    messageWriter.appendChild(writerName);
+    
     messageWriter.appendChild(writerStatus);
 
     messageBody.appendChild(messageWriter);

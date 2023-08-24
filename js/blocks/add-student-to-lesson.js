@@ -125,17 +125,7 @@ addStudentToLessonContentBlock.addEventListener("click" ,() =>{
     lessonSearchSelector = ItcCustomSearchSelect.create('#add-student-to-lesson-lesson-selector', {
         name: 'add-student-to-lesson-lesson-selector',
         targetValue: 'Выбор',
-        options: [
-            [
-                '1', 'Индивидуальный'
-            ],
-            [
-                '2', 'Групповой'
-            ],
-            [
-                '3', 'Пробный'
-            ]
-        ],
+        options: lessonTypes,
         callback: selectorAfterSelectHandler
     });
 
