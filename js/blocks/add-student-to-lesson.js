@@ -54,9 +54,9 @@ var selectorAfterSelectHandler = function(){
         var tableWrapper = document.querySelector("#add-student-to-lesson-table-container");
         tableWrapper.innerHTML = "";
 
-        console.log('https://alfa-amo.ru/testwidget/load_lessons.php?branchId=' + filialSelector.option + "&lesson_type_id=" + lessonSearchSelector.option + "&subject_id=" + subjectSearchSelector.option + "&user_id=" + user_id);
+        console.log('https://alfa-amo.ru/testwidget/load_lessons.php?branch_id=' + filialSelector.option + "&lesson_type_id=" + lessonSearchSelector.option + "&subject_id=" + subjectSearchSelector.option + "&user_id=" + user_id);
 
-        fetch('https://alfa-amo.ru/testwidget/load_lessons.php?branchId=' + filialSelector.option + "&lesson_type_id=" + lessonSearchSelector.option + "&subject_id=" + subjectSearchSelector.option + "&user_id=" + user_id , {
+        fetch('https://alfa-amo.ru/testwidget/load_lessons.php?branch_id=' + filialSelector.option + "&lesson_type_id=" + lessonSearchSelector.option + "&subject_id=" + subjectSearchSelector.option + "&user_id=" + user_id , {
             method: 'GET'
         })
         .then(response => response.json()) 
@@ -122,15 +122,17 @@ addStudentToLessonContentBlock.addEventListener("click" ,() =>{
     addStudentToLessonBtn.classList.remove("active");
     addStudentToLessonBtn.classList.add("inactive");
 
+    
+    var filialSelectorIndex = filialSelector.option;
+
+    var lessonTypes = reconstructLessonTypes(filialSelectorIndex, lessonTypesByBranches);
+
     lessonSearchSelector = ItcCustomSearchSelect.create('#add-student-to-lesson-lesson-selector', {
         name: 'add-student-to-lesson-lesson-selector',
         targetValue: 'Выбор',
         options: lessonTypes,
         callback: selectorAfterSelectHandler
     });
-
-    
-    var filialSelectorIndex = filialSelector.option;
 
     var subjects = reconstructSubjects(filialSelectorIndex, subjectsByBranches);
 
@@ -190,6 +192,17 @@ function reconstructSubjects(branchId, subjectsByBranches){
     for (var key in subjects){
         reconstructed.push([key, subjects[key]]);
     }
+
+    return reconstructed;
+}
+
+function reconstructLessonTypes(branchId, lessonTypes){
+    var reconstructed = [];
+    var types = lessonTypes[branchId + ""];
+
+    types.forEach(type => {
+        reconstructed.push([type['id'], type['name']]);
+    });
 
     return reconstructed;
 }

@@ -5,7 +5,7 @@ var connectionSignAlfa = document.querySelector("#alfa-connection");
 var isLeadBasicState = false;
 
 var subjectsByBranches = [];
-var lessonTypes = [];
+var lessonTypesByBranches = [];
 
 let studentsData = [];
 let parentsData = [];
@@ -71,7 +71,7 @@ function basicLoad(){
 
             isLeadBasicState = Boolean(data['isLead']);
 
-            lessonTypes = parseLessonTypes(data['lessonTypes']);
+            lessonTypesByBranches = data['lessonTypes'];
         }
     })
     .catch(error => {
@@ -170,13 +170,4 @@ function getNameFromContact(contact){
     console.log(nameFields);
     name += (nameFields[0].innerHTML !== "Имя") ? nameFields[0].innerHTML : "";
     name += (nameFields.length > 0 && nameFields[1].innerHTML !== "Фамилия") ? nameFields[1].innerHTML : "";
-}
-
-function parseLessonTypes(data){
-    var result = [];
-    data.forEach(row => {
-        result.push([row['id'], row['name']]);
-    });
-
-    return result;
 }

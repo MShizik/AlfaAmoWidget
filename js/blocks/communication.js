@@ -1,5 +1,5 @@
 var communiactionContentBlock = document.querySelector("#communication-content-block");
-var communiactionBtn = document.querySelector("#communiaction-btn");
+var communicationBtn = document.querySelector("#communication-btn");
 
 var offset = 0;
 var messagesData = 0;
@@ -22,6 +22,11 @@ communiactionContentBlock.addEventListener("click" , () => {
 
         messagesData = data['communications'];
 
+        if (messagesData.length < 10){
+            communicationBtn.classList.remove("active");
+            communicationBtn.classList.add("inactive");
+        }
+
         messagesData.forEach(data => {
             communiactionWrapper.appendChild(generateChatMessage(data));
         });
@@ -34,7 +39,7 @@ communiactionContentBlock.addEventListener("click" , () => {
     
 });
 
-communiactionBtn.addEventListener("click", () => {
+communicationBtn.addEventListener("click", () => {
     var communiactionWrapper = communiactionContentBlock.querySelector(".chat-wrapper");
     offset += 10;
 
@@ -49,6 +54,11 @@ communiactionBtn.addEventListener("click", () => {
         createConnectionTips();
 
         messagesData = data['communications'];
+
+        if (messagesData.length < 10){
+            communicationBtn.classList.remove("active");
+            communicationBtn.classList.add("inactive");
+        }
 
         messagesData.forEach(data => {
             communiactionWrapper.appendChild(generateChatMessage(data));
