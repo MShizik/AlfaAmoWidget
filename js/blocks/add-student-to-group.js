@@ -31,7 +31,7 @@ addStudentToGroupContentBlock.addEventListener("click", () => {
     });
     addStudentToGroupActiveCals = [];
 
-    fetch('https://alfa-amo.ru/testwidget/load_groups.php?branchId=' + filialSelector.option + "&customerId=" + studentSelector.option  + "&user_id=" + user_id , {
+    fetch('https://alfa-amo.ru/testwidget/load_groups.php?branch_id=' + filialSelector.option + "&customer_id=" + studentSelector.option  + "&user_id=" + user_id , {
             method: 'GET'
     })
     .then(response => response.json()) 

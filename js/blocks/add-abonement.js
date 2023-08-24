@@ -34,7 +34,7 @@ addAbonementContentBlock.addEventListener("click", () => {
     addAbonementSearchTable = new SearchWithTable(document.querySelector("#add_abonement_table_container"), document.querySelector("#add_abonement_search_input"), abonementTableData, abonementTableColumns, addAbonementTableCheckBoxBehavior, addAbonementBtn);
     
 
-    fetch('https://alfa-amo.ru/testwidget/load_abonements.php?branchId=' + filialSelector.option + "&user_id=" + user_id , {
+    fetch('https://alfa-amo.ru/testwidget/load_abonements.php?branch_id=' + filialSelector.option + "&user_id=" + user_id , {
             method: 'GET'
     })
     .then(response => response.json()) 
