@@ -18,7 +18,7 @@
     margin-bottom: 8px;
 }
 
-label {
+.date_picker_input label {
     color: var(--text-black);
     font-feature-settings: 'clig' off, 'liga' off;
     font-family: Inter;

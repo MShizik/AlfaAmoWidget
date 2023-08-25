@@ -1,5 +1,6 @@
 .connection-block{
     width: 800px;
+    box-sizing: border-box !important;
     position: relative;
     display: flex;
     flex-shrink: 0;

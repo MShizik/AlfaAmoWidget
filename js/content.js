@@ -450,6 +450,17 @@ function getHtml(){
                   </div>
               </div>
               <div class="table_container" id="add_abonement_table_container"></div>
+              <div class="choose_data_container" id = "add-abonement-data-container">
+                <div class="choose-data-description">
+                    <div class="main-title">
+                        Добавить абонемент:
+                    </div>
+                    <div class="main-description">
+                        Выберите данные для добавления абонемента.
+                    </div>
+                </div>
+                <div class="plug"></div>
+            </div>
               <button class="basic_btn inactive" id = "add-abonement-btn">
                   Добавить абонемент
               </button>

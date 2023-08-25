@@ -120,22 +120,22 @@ function generateCalendar(data, insertionPlace){
     let placeToInsert = document.querySelector(insertionPlace);
     var id = data["id"];
     var name = data["name"];
-    if (placeToInsert.querySelector("#" + id + "") === null ){
+    if (placeToInsert.querySelector("#group_cal_" + id + "") === null ){
         generateCalendarBody(getIdFromString(name), name, placeToInsert);
-        return new CustomCalendar(document.querySelector(`#${id}`), null, null);
+        return new CustomCalendar(document.querySelector(`#group_cal_${id}`), null, null);
     }
     
 }
 
 function deleteCalendar(name, basicContainer){
     var calId = getIdFromString(name);
-    var cal = document.querySelector(`#${calId}`);
+    var cal = document.querySelector(`#group_cal_${calId}`);
     document.querySelector(basicContainer).removeChild(cal);
     return calId;
 }
 
 function getIdFromString(str){
-    return str.replaceAll(' ', '');
+    return str.replaceAll(' ', '').replaceAll("/", "").replaceAll(".","").replaceAll(",");
 }
 
 function generateCalendarBody(id, name, parent){

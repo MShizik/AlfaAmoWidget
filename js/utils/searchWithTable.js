@@ -1,5 +1,5 @@
 class SearchWithTable{
-    constructor(tableContainer, input, data, columns, checkBoxCallBack, connectedBtn){
+    constructor(tableContainer, input, data, columns, checkBoxCallBack, connectedBtn, onUpdate){
         this.input = null;
         this.basicData = null;
         this.columns = null;
@@ -8,10 +8,11 @@ class SearchWithTable{
         this.currentValue = null;
         this.checkBoxCallBack = null;
         this.connectedBtn = null;
-        this.create(tableContainer, input, data, columns, checkBoxCallBack, connectedBtn);
+        this.onUpdate = null;
+        this.create(tableContainer, input, data, columns, checkBoxCallBack, connectedBtn, onUpdate);
     }
 
-    create(tableContainer, input, data, columns, checkBoxCallBack, connectedBtn){
+    create(tableContainer, input, data, columns, checkBoxCallBack, connectedBtn, onUpdate){
         this.input = input;
         this.basicData = data;
         this.columns = columns;
@@ -23,6 +24,7 @@ class SearchWithTable{
 
         this.checkBoxCallBack = checkBoxCallBack;
         this.connectedBtn = connectedBtn;
+        this.onUpdate = onUpdate;
 
         this.setUpInputBehavior()
     }
@@ -55,6 +57,7 @@ class SearchWithTable{
                     this.tableObj.setUpRowOnClickHandler();
                     this.connectedBtn.classList.remove("active");
                     this.connectedBtn.classList.add("inactive");
+                    this.onUpdate(this.tableObj);
                 }
             }
         });

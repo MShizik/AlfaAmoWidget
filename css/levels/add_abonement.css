@@ -11,4 +11,86 @@
 #add_abonement_selector_wrapper .selection-row{
     width:320px;
     justify-content: space-between;
+    
+}
+
+#add-abonement-content-block .selection-row.vertical{
+    display: flex;
+    flex-direction: column;
+    gap:8px;
+
+    width:260px;
+    color: var(--text-black);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+}
+
+#add-abonement-content-block .itc-select__toggle{
+    width: 260px;
+}
+
+#add-abonement-content-block .selector .task_checkbox{
+    cursor: pointer;
+    pointer-events: none;
+}
+
+
+#add-abonement-content-block .selector .custom-checkbox{
+    width: 12px !important;
+    height: 12px !important;
+    cursor: pointer;
+    pointer-events: none;
+}
+
+#add-abonement-content-block .selector .custom-checkbox+label{
+    font-size: 12px !important;
+    cursor: pointer;
+    pointer-events: none;
+}
+
+.choose-data-description .main-title{
+    color: var(--text-black);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%;
+}
+
+.choose-data-description .main-description{
+    color: var(--text-gray);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%;
+}
+
+.choose_data_container{
+    display: grid;
+    grid-template-columns: 260px 260px;
+    column-gap: 16px;
+    row-gap: 13px;
+}
+
+.block_of_choice {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.block_of_choice .title{
+    color: var(--text-black);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%;
 }

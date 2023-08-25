@@ -1,6 +1,6 @@
 
 
-class ItcCustomSelect {
+class ItcCustomMultipleSelect {
     static EL = 'itc-select';
     static EL_SHOW = 'itc-select_show';
     static EL_OPTION = 'itc-select__option';
@@ -25,9 +25,14 @@ class ItcCustomSelect {
           selectedContent = option[1];
         }
         items.push(`<li class="itc-select__option${selectedClass}" data-select="option"
-          data-value="${option[0]}" data-index="${index}">${option[1]}</li>`);
+          data-value="${option[0]}" data-index="${index}" data-option="${option[1]}">
+          <div class = "task_checkbox">
+            <input type="checkbox" class = "custom-checkbox" id = "select-checkbox-${name}-${option[1]}" name = "select-checkbox-${name}-${option[1]}">
+            <label for = "select-checkbox-${name}-${option[1]}">${option[1]} </label>
+          </div>
+          </li>`);
       });
-      return `<button type="text" class="itc-select__toggle" name="${name}"
+      return `<button type="text" class="itc-select__toggle" name="${name}" id = "toggle_${name}"
         value="${selectedValue}" data-select="toggle" data-index="${selectedIndex}" data-option="${selectedValue}">
         ${selectedContent}</button><div class="itc-select__dropdown">
         <ul class="itc-select__options">${items.join('')}</ul></div>`;
@@ -64,6 +69,7 @@ class ItcCustomSelect {
     }
 
     constructor(target, params) {
+      this.isDouble = false;
       this._el = typeof target === 'string' ? document.querySelector(target) : target;
       this._params = params || {};
       this._onClickFn = this._onClick.bind(this);
@@ -77,27 +83,50 @@ class ItcCustomSelect {
     }
   
     _onClick(e) {
-      console.log(e);
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+        
       const { target } = e;
       const type = target.closest(this.constructor.DATA).dataset.select;
       if (type === 'toggle') {
-          this.toggle();
+          this.show();
       } else if (type === 'option') {
-        this._changeValue(target);
+        var realTarget = target;
+        var isCheckbox = false;
+        if (!(target.tagName === 'INPUT' || target.tagName === 'LABEL' || target.tagName === 'DIV')){
+          this._changeValue(realTarget, isCheckbox);
+        }
       }
+      
     }
   
-    _updateOption(el) {
+    _updateOption(el, checkboxState) {
+      this._elToggle = this._el.querySelector(".itc-select__toggle");
       const elOption = el.closest(`.${this.constructor.EL_OPTION}`);
-      const elOptionSel = this._el.querySelector(`.${this.constructor.EL_OPTION_SELECTED}`);
-      if (elOptionSel) {
-        elOptionSel.classList.remove(this.constructor.EL_OPTION_SELECTED);
+      if (checkboxState){
+        //this._elToggle.innerHTML = this._elToggle.innerHTML.replace("Выберите из списка", "");
+        
+        //this._elToggle.innerHTML = this._elToggle.innerHTML + elOption.dataset.option + ";";
+        this._elToggle.value = this._elToggle.value + elOption.dataset.value + ";";
+        this._elToggle.dataset.option  += elOption.dataset.option + ";";
+        this._elToggle.dataset.index += elOption.dataset.index + ";";
+        this._elToggle.dataset.index = this._elToggle.dataset.index.replace("-1", "");
+        elOption.classList.add(this.constructor.EL_OPTION_SELECTED);
       }
-      elOption.classList.add(this.constructor.EL_OPTION_SELECTED);
-      this._elToggle.textContent = elOption.textContent;
-      this._elToggle.value = elOption.dataset.value;
-      this._elToggle.dataset.option = elOption.dataset.option;
-      this._elToggle.dataset.index = elOption.dataset.index;
+      else{
+        //this._elToggle.innerHTML = this._elToggle.innerHTML .replace(elOption.dataset.option + ";", "");
+        this._elToggle.value = this._elToggle.value.replace(elOption.dataset.value + ";", "");
+        this._elToggle.dataset.option = this._elToggle.dataset.option.replace(elOption.dataset.option + ";", ""); 
+        this._elToggle.dataset.index = this._elToggle.dataset.index.replace(elOption.dataset.index + ";", "");
+        elOption.classList.remove(this.constructor.EL_OPTION_SELECTED);
+        if (this._el.querySelectorAll(`.${this.constructor.EL_OPTION_SELECTED}`).length === 0){
+          this._elToggle.innerHTML = "Выберите из списка";
+        }
+      }      
+
+      this._updateSize();
+      
       this._el.dispatchEvent(new CustomEvent('itc.select.change'));
       this._params.onSelected ? this._params.onSelected(this, elOption) : null;
       return elOption.dataset.value;
@@ -116,14 +145,13 @@ class ItcCustomSelect {
       return '';
     }
   
-    _changeValue(el) {
-      if (el.classList.contains(this.constructor.EL_OPTION_SELECTED)) {
-        this.hide();
-        return;
+    _changeValue(el, isCheckbox) {
+      var checkbox = el.querySelector("input");
+      if (!isCheckbox){
+        checkbox.checked = !checkbox.checked;
       }
-      this._updateOption(el);
+      this._updateOption(el, checkbox.checked);
       (this._params['callback'])(this._el);
-      this.hide();
     }
   
     show() {
@@ -156,8 +184,12 @@ class ItcCustomSelect {
       let dataToBeOptions = [];
       data.forEach((option, index) => {
         let selectedClass = '';
-        dataToBeOptions.push(`<li class="itc-select__option${selectedClass}" data-select="option" data-option="${option[0]}"
-          data-value="${option[1]}" data-index="${index}">${option[1]}</li>`);
+        dataToBeOptions.push(`<li class="itc-select__option${selectedClass}" data-select="option"
+        data-value="${option[0]}" data-index="${index}"  data-option="${option[1]}"><div class = "task_checkbox">
+        <input type="checkbox" class = "custom-checkbox" id = "select-checkbox-${name}-${option[1]}" name = "select-checkbox-${name}-${option[1]}">
+        <label for = "select-checkbox-${name}-${option[1]}">${option[1]} </label>
+      </div>
+        </li>`);
       });
 
       optionsWrapper.innerHTML = dataToBeOptions.join(' ');
@@ -174,6 +206,11 @@ class ItcCustomSelect {
 
       this.resize();
 
+    }
+
+    _updateSize(){
+      var topOffset = this._elToggle.offsetHeight;
+      this._el.querySelector(".itc-select__dropdown").style.top = topOffset + "px";
     }
 
     get option(){

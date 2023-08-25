@@ -27,6 +27,7 @@
             "js/behavior/tip-behavior.js",
             "js/behavior/toggle-operations.js",
             "js/utils/calendar.js",
+            "js/utils/itc-custom-multiple-select.js",
             "js/utils/itc-custom-search-select.js",
             "js/utils/itc-custom-select.js",
             "js/utils/searchWithTable.js",
