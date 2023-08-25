@@ -156,7 +156,7 @@ addAbonementBtn.addEventListener("click", () => {
         checkedCheckboxes.forEach(checkbox =>{
                 
                 var abonementId = Number(checkbox.id.replace("add_abonement_table_container_row_", "").replace("_checkbox", ""));
-                var dataRow = abonementTableData.filter(row => row['id'] === abonementId);
+                var dataRow = abonementTableData.filter(row => row['id'] === abonementId)[0];
                 var chosenData = [];
                 var blockOfChoice = document.querySelector("#add_abonement_block_of_choice_" + abonementId);
                 
