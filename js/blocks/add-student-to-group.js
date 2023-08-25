@@ -123,7 +123,7 @@ function generateCalendar(data, insertionPlace){
     var name = data["name"];
     if (placeToInsert.querySelector("#group_cal_" + id + "") === null ){
         generateCalendarBody(getIdFromString(name), name, placeToInsert);
-        return new CustomCalendar(document.querySelector(`#group_cal_${id}`), null, null);
+        return new CustomCalendar(document.querySelector(`#group_cal_${id}`), groupCalendarCallback, groupClearCalendarCallback);
     }
     
 }
@@ -133,6 +133,23 @@ function deleteCalendar(name, basicContainer){
     var cal = document.querySelector(`#group_cal_${calId}`);
     document.querySelector(basicContainer).removeChild(cal);
     return calId;
+}
+
+function groupCalendarCallback(){
+    addStudentToGroupActiveCals.forEach(cal => {
+        if (cal.firstSelectedDay === null){
+            addStudentToGroupBtn.classList.remove("active");
+            addStudentToGroupBtn.classList.add("inactive");
+        }else{
+            addStudentToGroupBtn.classList.remove("inactive");
+            addStudentToGroupBtn.classList.add("active");
+        }
+    });
+}
+
+function groupClearCalendarCallback(){
+    addStudentToGroupBtn.classList.remove("active");
+    addStudentToGroupBtn.classList.add("inactive");
 }
 
 function getIdFromString(str){
@@ -179,14 +196,14 @@ function generateCalendarBody(id, name, parent){
     input1.setAttribute('type', 'text');
     input1.setAttribute('class', 'cal_date_input first');
     input1.setAttribute('id', id + "_first_input");
-    input1.setAttribute('placeholder', 'с __.__.___');
+    input1.setAttribute('placeholder', 'с __.__.____');
     input1.setAttribute('data-slots', '');
 
     const input2 = document.createElement('input');
     input2.setAttribute('type', 'text');
     input2.setAttribute('class', 'cal_date_input second');
     input2.setAttribute('id', id + "_second_input");
-    input2.setAttribute('placeholder', 'по __.__.___');
+    input2.setAttribute('placeholder', 'по __.__.____');
     input2.setAttribute('data-slots', '');
 
     const div6 = document.createElement('div');

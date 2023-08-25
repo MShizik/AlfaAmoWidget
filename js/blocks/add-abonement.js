@@ -11,7 +11,7 @@ var addAbonementsActiveGroups = [];
 var activeCals = [];
 
 var addAbonementTableCheckBoxBehavior = function(table, checkbox){
-    if (table.parentElement.querySelectorAll('.block_of_choice').length * 2 === table.parentElement.querySelectorAll('.data-selected').length){
+    if (table.parentElement.querySelectorAll('.block_of_choice').length * 2 === table.parentElement.querySelectorAll('.data-selected').length && table.parentElement.querySelectorAll('.block_of_choice').length > 0){
         addAbonementBtn.classList.remove("inactive");
         addAbonementBtn.classList.add("active");
     }else{
@@ -104,7 +104,7 @@ var addAbonementTableCheckBoxBehavior = function(table, checkbox){
             addAbonementsActiveGroups.push(block_of_choice);
         }
     }else{
-        var deletedId = deleteBlockOfChoice(name, "#" + choiceContainer.id);
+        var deletedId = deleteBlockOfChoice(dataId, "#" + choiceContainer.id);
         addAbonementsActiveGroups = addAbonementsActiveGroups.filter(block => block.getId() !== deletedId);
         activeCals[deletedId] = null;
     }
@@ -113,6 +113,7 @@ var addAbonementTableCheckBoxBehavior = function(table, checkbox){
 addAbonementContentBlock.addEventListener("click", () => {
     if (addAbonementContentBlock.classList.contains("active") || addAbonementContentBlock.classList.contains("forbidden")) return;
     toggleContentBlock(addAbonementContentBlock);
+
 
     abonementTableColumns = [
         '',
@@ -123,7 +124,11 @@ addAbonementContentBlock.addEventListener("click", () => {
     ];
     abonementTableData = [
     ];
-    
+    addAbonementsActiveGroups.forEach(element => {
+        deleteBlockOfChoice(element.getId(), "#" + choiceContainer.id);
+    });
+    addAbonementsActiveGroups = [];
+    activeCals = [];
     
     addAbonementSearchTable = new SearchWithTable(document.querySelector("#add_abonement_table_container"), document.querySelector("#add_abonement_search_input"), abonementTableData, abonementTableColumns, addAbonementTableCheckBoxBehavior, addAbonementBtn,onUpdate);
     
@@ -270,8 +275,8 @@ function generateAbonementPayCheckBox(name){
     return checkbox;
 }
 
-function deleteBlockOfChoice(name, basicContainer){
-    var blockId = "add_abonement_block_of_choice_" + getIdFromString(name);
+function deleteBlockOfChoice(id, basicContainer){
+    var blockId = "add_abonement_block_of_choice_" + id;
     var block = document.querySelector(`#${blockId}`);
     document.querySelector(basicContainer).removeChild(block);
     return blockId;
@@ -321,14 +326,14 @@ function generateAbonementCalendarBody(id, name, parent){
     input1.setAttribute('type', 'text');
     input1.setAttribute('class', 'cal_date_input first');
     input1.setAttribute('id', id + "_first_input");
-    input1.setAttribute('placeholder', 'с __.__.___');
+    input1.setAttribute('placeholder', 'с __.__.____');
     input1.setAttribute('data-slots', '');
 
     const input2 = document.createElement('input');
     input2.setAttribute('type', 'text');
     input2.setAttribute('class', 'cal_date_input second');
     input2.setAttribute('id', id + "_second_input");
-    input2.setAttribute('placeholder', 'по __.__.___');
+    input2.setAttribute('placeholder', 'по __.__.____');
     input2.setAttribute('data-slots', '');
 
     const div6 = document.createElement('div');
