@@ -109,6 +109,7 @@ var addStudentToGroupCheckboxCallBack = function(table, checkbox){
             "name" : name
         };
         addStudentToGroupActiveCals.push(generateCalendar(dataForGeneration, "#add-student-to-group-calendars"));
+        inputMasksEventListner();
     }else{
         var deletedId = deleteCalendar(name, "#add-student-to-group-calendars");
         addStudentToGroupActiveCals = addStudentToGroupActiveCals.filter(cal => cal.getId() !== deletedId);
@@ -141,7 +142,7 @@ function getIdFromString(str){
 function generateCalendarBody(id, name, parent){
     const div1 = document.createElement('div');
     div1.setAttribute('class', 'calendar-wrapper');
-    div1.setAttribute('id', id);
+    div1.setAttribute('id', "group_cal_" + id);
 
     const div2 = document.createElement('div');
     div2.setAttribute('class', 'date_picker');
@@ -178,14 +179,14 @@ function generateCalendarBody(id, name, parent){
     input1.setAttribute('type', 'text');
     input1.setAttribute('class', 'cal_date_input first');
     input1.setAttribute('id', id + "_first_input");
-    input1.setAttribute('placeholder', 'с ..___');
+    input1.setAttribute('placeholder', 'с __.__.___');
     input1.setAttribute('data-slots', '');
 
     const input2 = document.createElement('input');
     input2.setAttribute('type', 'text');
     input2.setAttribute('class', 'cal_date_input second');
     input2.setAttribute('id', id + "_second_input");
-    input2.setAttribute('placeholder', 'по ..___');
+    input2.setAttribute('placeholder', 'по __.__.___');
     input2.setAttribute('data-slots', '');
 
     const div6 = document.createElement('div');

@@ -57,9 +57,9 @@ class SearchWithTable{
                     this.tableObj.setUpRowOnClickHandler();
                     this.connectedBtn.classList.remove("active");
                     this.connectedBtn.classList.add("inactive");
-                    this.onUpdate(this.tableObj);
                 }
             }
+            this.onUpdate(this.tableObj);
         });
 
         this.input.addEventListener('blur', e => {
@@ -73,6 +73,6 @@ class SearchWithTable{
             if (this.currentValue === ""){
                 this.input.value = "";
             }
-        })
+        });
     }
 }

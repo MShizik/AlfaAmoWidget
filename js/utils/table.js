@@ -67,7 +67,7 @@ class CustomTable{
             checkbox.type = "checkbox";
             checkbox.className = "custom-checkbox";
             checkbox.classList.add("table_checkbox");
-            checkbox.id = this.container.id.replace("-container" ,"") + "_row_" + rowID + "_checkbox";
+            checkbox.id = this.container.id.replace("-container" ,"") + "_row_" + row['id'] + "_checkbox";
             checkbox.name = checkbox.id;
             checkbox.value = "yes";
             td.appendChild(checkbox);

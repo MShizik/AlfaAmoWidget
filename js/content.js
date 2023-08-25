@@ -24,6 +24,8 @@ mainBody.innerHTML = getHtml();
 
 document.body.appendChild(mainBody);
 
+inputMasksEventListner();
+
 
 setInterval(function() {
     if (!document.location.href.match(basicLinkRegex) && prevLinkMatch !== true) {

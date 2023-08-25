@@ -8,9 +8,10 @@ var abonementTableData = [];
 var abonementTableColumns = [];
 
 var addAbonementsActiveGroups = [];
+var activeCals = [];
 
 var addAbonementTableCheckBoxBehavior = function(table, checkbox){
-    if (table.querySelectorAll('.block_of_choice').length > 0){
+    if (table.parentElement.querySelectorAll('.block_of_choice').length * 2 === table.parentElement.querySelectorAll('.data-selected').length){
         addAbonementBtn.classList.remove("inactive");
         addAbonementBtn.classList.add("active");
     }else{
@@ -20,22 +21,25 @@ var addAbonementTableCheckBoxBehavior = function(table, checkbox){
 
     var checkboxCell = table.querySelector(`td:has(#${checkbox.id})`);
     var name = checkboxCell.nextSibling.querySelector("div").innerHTML;
+    var dataId = checkbox.id.replace("add_abonement_table_container_row_", "").replace("_checkbox", ""); 
     if (checkbox.checked){
         var dataForGeneration = {
             "id" : getIdFromString(name),
             "name" : name
         };
 
-        if (choiceContainer.querySelector("#add_abonement_block_of_choice_" + dataForGeneration['id']) === null ){
+        if (choiceContainer.querySelector("#add_abonement_block_of_choice_" + dataId) === null ){
 
             var filialSelectorIndex = filialSelector.option;
 
             var block_of_choice = document.createElement("div");
             block_of_choice.classList.add("block_of_choice");
-            block_of_choice.id = "add_abonement_block_of_choice_" + dataForGeneration['id'];
+            block_of_choice.id = "add_abonement_block_of_choice_" + dataId;
             choiceContainer.appendChild(block_of_choice);
     
             var calendar = generateAbonementCalendar(dataForGeneration, "#" + block_of_choice.id + "");
+            activeCals[block_of_choice.id] = calendar;
+            inputMasksEventListner();
 
             var lessonSelectionRow = document.createElement("div");
             lessonSelectionRow.classList.add("selection-row");
@@ -50,7 +54,7 @@ var addAbonementTableCheckBoxBehavior = function(table, checkbox){
             lessonSelectorBlock.classList.add("selector");
 
             var lessonSelectorBody = document.createElement("div");
-            lessonSelectorBody.id = "add_abonement_lesson_selector_" + dataForGeneration['id'];
+            lessonSelectorBody.id = "add_abonement_lesson_selector_" + dataId;
 
             lessonSelectorBlock.appendChild(lessonSelectorBody);
 
@@ -62,7 +66,7 @@ var addAbonementTableCheckBoxBehavior = function(table, checkbox){
                 name: lessonSelectorBody.id,
                 targetValue: 'Выбор',
                 options: lessonTypes,
-                callback: selectorAfterSelectHandler
+                callback: selectorCallback
             });
             
             var subjectSelectionRow = document.createElement("div");
@@ -78,7 +82,7 @@ var addAbonementTableCheckBoxBehavior = function(table, checkbox){
             subjectSelectorBlock.classList.add("selector");
 
             var subjectSelectorBody = document.createElement("div");
-            subjectSelectorBody.id = "add_abonement_subject_selector_" + dataForGeneration['id'];
+            subjectSelectorBody.id = "add_abonement_subject_selector_" + dataId;
 
             subjectSelectorBlock.appendChild(subjectSelectorBody);
 
@@ -91,10 +95,10 @@ var addAbonementTableCheckBoxBehavior = function(table, checkbox){
                 name: subjectSelectorBody.id,
                 targetValue: 'Выбор',
                 options: subjects,
-                callback: selectorAfterSelectHandler
+                callback: selectorCallback
             });
 
-            var checkbox = generateAbonementPayCheckBox(dataForGeneration['name']);
+            var checkbox = generateAbonementPayCheckBox(dataId);
             block_of_choice.appendChild(checkbox);
     
             addAbonementsActiveGroups.push(block_of_choice);
@@ -102,6 +106,7 @@ var addAbonementTableCheckBoxBehavior = function(table, checkbox){
     }else{
         var deletedId = deleteBlockOfChoice(name, "#" + choiceContainer.id);
         addAbonementsActiveGroups = addAbonementsActiveGroups.filter(block => block.getId() !== deletedId);
+        activeCals[deletedId] = null;
     }
 }
 
@@ -128,7 +133,6 @@ addAbonementContentBlock.addEventListener("click", () => {
     })
     .then(response => response.json()) 
     .then(data => {
-        console.log(data);
         toggleConnectionMarks(data['amo'], data['alfa']);
         createConnectionTips();
         abonementTableData = data["abonements"];
@@ -145,11 +149,36 @@ addAbonementBtn.addEventListener("click", () => {
     if (addAbonementBtn.classList.contains("active")){
         addAbonementContentBlock.classList.add("used");
 
-        var checkedCheckboxes = addAbonementContentBlock.querySelectorAll("input:checked");
+        var checkedCheckboxes = addAbonementContentBlock.querySelectorAll("tbody input:checked");
 
         var parsedTableData = [];
 
-        checkedCheckboxes.forEach(checkbox => parsedTableData.push(abonementTableData[Number(checkbox.id.replace("add_abonement_table_container_row_", "").replace("_checkbox", ""))]));
+        checkedCheckboxes.forEach(checkbox =>{
+                
+                var abonementId = Number(checkbox.id.replace("add_abonement_table_container_row_", "").replace("_checkbox", ""));
+                var dataRow = abonementTableData.filter(row => row['id'] === abonementId);
+                var chosenData = [];
+                var blockOfChoice = document.querySelector("#add_abonement_block_of_choice_" + abonementId);
+                
+                var cal = activeCals[blockOfChoice.id];
+                var calData = cal.getValues();
+                chosenData['b_date'] = calData['firstInput'] / 1000;
+                if (calData['secondInput'] !== null){
+                    chosenData['e_date'] = calData['secondInput'] / 1000;
+                }
+
+                var lessonSelector = blockOfChoice.querySelector("#toggle_add_abonement_lesson_selector_" + abonementId);
+                chosenData['selected_lessons'] = lessonSelector.value.split(";").slice(0, -1);
+
+                var subjectSelector = blockOfChoice.querySelector("#toggle_add_abonement_subject_selector_" + abonementId);
+                chosenData['selected_subjects'] = subjectSelector.value.split(";").slice(0, -1);
+
+                var checkbox = blockOfChoice.querySelector("#add_abonement_checkbox_" + abonementId);
+                chosenData['pay_type'] = checkbox.checked;
+
+                parsedTableData.push(Object.assign({}, dataRow, chosenData));
+            }
+        );
     
         var parentSelectorData = parentSelector.option;
         var studentSelectorData = studentSelector.option;
@@ -164,6 +193,8 @@ addAbonementBtn.addEventListener("click", () => {
             "data" : parsedTableData
         };
 
+        console.log(JSON.stringify(parsedData));
+
         fetch('https://alfa-amo.ru/adm/?token=aiUWVpSyAFs0BoEcMJTa9n3v&action=widget_add_abonement' , {
             method: 'POST',
             body : JSON.stringify(parsedData)
@@ -175,27 +206,21 @@ addAbonementBtn.addEventListener("click", () => {
 });
 
 function onUpdate(tableObj){
-    console.log("sh1");
     addAbonementsActiveGroups.forEach(active => {
         var name = active.querySelector(".date_picker_input label").innerHTML;
         var rowId = null;
-        console.log(name);
         abonementTableData.forEach((row, id) => {
             if (row['name'] === name){
-                rowId = id;
+                rowId = row['id'];
             }
         });
 
-        console.log(rowId);
-
         if (rowId != null){
-
-            var checkbox = tableObj.tbody.querySelector("#add_abonement_table_container_row_" + rowId + "_checkbox");
-            checkbox.checked = true;
-
+            var checkbox = document.querySelector("#add_abonement_table_container_row_" + rowId + "_checkbox");
+            if (checkbox != null){
+                checkbox.checked = true;
+            }
         }
-
-        
     });
 }
 
@@ -217,7 +242,7 @@ function generateAbonementCalendar(data, insertionPlace){
     var id = data["id"];
     var name = data["name"];
     generateAbonementCalendarBody("add_abonement_calendar_" + getIdFromString(name), name, placeToInsert);
-    return new CustomCalendar(document.querySelector(`#add_abonement_calendar_${id}`), null, null);
+    return new CustomCalendar(document.querySelector(`#add_abonement_calendar_${id}`), abonementCalendarCallback, abonementCalendarClearCallback);
 }
 
 function generateAbonementPayCheckBox(name){
@@ -296,14 +321,14 @@ function generateAbonementCalendarBody(id, name, parent){
     input1.setAttribute('type', 'text');
     input1.setAttribute('class', 'cal_date_input first');
     input1.setAttribute('id', id + "_first_input");
-    input1.setAttribute('placeholder', 'с ..___');
+    input1.setAttribute('placeholder', 'с __.__.___');
     input1.setAttribute('data-slots', '');
 
     const input2 = document.createElement('input');
     input2.setAttribute('type', 'text');
     input2.setAttribute('class', 'cal_date_input second');
     input2.setAttribute('id', id + "_second_input");
-    input2.setAttribute('placeholder', 'по ..___');
+    input2.setAttribute('placeholder', 'по __.__.___');
     input2.setAttribute('data-slots', '');
 
     const div6 = document.createElement('div');
@@ -437,4 +462,36 @@ function reconstructLessonTypes(branchId, lessonTypes){
     });
 
     return reconstructed;
+}
+
+
+function selectorCallback(selector){
+    var checkedSelectors = selector.parentElement.parentElement.parentElement.querySelectorAll(".data-selected");
+
+    if (checkedSelectors.length === 2){
+        addAbonementBtn.classList.remove("inactive");
+        addAbonementBtn.classList.add("active");
+    }else{
+        addAbonementBtn.classList.remove("active");
+        addAbonementBtn.classList.add("inactive");
+    }
+}
+
+function abonementCalendarCallback(cal){
+    if (cal.firstSelectedDay === null){
+        addAbonementBtn.classList.remove("active");
+        addAbonementBtn.classList.add("inactive");
+    }else{
+        var checkedSelectors = cal.parentElement.querySelectorAll(".data-selected");
+
+        if (checkedSelectors.length !== 2){
+            addAbonementBtn.classList.remove("active");
+            addAbonementBtn.classList.add("inactive");
+        }
+    }
+}
+
+function abonementCalendarClearCallback(){
+    addAbonementBtn.classList.remove("active");
+    addAbonementBtn.classList.add("inactive");
 }

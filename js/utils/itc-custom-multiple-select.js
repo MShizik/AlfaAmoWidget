@@ -113,6 +113,7 @@ class ItcCustomMultipleSelect {
         this._elToggle.dataset.index += elOption.dataset.index + ";";
         this._elToggle.dataset.index = this._elToggle.dataset.index.replace("-1", "");
         elOption.classList.add(this.constructor.EL_OPTION_SELECTED);
+        this._el.classList.add("data-selected");
       }
       else{
         //this._elToggle.innerHTML = this._elToggle.innerHTML .replace(elOption.dataset.option + ";", "");
@@ -122,6 +123,7 @@ class ItcCustomMultipleSelect {
         elOption.classList.remove(this.constructor.EL_OPTION_SELECTED);
         if (this._el.querySelectorAll(`.${this.constructor.EL_OPTION_SELECTED}`).length === 0){
           this._elToggle.innerHTML = "Выберите из списка";
+          this._el.classList.remove("data-selected");
         }
       }      
 

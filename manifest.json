@@ -22,8 +22,8 @@
         {
           "matches": ["*://*.amocrm.ru/*"],
           "js": [
-            "js/content.js",
             "js/behavior/input-mask.js",
+            "js/content.js",
             "js/behavior/tip-behavior.js",
             "js/behavior/toggle-operations.js",
             "js/utils/calendar.js",
