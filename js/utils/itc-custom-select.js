@@ -93,7 +93,7 @@ class ItcCustomSelect {
         elOptionSel.classList.remove(this.constructor.EL_OPTION_SELECTED);
       }
       elOption.classList.add(this.constructor.EL_OPTION_SELECTED);
-      this._elToggle.textContent = elOption.textContent;
+      this._elToggle.innerHTML = elOption.innerHTML;
       this._elToggle.value = elOption.dataset.value;
       this._elToggle.dataset.option = elOption.dataset.option;
       this._elToggle.dataset.index = elOption.dataset.index;
@@ -107,7 +107,7 @@ class ItcCustomSelect {
       if (selected) {
         selected.classList.remove(this.constructor.EL_OPTION_SELECTED);
       }
-      this._elToggle.textContent = 'Выбрать';
+      this._elToggle.innerHTML = 'Выберите из списка';
       this._elToggle.value = '';
       this._elToggle.dataset.index = '-1';
       this._el.dispatchEvent(new CustomEvent('itc.select.change'));

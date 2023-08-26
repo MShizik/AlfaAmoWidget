@@ -198,6 +198,12 @@ addAbonementBtn.addEventListener("click", () => {
             "data" : parsedTableData
         };
 
+        addAbonementsActiveGroups.forEach(element => {
+            deleteBlockOfChoice(element.getId(), "#" + choiceContainer.id);
+        });
+        addAbonementsActiveGroups = [];
+        activeCals = [];
+
         //console.log(JSON.stringify(parsedData));
 
         fetch('https://alfa-amo.ru/adm/?token=aiUWVpSyAFs0BoEcMJTa9n3v&action=widget_add_abonement' , {

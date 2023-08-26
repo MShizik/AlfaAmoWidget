@@ -57,10 +57,11 @@ addStudentToGroupBtn.addEventListener("click", () => {
         var activeCheckboxes = addStudentToGroupContentBlock.querySelectorAll("input:checked");
         
 
-        activeCheckboxes.forEach(checkbox => parsedTableData.push(groupData[Number(checkbox.id.replace("add-student-to-group-table_row_", "").replace("_checkbox", ""))]));
+        activeCheckboxes.forEach(checkbox => parsedTableData.push(groupData.find(row => row['id'] === Number(checkbox.id.replace("add-student-to-group-table_row_", "").replace("_checkbox", "")))));
         
+        console.log(parsedTableData);
         parsedTableData.forEach(dataRow =>  {
-            var connectedCalendar = addStudentToGroupActiveCals.find((cal) => cal.getId() === getIdFromString(dataRow['name']));
+            var connectedCalendar = addStudentToGroupActiveCals.find((cal) => cal.getId() === "group_cal_" + getIdFromString(dataRow['name']));
             var calendarValue = connectedCalendar.getValues();
             var calendarData = connectedCalendar.getInputs();
             dataRow['start_date'] = (calendarValue['firstInput'] !== null ) ? calendarData['firstInput'].value.replace("с ", "") : null;
@@ -70,6 +71,11 @@ addStudentToGroupBtn.addEventListener("click", () => {
         var parentSelectorData = parentSelector.option;
         var studentSelectorData = studentSelector.option;
         var filialSelectorData = filialSelector.option;
+
+        addStudentToGroupActiveCals.forEach(element => {
+            deleteCalendar(element.getId(), "#add-student-to-group-calendars");
+        });
+        addStudentToGroupActiveCals = [];
 
         var parsedData = {
             "user_id" : user_id,
@@ -84,6 +90,10 @@ addStudentToGroupBtn.addEventListener("click", () => {
         fetch('https://alfa-amo.ru/adm/?token=aiUWVpSyAFs0BoEcMJTa9n3v&action=widget_add_student_to_group' , {
             method: 'POST',
             body : JSON.stringify(parsedData)
+        })
+        .then(response => {
+            addStudentToGroupContentBlock.classList.remove("active");
+            addStudentToGroupContentBlock.classList.add("inactive");
         })
         .catch(error => {
             console.error('Error:', error);
@@ -111,7 +121,7 @@ var addStudentToGroupCheckboxCallBack = function(table, checkbox){
         addStudentToGroupActiveCals.push(generateCalendar(dataForGeneration, "#add-student-to-group-calendars"));
         inputMasksEventListner();
     }else{
-        var deletedId = deleteCalendar(name, "#add-student-to-group-calendars");
+        var deletedId = deleteCalendar("group_cal_" + getIdFromString(name), "#add-student-to-group-calendars");
         addStudentToGroupActiveCals = addStudentToGroupActiveCals.filter(cal => cal.getId() !== deletedId);
     } 
 }
@@ -129,10 +139,9 @@ function generateCalendar(data, insertionPlace){
 }
 
 function deleteCalendar(name, basicContainer){
-    var calId = getIdFromString(name);
-    var cal = document.querySelector(`#group_cal_${calId}`);
+    var cal = document.querySelector(`#${name}`);
     document.querySelector(basicContainer).removeChild(cal);
-    return calId;
+    return name;
 }
 
 function groupCalendarCallback(){

@@ -103,6 +103,8 @@ addPaymentBtn.addEventListener("click" , () => {
                 "sum" : budgetBlock.querySelector("tester").innerHTML.replaceAll(" ", "")
             }
 
+
+
             fetch('https://alfa-amo.ru/adm/?token=aiUWVpSyAFs0BoEcMJTa9n3v&action=widget_add_payment' , {
                 method: 'POST',
                 body : JSON.stringify(parsedData)
@@ -110,6 +112,10 @@ addPaymentBtn.addEventListener("click" , () => {
             .catch(error => {
                 console.error('Error:', error);
             });
+
+            addPaymentCasSelector._reset();
+            addPaymentCategorySelector._reset();
+            addPaymentIncomeSelector._reset();
         }
     }
 });
