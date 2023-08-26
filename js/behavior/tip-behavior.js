@@ -23,7 +23,7 @@ disabledFunctions.forEach(element => {
 function createConnectionTips(){
     var connectionIndicators = document.querySelectorAll(".connection-failure");
     var connectionTip = document.createElement('div');
-    connectionTip.innerHTML = "Что нужно, чтобы восстановить привязку";
+    connectionTip.innerHTML = "Нет связи с сервисом";
     connectionTip.classList.add("tip");
 
     connectionIndicators.forEach(element => {
