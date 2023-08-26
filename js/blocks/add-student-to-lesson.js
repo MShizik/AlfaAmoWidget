@@ -11,7 +11,6 @@ var lessonsData = [];
 var lessonsColumns = [];
 
 var calInputChangedHandler = function(cal){
-    console.log(lessonsData);
     var inputValues = cal.getValues();
     var inputs = cal.getInputs();
     var firstDate = inputValues['firstInput'];
@@ -54,7 +53,7 @@ var selectorAfterSelectHandler = function(){
         var tableWrapper = document.querySelector("#add-student-to-lesson-table-container");
         tableWrapper.innerHTML = "";
 
-        console.log('https://alfa-amo.ru/testwidget/load_lessons.php?branch_id=' + filialSelector.option + "&lesson_type_id=" + lessonSearchSelector.option + "&subject_id=" + subjectSearchSelector.option + "&user_id=" + user_id);
+        //console.log('https://alfa-amo.ru/testwidget/load_lessons.php?branch_id=' + filialSelector.option + "&lesson_type_id=" + lessonSearchSelector.option + "&subject_id=" + subjectSearchSelector.option + "&user_id=" + user_id);
 
         fetch('https://alfa-amo.ru/testwidget/load_lessons.php?branch_id=' + filialSelector.option + "&lesson_type_id=" + lessonSearchSelector.option + "&subject_id=" + subjectSearchSelector.option + "&user_id=" + user_id , {
             method: 'GET'
@@ -172,7 +171,7 @@ addStudentToLessonBtn.addEventListener("click", () => {
             "data" : parsedTableData
         };
 
-        console.log(JSON.stringify(parsedData));
+        //console.log(JSON.stringify(parsedData));
 
         fetch('https://alfa-amo.ru/adm/?token=aiUWVpSyAFs0BoEcMJTa9n3v&action=widget_add_student_to_lesson' , {
             method: 'POST',

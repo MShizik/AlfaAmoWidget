@@ -77,7 +77,6 @@ class ItcCustomSelect {
     }
   
     _onClick(e) {
-      console.log(e);
       const { target } = e;
       const type = target.closest(this.constructor.DATA).dataset.select;
       if (type === 'toggle') {

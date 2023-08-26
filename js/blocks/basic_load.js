@@ -26,14 +26,14 @@ function basicLoad(){
 
     
 
-    console.log(basicLoadUrl + '?cur_url=' + subdomain + (foundedPeople['student_id'] !== undefined ? "&studentId=" + foundedPeople['student_id'] : "&studentId=null") + (foundedPeople['parents'][0] !== undefined ? "&parentId=" + foundedPeople['parents'][0]['id'] : "&parentId=null"));
+    //console.log(basicLoadUrl + '?cur_url=' + subdomain + (foundedPeople['student_id'] !== undefined ? "&studentId=" + foundedPeople['student_id'] : "&studentId=null") + (foundedPeople['parents'][0] !== undefined ? "&parentId=" + foundedPeople['parents'][0]['id'] : "&parentId=null"));
 
     fetch(basicLoadUrl + '?cur_url=' + subdomain + (foundedPeople['student_id'] !== undefined ? "&studentId=" + foundedPeople['student_id'] : "&studentId=null") + (foundedPeople['parents'][0] !== undefined ? "&parentId=" + foundedPeople['parents'][0]['id'] : "&parentId=null"), {
     method: 'GET'
     })
     .then(response => response.json()) 
     .then(data => {
-        console.log(data);
+        //console.log(data);
         var dbCon = data["db"];
         if (dbCon){
             toggleConnectionMarks(data['amo'], data['alfa']);
@@ -108,7 +108,6 @@ function findStudentAndParent(){
         var contacts = contactsList.querySelectorAll(".linked-forms__item");
 
         contacts.forEach(contact => {
-            console.log(contact);
             var isPupil = contact.querySelector('.linked-form__field__label[title="Ученик"]').parentElement.querySelector(".control-checkbox").classList.contains("is-checked");
             if (isPupil){
                 result['student_id'] = contact.querySelector('input[name="ID"]').value;
@@ -167,7 +166,7 @@ function declOfNum(number, words) {
 function getNameFromContact(contact){
     var name = "";
     var nameFields = contact.querySelectorAll('div>tester');
-    console.log(nameFields);
     name += (nameFields[0].innerHTML !== "Имя") ? nameFields[0].innerHTML : "";
     name += (nameFields.length > 0 && nameFields[1].innerHTML !== "Фамилия") ? nameFields[1].innerHTML : "";
+    return name;
 }

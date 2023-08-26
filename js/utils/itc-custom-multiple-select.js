@@ -254,4 +254,4 @@ class ItcCustomMultipleSelect {
     }
   }
   
-  ItcCustomSelect.hideOpenSelect();
+  ItcCustomMultipleSelect.hideOpenSelect();

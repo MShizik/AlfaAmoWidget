@@ -50,8 +50,6 @@ circle.addEventListener('click', () => {
         mainCloseSign.addEventListener("click", () => {
             mainBody.classList.add("hidden");
         });
-    }else{
-        console.log("nope");
     }
 });
 

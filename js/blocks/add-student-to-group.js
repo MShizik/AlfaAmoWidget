@@ -36,7 +36,7 @@ addStudentToGroupContentBlock.addEventListener("click", () => {
     })
     .then(response => response.json()) 
     .then(data => {
-        console.log(data);
+        //console.log(data);
         toggleConnectionMarks(data['amo'], data['alfa']);
         createConnectionTips();
         groupData = data["groups"];
@@ -79,7 +79,7 @@ addStudentToGroupBtn.addEventListener("click", () => {
             "data" : parsedTableData
         };
 
-        console.log(JSON.stringify(parsedData));
+        //console.log(JSON.stringify(parsedData));
 
         fetch('https://alfa-amo.ru/adm/?token=aiUWVpSyAFs0BoEcMJTa9n3v&action=widget_add_student_to_group' , {
             method: 'POST',

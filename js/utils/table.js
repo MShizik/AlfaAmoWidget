@@ -95,10 +95,8 @@ class CustomTable{
 
         if (tbody.offsetHeight > 240){
             this.scrollabelWrapper.style['max-height'] = Math.min(240, tbody.offsetHeight - 10) + 'px';
-            console.log("tmp");
         }else{
             this.scrollabelWrapper.style['max-height'] = 'none';
-            console.log("tmp2");
         }
     }
 

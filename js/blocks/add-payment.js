@@ -51,7 +51,7 @@ addPaymentContentBlock.addEventListener("click", () => {
     })
     .then(response => response.json()) 
     .then(data => {
-        console.log(data);
+        //console.log(data);
         toggleConnectionMarks(data['amo'], data['alfa']);
         createConnectionTips();
 
@@ -87,7 +87,6 @@ addPaymentBtn.addEventListener("click" , () => {
 
         if (result && result.length > 1) {
             lead_id = result[1];
-            console.log(lead_id);
         }
 
         var budgetBlock = document.querySelector('div[data-id="budget"');

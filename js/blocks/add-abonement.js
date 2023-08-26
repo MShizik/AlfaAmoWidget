@@ -105,7 +105,7 @@ var addAbonementTableCheckBoxBehavior = function(table, checkbox){
         }
     }else{
         var deletedId = deleteBlockOfChoice(dataId, "#" + choiceContainer.id);
-        addAbonementsActiveGroups = addAbonementsActiveGroups.filter(block => block.getId() !== deletedId);
+        addAbonementsActiveGroups = addAbonementsActiveGroups.filter(block => block.id !== deletedId);
         activeCals[deletedId] = null;
     }
 }
@@ -198,7 +198,7 @@ addAbonementBtn.addEventListener("click", () => {
             "data" : parsedTableData
         };
 
-        console.log(JSON.stringify(parsedData));
+        //console.log(JSON.stringify(parsedData));
 
         fetch('https://alfa-amo.ru/adm/?token=aiUWVpSyAFs0BoEcMJTa9n3v&action=widget_add_abonement' , {
             method: 'POST',
