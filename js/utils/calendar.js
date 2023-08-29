@@ -216,7 +216,7 @@ class CustomCalendar{
           this.secondSelectedDay = date
         }
         else if (!isFirst && ( date < this.firstSelectedDay || this.firstSelectedDay === null)){
-          this.secondInput = "по " + this.getDateStringFromTimestamp(this.firstSelectedDay);
+          this.secondInput.value = "по " + this.getDateStringFromTimestamp(this.firstSelectedDay);
           this.firstSelectedDay = date;
           this.firstInput.value = "с " + this.getDateStringFromTimestamp(date);
         }
