@@ -469,7 +469,7 @@ class CustomCalendar{
 
   getDateStringFromTimestamp(timestamp){
     let dateObject = new Date(timestamp);
-    let month = dateObject.getMonth() > 9 ? dateObject.getMonth() + 1: ("0" + (dateObject.getMonth() + 1));
+    let month = dateObject.getMonth() > 8 ? dateObject.getMonth() + 1: ("0" + (dateObject.getMonth() + 1));
     let date = ("0" + dateObject.getDate()).slice(-2);
     return `${date}.${month}.${dateObject.getFullYear()}`;
   }

@@ -69,6 +69,4 @@ addStudentBtn.addEventListener("click", e => {
 
 function resetAddStudent(){
     addStudentContentBlock.classList.remove("used");
-    addStudentBtn.classList.remove("active");
-    addStudentBtn.classList.add("inactive");
 }
