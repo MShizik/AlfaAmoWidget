@@ -125,7 +125,7 @@ addAbonementContentBlock.addEventListener("click", () => {
     abonementTableData = [
     ];
     addAbonementsActiveGroups.forEach(element => {
-        deleteBlockOfChoice(element.getId(), "#" + choiceContainer.id);
+        deleteBlockOfChoice(element.id, "#" + choiceContainer.id);
     });
     addAbonementsActiveGroups = [];
     activeCals = [];
@@ -199,7 +199,7 @@ addAbonementBtn.addEventListener("click", () => {
         };
 
         addAbonementsActiveGroups.forEach(element => {
-            deleteBlockOfChoice(element.getId(), "#" + choiceContainer.id);
+            deleteBlockOfChoice(element.id, "#" + choiceContainer.id);
         });
         addAbonementsActiveGroups = [];
         activeCals = [];
@@ -282,10 +282,9 @@ function generateAbonementPayCheckBox(name){
 }
 
 function deleteBlockOfChoice(id, basicContainer){
-    var blockId = "add_abonement_block_of_choice_" + id;
-    var block = document.querySelector(`#${blockId}`);
+    var block = document.querySelector(`#${id}`);
     document.querySelector(basicContainer).removeChild(block);
-    return blockId;
+    return id;
 }
 
 function getIdFromString(str){

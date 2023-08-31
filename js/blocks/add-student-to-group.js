@@ -61,7 +61,7 @@ addStudentToGroupBtn.addEventListener("click", () => {
         
         console.log(parsedTableData);
         parsedTableData.forEach(dataRow =>  {
-            var connectedCalendar = addStudentToGroupActiveCals.find((cal) => cal.getId() === "group_cal_" + getIdFromString(dataRow['name']));
+            var connectedCalendar = addStudentToGroupActiveCals.find((cal) => cal.getId() === "group_cal_" + dataRow['id']);
             var calendarValue = connectedCalendar.getValues();
             var calendarData = connectedCalendar.getInputs();
             dataRow['start_date'] = (calendarValue['firstInput'] !== null ) ? calendarData['firstInput'].value.replace("с ", "") : null;
@@ -94,6 +94,8 @@ addStudentToGroupBtn.addEventListener("click", () => {
         .then(response => {
             addStudentToGroupContentBlock.classList.remove("active");
             addStudentToGroupContentBlock.classList.add("inactive");
+            addStudentToGroupBtn.classList.remove("active");
+            addStudentToGroupBtn.classList.add("inactive");
         })
         .catch(error => {
             console.error('Error:', error);
@@ -113,15 +115,16 @@ var addStudentToGroupCheckboxCallBack = function(table, checkbox){
     }
     var checkboxCell = table.querySelector(`td:has(#${checkbox.id})`);
     var name = checkboxCell.nextSibling.querySelector("div").innerHTML;
+    var dataId = checkbox.id.replace("add-student-to-group-table_row_", "").replace("_checkbox", ""); 
     if (checkbox.checked){
         var dataForGeneration = {
-            "id" : getIdFromString(name),
+            "id" : dataId,
             "name" : name
         };
         addStudentToGroupActiveCals.push(generateCalendar(dataForGeneration, "#add-student-to-group-calendars"));
         inputMasksEventListner();
     }else{
-        var deletedId = deleteCalendar("group_cal_" + getIdFromString(name), "#add-student-to-group-calendars");
+        var deletedId = deleteCalendar("group_cal_" + dataId, "#add-student-to-group-calendars");
         addStudentToGroupActiveCals = addStudentToGroupActiveCals.filter(cal => cal.getId() !== deletedId);
     } 
 }
@@ -132,7 +135,7 @@ function generateCalendar(data, insertionPlace){
     var id = data["id"];
     var name = data["name"];
     if (placeToInsert.querySelector("#group_cal_" + id + "") === null ){
-        generateCalendarBody(getIdFromString(name), name, placeToInsert);
+        generateCalendarBody(id, name, placeToInsert);
         return new CustomCalendar(document.querySelector(`#group_cal_${id}`), groupCalendarCallback, groupClearCalendarCallback);
     }
     
@@ -162,7 +165,7 @@ function groupClearCalendarCallback(){
 }
 
 function getIdFromString(str){
-    return str.replaceAll(' ', '').replaceAll("/", "").replaceAll(".","").replaceAll(",");
+    return str.replaceAll(' ', '').replaceAll("/", "").replaceAll(".","").replaceAll(",", "").replaceAll(":", "");
 }
 
 function generateCalendarBody(id, name, parent){
