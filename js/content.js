@@ -1,4 +1,4 @@
-var basicLinkRegex = /^.*:\/\/.*\.amocrm\.ru\/leads\/detail\/.*$/;
+var basicLinkRegex = /^.*:\/\/.*\.(?:amocrm.ru|kommo.com)\/leads\/detail\/.*$/;
 
 var prevLinkMatch = document.location.href.match(basicLinkRegex);
 

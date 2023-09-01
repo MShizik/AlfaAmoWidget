@@ -18,7 +18,9 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://*.amocrm.ru/*"],
+      "matches": [
+        "*://*.amocrm.ru/*",
+        "*://*.kommo.com/*"],
       "js": [
         "js/behavior/input-mask.js",
         "js/content.js",
