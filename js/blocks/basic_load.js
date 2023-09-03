@@ -24,11 +24,18 @@ function basicLoad(){
 
     var foundedPeople = findStudentAndParent();
 
-    
+    var lead_id = null;
+    var link = document.location.href;
+    var regexLead = /^https:\/\/.*?\/.*?\/.*?\/(.*?)$/;
+    var resultLead = regexLead.exec(link);
+
+    if (resultLead && resultLead.length > 1) {
+        lead_id = resultLead[1];
+    }
 
     //console.log(basicLoadUrl + '?cur_url=' + subdomain + (foundedPeople['student_id'] !== undefined ? "&studentId=" + foundedPeople['student_id'] : "&studentId=null") + (foundedPeople['parents'][0] !== undefined ? "&parentId=" + foundedPeople['parents'][0]['id'] : "&parentId=null"));
 
-    fetch(basicLoadUrl + '?cur_url=' + subdomain + (foundedPeople['student_id'] !== undefined ? "&studentId=" + foundedPeople['student_id'] : "&studentId=null") + (foundedPeople['parents'][0] !== undefined ? "&parentId=" + foundedPeople['parents'][0]['id'] : "&parentId=null"), {
+    fetch(basicLoadUrl + '?cur_url=' + subdomain + (foundedPeople['student_id'] !== undefined ? "&studentId=" + foundedPeople['student_id'] : "&studentId=null") + (foundedPeople['parents'][0] !== undefined ? "&parentId=" + foundedPeople['parents'][0]['id'] : "&parentId=null" + "&lead_id=" + lead_id), {
     method: 'GET'
     })
     .then(response => response.json()) 
@@ -37,41 +44,45 @@ function basicLoad(){
         var dbCon = data["db"];
         if (dbCon){
             toggleConnectionMarks(data['amo'], data['alfa']);
-
-            let filialData = parseBranchData(data['branches']);
-            filialSelector.updateData(filialData);
-
-            subjectsByBranches = data['subjects'];
-
             user_id = data['user_id'];
-
             if (user_id === null){
                 toggleConnectionMarks(false, false);
             }
-
             createConnectionTips();
 
-            updateSubscriptionValue(data['subEnd']);
+            if (user_id !== null){
 
-            studentsData = data['students'];
-            parentsData = data['parents'];
+                let filialData = parseBranchData(data['branches']);
+                filialSelector.updateData(filialData);
 
-            studentDataForSelector = parseStudentsData(studentsData);
+                subjectsByBranches = data['subjects'];
 
-            if (parentsData.length >= foundedPeople['parents'].length){
-                parentDataForSelector = parseParentsData(parentsData);
-            }else{
-                parentDataForSelector = parseParentsData(foundedPeople['parents']);
+                
+
+                createConnectionTips();
+
+                updateSubscriptionValue(data['subEnd']);
+
+                studentsData = data['students'];
+                parentsData = data['parents'];
+
+                studentDataForSelector = parseStudentsData(studentsData);
+
+                if (parentsData.length >= foundedPeople['parents'].length){
+                    parentDataForSelector = parseParentsData(parentsData);
+                }else{
+                    parentDataForSelector = parseParentsData(foundedPeople['parents']);
+                }
+
+
+                parentSelector.updateData(parentDataForSelector);
+
+                studentSelector.updateData(studentDataForSelector);
+
+                isLeadBasicState = Boolean(data['isLead']);
+
+                lessonTypesByBranches = data['lessonTypes'];
             }
-
-
-            parentSelector.updateData(parentDataForSelector);
-
-            studentSelector.updateData(studentDataForSelector);
-
-            isLeadBasicState = Boolean(data['isLead']);
-
-            lessonTypesByBranches = data['lessonTypes'];
         }
     })
     .catch(error => {

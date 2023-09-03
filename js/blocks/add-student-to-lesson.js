@@ -60,6 +60,8 @@ var selectorAfterSelectHandler = function(){
         })
         .then(response => response.json()) 
         .then(data => {
+            //console.log(data);
+            
             toggleConnectionMarks(data['amo'], data['alfa']);
             createConnectionTips();
             lessonsData = data["lessons"];
