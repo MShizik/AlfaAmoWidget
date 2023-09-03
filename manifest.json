@@ -4,7 +4,6 @@
   "version": "1.0.0",
   "description": "Extensions to connect alfacrm and amocrm",
   "permissions": [
-    "activeTab"
   ],
   "action": {
     "default_icon": {
