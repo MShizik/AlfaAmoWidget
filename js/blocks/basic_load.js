@@ -24,11 +24,18 @@ function basicLoad(){
 
     var foundedPeople = findStudentAndParent();
 
-    
+    var lead_id = null;
+    var link = document.location.href;
+    var regexLead = /^https:\/\/.*?\/.*?\/.*?\/(.*?)$/;
+    var resultLead = regexLead.exec(link);
+
+    if (resultLead && resultLead.length > 1) {
+        lead_id = resultLead[1];
+    }
 
     //console.log(basicLoadUrl + '?cur_url=' + subdomain + (foundedPeople['student_id'] !== undefined ? "&studentId=" + foundedPeople['student_id'] : "&studentId=null") + (foundedPeople['parents'][0] !== undefined ? "&parentId=" + foundedPeople['parents'][0]['id'] : "&parentId=null"));
 
-    fetch(basicLoadUrl + '?cur_url=' + subdomain + (foundedPeople['student_id'] !== undefined ? "&studentId=" + foundedPeople['student_id'] : "&studentId=null") + (foundedPeople['parents'][0] !== undefined ? "&parentId=" + foundedPeople['parents'][0]['id'] : "&parentId=null"), {
+    fetch(basicLoadUrl + '?cur_url=' + subdomain + (foundedPeople['student_id'] !== undefined ? "&studentId=" + foundedPeople['student_id'] : "&studentId=null") + (foundedPeople['parents'][0] !== undefined ? "&parentId=" + foundedPeople['parents'][0]['id'] : "&parentId=null" + "&lead_id=" + lead_id), {
     method: 'GET'
     })
     .then(response => response.json()) 

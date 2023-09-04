@@ -479,7 +479,7 @@ function getHtml(){
               <div class="chat-wrapper" id="communication-chat">
                   
               </div>
-              <button class="basic_btn active" id = "communication-btn">
+              <button class="basic_btn inactive" id = "communication-btn">
                   Загрузить следующие 10 сообщений
               </button>
           </div>
