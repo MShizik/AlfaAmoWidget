@@ -159,7 +159,17 @@ addStudentToLessonBtn.addEventListener("click", () => {
         var checkedRows = document.querySelector("#add-student-to-lesson-table-container").querySelectorAll("input:checked");
         var parsedTableData = [];
 
-        checkedRows.forEach(checkbox => parsedTableData.push(lessonsData[Number(checkbox.id.replace("add-student-to-lesson-table_row_", "").replace("_checkbox", ""))]));
+        console.log(lessonsData);
+
+        checkedRows.forEach(checkbox =>{
+            var lessonId = Number(checkbox.id.replace("add-student-to-lesson-table_row_", "").replace("_checkbox", ""));
+            lessonsData.forEach(data => {
+                if (data['id'] === lessonId){
+                    parsedTableData.push(data);
+                }
+            });
+            
+        } );
 
         var parentSelectorData = parentSelector.option;
         var studentSelectorData = studentSelector.option;
@@ -179,6 +189,12 @@ addStudentToLessonBtn.addEventListener("click", () => {
         fetch('https://alfa-amo.ru/adm/?token=aiUWVpSyAFs0BoEcMJTa9n3v&action=widget_add_student_to_lesson' , {
             method: 'POST',
             body : JSON.stringify(parsedData)
+        })
+        .then(response => {
+            addStudentToLessonContentBlock.classList.remove("active");
+            addStudentToLessonContentBlock.classList.add("inactive");
+            addStudentToLessonBtn.classList.remove("active");
+            addStudentToLessonBtn.classList.add("inactive");
         })
         .catch(error => {
             console.error('Error:', error);

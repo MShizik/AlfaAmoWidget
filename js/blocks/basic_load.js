@@ -18,13 +18,13 @@ let user_id = -1;
 
 function basicLoad(){
 
+    //TODO
+
     var basicLoadUrl = "https://alfa-amo.ru/testwidget/basic_load.php";
 
     var subdomain = document.location.href.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n]+)/im)[1].split(".")[0];
 
-    var foundedPeople = findStudentAndParent();
-
-    var lead_id = null;
+    var lead_id  = null;
     var link = document.location.href;
     var regexLead = /^https:\/\/.*?\/.*?\/.*?\/(.*?)$/;
     var resultLead = regexLead.exec(link);
@@ -33,9 +33,11 @@ function basicLoad(){
         lead_id = resultLead[1];
     }
 
-    //console.log(basicLoadUrl + '?cur_url=' + subdomain + (foundedPeople['student_id'] !== undefined ? "&studentId=" + foundedPeople['student_id'] : "&studentId=null") + (foundedPeople['parents'][0] !== undefined ? "&parentId=" + foundedPeople['parents'][0]['id'] : "&parentId=null"));
+    var isStudentFieldId = findContactFieldId();
 
-    fetch(basicLoadUrl + '?cur_url=' + subdomain + (foundedPeople['student_id'] !== undefined ? "&studentId=" + foundedPeople['student_id'] : "&studentId=null") + (foundedPeople['parents'][0] !== undefined ? "&parentId=" + foundedPeople['parents'][0]['id'] : "&parentId=null" + "&lead_id=" + lead_id), {
+    //console.log(basicLoadUrl + '?cur_url=' + subdomain  + "&lead_id=" + lead_id + "&student_field_id=" + isStudentFieldId);
+
+    fetch(basicLoadUrl + '?cur_url=' + subdomain  + "&lead_id=" + lead_id + "&student_field_id=" + isStudentFieldId, {
     method: 'GET'
     })
     .then(response => response.json()) 
@@ -67,12 +69,7 @@ function basicLoad(){
                 parentsData = data['parents'];
 
                 studentDataForSelector = parseStudentsData(studentsData);
-
-                if (parentsData.length >= foundedPeople['parents'].length){
-                    parentDataForSelector = parseParentsData(parentsData);
-                }else{
-                    parentDataForSelector = parseParentsData(foundedPeople['parents']);
-                }
+                parentDataForSelector = parseParentsData(parentsData);
 
 
                 parentSelector.updateData(parentDataForSelector);
@@ -110,29 +107,15 @@ function parseParentsData(parents){
     return result;
 }
 
-function findStudentAndParent(){
-    var result = [];
-    result['parents'] = [];
-    var contactsList = document.querySelector("#contacts_list");
+function findContactFieldId(){
 
-    if (contactsList != null){
-        var contacts = contactsList.querySelectorAll(".linked-forms__item");
+    var field = document.querySelector('#contacts_list .linked-form__field:has(.linked-form__field__label[title="Ученик"])');
 
-        contacts.forEach(contact => {
-            var isPupil = contact.querySelector('.linked-form__field__label[title="Ученик"]').parentElement.querySelector(".control-checkbox").classList.contains("is-checked");
-            if (isPupil){
-                result['student_id'] = contact.querySelector('input[name="ID"]').value;
-                result['student_name'] = getNameFromContact(contact);
-            }else{
-                result['parents'].push({
-                    "id" : contact.querySelector('input[name="ID"]').value,
-                    "name" :  getNameFromContact(contact)
-                });
-            }
-        });
+    if (field != null){
+        return field.dataset.id;
     }
 
-    return result;
+    return null;
 }
 
 function parseBranchData(branchesData){

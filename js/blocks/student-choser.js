@@ -26,6 +26,12 @@ let removeNoteAndWriteIntoResultField = function(_el){
         if (studentSelector.option === "-1"){
             forbiddentBlocksQuery = "#add-student-content-block";
             forbiddenTip.innerHTML = "Учащийся не записан в alfaCrm";
+            let closedBlocks = document.querySelectorAll(".widget-content-block:not(.static):not(.disabled)");
+            closedBlocks.forEach(block => {
+                block.classList.add("forbidden");
+                block.classList.remove("active");
+                block.classList.add("inactive");
+            });
         }
         let forbiddentBlocks = document.querySelectorAll(forbiddentBlocksQuery);
         forbiddentBlocks.forEach(block => {
