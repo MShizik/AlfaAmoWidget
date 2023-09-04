@@ -13,6 +13,8 @@ var addStudentToGroupTable = null;
 addStudentToGroupContentBlock.addEventListener("click", () => {
     if (addStudentToGroupContentBlock.classList.contains("active") || addStudentToGroupContentBlock.classList.contains("forbidden")) return;
     toggleContentBlock(addStudentToGroupContentBlock);
+    addStudentToGroupBtn.classList.remove("active");
+    addStudentToGroupBtn.classList.add("inactive");
 
 
 
