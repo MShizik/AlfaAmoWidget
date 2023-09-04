@@ -15,6 +15,9 @@ addPaymentContentBlock.addEventListener("click", () => {
     if (addPaymentContentBlock.classList.contains("active") || addPaymentContentBlock.classList.contains("forbidden")) return;
     toggleContentBlock(addPaymentContentBlock);
 
+    addPaymentBtn.classList.remove("active");
+    addPaymentBtn.classList.add("inactive");
+
     addPaymentCasSelector = ItcCustomSelect.create('#add_payment_cas_selector', {
         name: 'add_payment_cas_selector',
         targetValue: 'Выбор',

@@ -28,6 +28,7 @@ tbody{
 .scrollable_wrapper{
     max-height: 240px;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .table thead tr th{

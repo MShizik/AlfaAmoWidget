@@ -58,6 +58,9 @@ communicationBtn.addEventListener("click", () => {
         if (messagesData.length < 10){
             communicationBtn.classList.remove("active");
             communicationBtn.classList.add("inactive");
+        }else{
+            communicationBtn.classList.remove("inactive");
+            communicationBtn.classList.add("active");
         }
 
         messagesData.forEach(data => {

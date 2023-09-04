@@ -114,6 +114,8 @@ addAbonementContentBlock.addEventListener("click", () => {
     if (addAbonementContentBlock.classList.contains("active") || addAbonementContentBlock.classList.contains("forbidden")) return;
     toggleContentBlock(addAbonementContentBlock);
 
+    addAbonementBtn.classList.remove("active");
+    addAbonementBtn.classList.add("inactive");
 
     abonementTableColumns = [
         '',
