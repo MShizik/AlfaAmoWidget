@@ -96,6 +96,7 @@ var selectorAfterSelectHandler = function(){
                 'Педагог',
                 'Аудитория',
                 'Название группы',
+                'Лимит учеников',
                 'Комментарий'
             ];
         }else{

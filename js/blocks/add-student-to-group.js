@@ -22,6 +22,7 @@ addStudentToGroupContentBlock.addEventListener("click", () => {
         '',
         'Название группы',
         'Педагог',
+        'Количество/<br>лимит учеников',
         'Комментарий'
     ];
     
@@ -59,7 +60,7 @@ addStudentToGroupBtn.addEventListener("click", () => {
 
         activeCheckboxes.forEach(checkbox => parsedTableData.push(groupData.find(row => row['id'] === Number(checkbox.id.replace("add-student-to-group-table_row_", "").replace("_checkbox", "")))));
         
-        console.log(parsedTableData);
+        //console.log(parsedTableData);
         parsedTableData.forEach(dataRow =>  {
             var connectedCalendar = addStudentToGroupActiveCals.find((cal) => cal.getId() === "group_cal_" + dataRow['id']);
             var calendarValue = connectedCalendar.getValues();
