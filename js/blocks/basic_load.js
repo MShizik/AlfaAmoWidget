@@ -18,9 +18,7 @@ let user_id = -1;
 
 function basicLoad(){
 
-    //TODO
-
-    var basicLoadUrl = "https://alfa-amo.ru/testwidget/basic_load.php";
+    var basicLoadUrl = "https://alfa-amo.ru/testwidget/basic_load_2.php";
 
     var subdomain = document.location.href.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n]+)/im)[1].split(".")[0];
 
@@ -49,10 +47,15 @@ function basicLoad(){
             user_id = data['user_id'];
             if (user_id === null){
                 toggleConnectionMarks(false, false);
+                createErrorLoadShower('Зарегистрируйтесь <a href = "https://comontech.ru" >comontech.ru</a>');
+            }
+            if (data['is_active'] === 0){
+                toggleConnectionMarks(false, false);
+                createErrorLoadShower('Продлите подписку');
             }
             createConnectionTips();
 
-            if (user_id !== null){
+            if (user_id !== null && data['is_active'] === 1){
 
                 let filialData = parseBranchData(data['branches']);
                 filialSelector.updateData(filialData);
@@ -85,6 +88,14 @@ function basicLoad(){
     .catch(error => {
         console.error('Error:', error);
     });
+}
+
+function createErrorLoadShower(message){
+    var errorBasement = document.createElement("div");
+    errorBasement.classList.add("widget-error-basement");
+
+    errorBasement.innerHTML = message;
+    mainBody.appendChild(errorBasement);
 }
 
 function parseStudentsData(students){

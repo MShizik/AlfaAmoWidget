@@ -43,6 +43,7 @@
       "css": [
           "css/activation.css",
           "css/master.css",
+          "css/basic/errorload.css",
           "css/basic/calendar.css",
           "css/basic/chat.css",
           "css/basic/colors.css",

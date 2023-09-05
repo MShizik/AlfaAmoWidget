@@ -19,6 +19,7 @@ document.body.appendChild(circle);
 var mainBody = document.createElement('div');
 mainBody.classList.add("basement");
 mainBody.classList.add("hidden");
+mainBody.id = "alfaamo_extension_main_body";
 
 mainBody.innerHTML = getHtml();
 
