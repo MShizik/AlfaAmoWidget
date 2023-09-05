@@ -18,7 +18,7 @@ let user_id = -1;
 
 function basicLoad(){
 
-    var basicLoadUrl = "https://alfa-amo.ru/testwidget/basic_load_2.php";
+    var basicLoadUrl = "https://alfa-amo.ru/testwidget/basic_load.php";
 
     var subdomain = document.location.href.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n]+)/im)[1].split(".")[0];
 
