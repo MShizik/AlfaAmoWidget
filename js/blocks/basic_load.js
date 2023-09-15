@@ -33,14 +33,14 @@ function basicLoad(){
 
     var isStudentFieldId = findContactFieldId();
 
-    console.log(basicLoadUrl + '?cur_url=' + subdomain  + "&lead_id=" + lead_id + "&student_field_id=" + isStudentFieldId);
+    //console.log(basicLoadUrl + '?cur_url=' + subdomain  + "&lead_id=" + lead_id + "&student_field_id=" + isStudentFieldId);
 
     fetch(basicLoadUrl + '?cur_url=' + subdomain  + "&lead_id=" + lead_id + "&student_field_id=" + isStudentFieldId, {
     method: 'GET'
     })
     .then(response => response.json()) 
     .then(data => {
-        console.log(data);
+        //console.log(data);
         var dbCon = data["db"];
         if (dbCon){
             toggleConnectionMarks(data['amo'], data['alfa']);
@@ -121,9 +121,14 @@ function parseParentsData(parents){
 function findContactFieldId(){
 
     var field = document.querySelector('#contacts_list .linked-form__field:has(.linked-form__field__label[title="Ученик"])');
+    var secondField = document.querySelector('#contacts_list .linked-form__field:has(.linked-form__field__label[title="Student"])');
 
     if (field != null){
         return field.dataset.id;
+    }
+
+    if (secondField != null){
+        return secondField.dataset.id;
     }
 
     return null;
@@ -159,7 +164,11 @@ function toggleConnectionMarks(firstMarkValue, secondMarkValue){
 }
 
 function updateSubscriptionValue(dateOfEnd){
-    var subLen = Math.floor((new Date(dateOfEnd) - new Date()) / (1000 * 60 * 60 * 24));
+    var endDate = new Date(dateOfEnd);
+    endDate.setHours(0, 0, 0, 0);
+    var curDate = new Date();
+    curDate.setHours(0, 0, 0, 0);
+    var subLen = Math.floor((endDate - curDate) / (1000 * 60 * 60 * 24));
     var footerSubscriptionInfo = document.querySelector(".footer .info-block");
     footerSubscriptionInfo.innerHTML = "Подписка " + subLen + " " + declOfNum(subLen, ["день", "дня", "дней"]);
 }
