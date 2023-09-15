@@ -33,14 +33,14 @@ function basicLoad(){
 
     var isStudentFieldId = findContactFieldId();
 
-    //console.log(basicLoadUrl + '?cur_url=' + subdomain  + "&lead_id=" + lead_id + "&student_field_id=" + isStudentFieldId);
+    console.log(basicLoadUrl + '?cur_url=' + subdomain  + "&lead_id=" + lead_id + "&student_field_id=" + isStudentFieldId);
 
     fetch(basicLoadUrl + '?cur_url=' + subdomain  + "&lead_id=" + lead_id + "&student_field_id=" + isStudentFieldId, {
     method: 'GET'
     })
     .then(response => response.json()) 
     .then(data => {
-        //console.log(data);
+        console.log(data);
         var dbCon = data["db"];
         if (dbCon){
             toggleConnectionMarks(data['amo'], data['alfa']);
