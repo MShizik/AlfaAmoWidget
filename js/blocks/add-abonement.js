@@ -505,7 +505,7 @@ function abonementCalendarCallback(cal){
         addAbonementBtn.classList.remove("active");
         addAbonementBtn.classList.add("inactive");
     }else{
-        var checkedSelectors = cal.parentElement.querySelectorAll(".data-selected");
+        var checkedSelectors = cal.head_element.parentElement.querySelectorAll(".data-selected");
 
         if (checkedSelectors.length !== 2){
             addAbonementBtn.classList.remove("active");

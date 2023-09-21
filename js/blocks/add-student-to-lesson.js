@@ -10,6 +10,8 @@ let addStudentToLessonTable = null;
 var lessonsData = [];
 var lessonsColumns = [];
 
+var isLoadedChecker = 0;
+
 
 var calInputChangedHandler = function(cal){
     var inputValues = cal.getValues();
@@ -48,7 +50,6 @@ var checkboxHandler = function(table){
 
 var selectorAfterSelectHandler = function(){
     let wrapper = document.querySelector("#add-student-to-lesson-content-block");
-    
     if (wrapper.querySelectorAll(".itc-select__option_selected").length === 2){
         
         var tableWrapper = document.querySelector("#add-student-to-lesson-table-container");
@@ -56,7 +57,15 @@ var selectorAfterSelectHandler = function(){
 
         //console.log('https://alfa-amo.ru/testwidget/load_lessons.php?branch_id=' + filialSelector.option + "&lesson_type_id=" + lessonSearchSelector.option + "&subject_id=" + subjectSearchSelector.option + "&user_id=" + user_id);
 
-        createLoader(addStudentToLessonContentBlock);
+        if (isLoadedChecker === 1){
+            isLoadedChecker = 2;
+        }
+        if (isLoadedChecker === 0 ){
+            isLoadedChecker = 1;
+            createLoader(addStudentToLessonContentBlock);
+        }
+
+        
 
         fetch('https://alfa-amo.ru/testwidget/load_lessons.php?branch_id=' + filialSelector.option + "&lesson_type_id=" + lessonSearchSelector.option + "&subject_id=" + subjectSearchSelector.option + "&user_id=" + user_id , {
             method: 'GET'
@@ -64,27 +73,34 @@ var selectorAfterSelectHandler = function(){
         .then(response => response.json()) 
         .then(data => {
             //console.log(data);
-            removeLoader(addStudentToLessonContentBlock);
-            toggleConnectionMarks(data['amo'], data['alfa']);
-            createConnectionTips();
-            lessonsData = data["lessons"];
-            var cropedData = [];
-            var inputValues = addStudentToLessonCalendar.getValues();
-            var inputs = addStudentToLessonCalendar.getInputs();
-            var firstDate = inputValues['firstInput'];
-            var secondDate = inputValues['secondInput'];
-            if (firstDate !== null && ((secondDate === null && inputs['secondInput'].value.replace(/\./g, "").replace(/[а-яА-ЯёЁ]/g, "").replace(/\./g, "").replace(" ", "").length === 0)) || secondDate !== null){
-
-                lessonsData.forEach(lsData=> {
-                    var parsedData = Date.parse(lsData['date'].split(".").reverse().join("-"));
-                    if (parsedData >= firstDate && (parsedData <= secondDate || secondDate === null)){
-                        cropedData.push(lsData);
-                    }
-                });
+            if (isLoadedChecker === 1){
+                removeLoader(addStudentToLessonContentBlock);
+                toggleConnectionMarks(data['amo'], data['alfa']);
+                createConnectionTips();
+                lessonsData = data["lessons"];
+                var cropedData = [];
+                var inputValues = addStudentToLessonCalendar.getValues();
+                var inputs = addStudentToLessonCalendar.getInputs();
+                var firstDate = inputValues['firstInput'];
+                var secondDate = inputValues['secondInput'];
+                if (firstDate !== null && ((secondDate === null && inputs['secondInput'].value.replace(/\./g, "").replace(/[а-яА-ЯёЁ]/g, "").replace(/\./g, "").replace(" ", "").length === 0)) || secondDate !== null){
+    
+                    lessonsData.forEach(lsData=> {
+                        var parsedData = Date.parse(lsData['date'].split(".").reverse().join("-"));
+                        if (parsedData >= firstDate && (parsedData <= secondDate || secondDate === null)){
+                            cropedData.push(lsData);
+                        }
+                    });
+                }
+    
+                addStudentToLessonTable.insertData(null, cropedData);
+                addStudentToLessonTable.setUpRowOnClickHandler();
+                isLoadedChecker = 0;
             }
-
-            addStudentToLessonTable.insertData(null, cropedData);
-            addStudentToLessonTable.setUpRowOnClickHandler();
+            else{
+                isLoadedChecker = 1;
+            }
+           
         })
         .catch(error => {
             console.error('Error:', error);
@@ -136,7 +152,7 @@ addStudentToLessonBtn.addEventListener("click", () => {
         var checkedRows = document.querySelector("#add-student-to-lesson-table-container").querySelectorAll("input:checked");
         var parsedTableData = [];
 
-        console.log(lessonsData);
+        //console.log(lessonsData);
 
         checkedRows.forEach(checkbox =>{
             var lessonId = Number(checkbox.id.replace("add-student-to-lesson-table_row_", "").replace("_checkbox", ""));
