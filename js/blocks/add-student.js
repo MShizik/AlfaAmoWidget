@@ -4,7 +4,7 @@ var addStudentRefresher  = document.querySelector("#add_student_refresher");
 var addStudentContentBlock = document.querySelector("#add-student-content-block");
 
 addStudentContentBlock.addEventListener("click" , () => {
-    toggleContentBlock(addStudentContentBlock);
+    openContentBlock(addStudentContentBlock);
     addStudentAsLeadCheckBox.checked = isLeadBasicState;
 });
 
@@ -12,8 +12,8 @@ addStudentContentBlock.addEventListener("click" , () => {
 addStudentBtn.addEventListener("click", e => {
     if (addStudentBtn.classList.contains("active")){
         addStudentContentBlock.classList.add("used");
-
-        addStudentAsLeadCheckBox.checked = isLeadBasicState;
+        closeContentBlock(addStudentContentBlock);
+        createLoader(addStudentContentBlock);
 
         var parentAmoId = null;
         if (parentSelector.index != -1){
@@ -33,7 +33,7 @@ addStudentBtn.addEventListener("click", e => {
             lead_id = result[1];
         }
 
-        //console.log('https://alfa-amo.ru/testwidget/add_student.php?branch_id=' + filialSelectorData +  "&user_id=" + user_id +  "&student_id=" + studentAmoId +  "&parent_id=" + parentAmoId +  "&isLead=" + Number(isLead) +  "&lead_id=" + lead_id);
+        console.log('https://alfa-amo.ru/testwidget/add_student.php?branch_id=' + filialSelectorData +  "&user_id=" + user_id +  "&student_id=" + studentAmoId +  "&parent_id=" + parentAmoId +  "&isLead=" + Number(isLead) +  "&lead_id=" + lead_id);
         
         fetch('https://alfa-amo.ru/testwidget/add_student.php?branch_id=' + filialSelectorData +  "&user_id=" + user_id +  "&student_id=" + studentAmoId +  "&parent_id=" + parentAmoId +  "&isLead=" + Number(isLead) +  "&lead_id=" + lead_id    , {
             method: 'GET'
@@ -56,7 +56,12 @@ addStudentBtn.addEventListener("click", e => {
                     block.classList.remove("forbidden");
                 });
 
-                forbiddenTip.innerHTML = "Вы не выбрали учащегося";
+                addStudentContentBlock.classList.remove("active");
+                addStudentContentBlock.classList.add("inactive");
+                addStudentContentBlock.classList.add("forbidden");
+
+                forbiddenTip.innerHTML = "Ученик уже записан в alfaCRM";
+                removeLoader(addStudentContentBlock);
             }
             
         })

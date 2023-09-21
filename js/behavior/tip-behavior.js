@@ -20,29 +20,7 @@ disabledFunctions.forEach(element => {
     });
 });
 
-function createConnectionTips(){
-    var connectionIndicators = document.querySelectorAll(".connection-failure");
-    var connectionTip = document.createElement('div');
-    connectionTip.innerHTML = "Нет связи с сервисом";
-    connectionTip.classList.add("tip");
 
-    connectionIndicators.forEach(element => {
-        var connection_mark = element.parentElement;
-        connection_mark.addEventListener("mouseenter", function(e) {
-            document.body.appendChild(connectionTip);
-        });
-
-        connection_mark.addEventListener("mouseleave", function(e){
-            document.body.removeChild(connectionTip);
-        });
-        
-        connection_mark.addEventListener("mousemove", function(e){
-            connectionTip.style.position = "absolute";
-            connectionTip.style.left = e.clientX + 15 +'px';
-            connectionTip.style.top = e.clientY + 'px';
-        });
-    });
-}
 
 var forbiddenBlocks = document.querySelectorAll(".forbidden");
 var forbiddenTip = document.createElement('div');
@@ -96,4 +74,26 @@ tgWiget.forEach(element => {
     });
 });
 
+function createConnectionTips(){
+    var connectionIndicators = document.querySelectorAll(".connection-failure");
+    var connectionTip = document.createElement('div');
+    connectionTip.innerHTML = "Нет связи с сервисом";
+    connectionTip.classList.add("tip");
 
+    connectionIndicators.forEach(element => {
+        var connection_mark = element.parentElement;
+        connection_mark.addEventListener("mouseenter", function(e) {
+            document.body.appendChild(connectionTip);
+        });
+
+        connection_mark.addEventListener("mouseleave", function(e){
+            document.body.removeChild(connectionTip);
+        });
+        
+        connection_mark.addEventListener("mousemove", function(e){
+            connectionTip.style.position = "absolute";
+            connectionTip.style.left = e.clientX + 15 +'px';
+            connectionTip.style.top = e.clientY + 'px';
+        });
+    });
+}

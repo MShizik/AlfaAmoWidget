@@ -12,49 +12,15 @@ var addStudentToGroupTable = null;
 
 addStudentToGroupContentBlock.addEventListener("click", () => {
     if (addStudentToGroupContentBlock.classList.contains("active") || addStudentToGroupContentBlock.classList.contains("forbidden")) return;
-    toggleContentBlock(addStudentToGroupContentBlock);
-    addStudentToGroupBtn.classList.remove("active");
-    addStudentToGroupBtn.classList.add("inactive");
-
-
-
-    groupData = [];
-
-    groupColumns = [
-        '',
-        'Название группы',
-        'Педагог',
-        'Количество/<br>лимит учеников',
-        'Комментарий'
-    ];
-    
-    addStudentToGroupTable = new CustomTable(document.querySelector("#add-student-to-group-table-container"), groupData, groupColumns, addStudentToGroupCheckboxCallBack);
-    addStudentToGroupActiveCals.forEach(element => {
-        deleteCalendar(element.getId(), "#add-student-to-group-calendars");
-    });
-    addStudentToGroupActiveCals = [];
-
-    fetch('https://alfa-amo.ru/testwidget/load_groups.php?branch_id=' + filialSelector.option + "&customer_id=" + studentSelector.option  + "&user_id=" + user_id , {
-            method: 'GET'
-    })
-    .then(response => response.json()) 
-    .then(data => {
-        //console.log(data);
-        toggleConnectionMarks(data['amo'], data['alfa']);
-        createConnectionTips();
-        groupData = data["groups"];
-        addStudentToGroupTable.insertData(null, groupData);
-        addStudentToGroupTable.setUpRowOnClickHandler();
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+    openContentBlock(addStudentToGroupContentBlock);
+    refreshAddStudentToGroup();
 });
 
 addStudentToGroupBtn.addEventListener("click", () => {
     if (addStudentToGroupBtn.classList.contains("active")){
         addStudentToGroupContentBlock.classList.add("used");
-        
+        toggleBtn(addStudentToGroupBtn);
+        createLoader(addStudentToGroupContentBlock);
         var parsedTableData = [];
 
         var activeCheckboxes = addStudentToGroupContentBlock.querySelectorAll("input:checked");
@@ -95,10 +61,8 @@ addStudentToGroupBtn.addEventListener("click", () => {
             body : JSON.stringify(parsedData)
         })
         .then(response => {
-            addStudentToGroupContentBlock.classList.remove("active");
-            addStudentToGroupContentBlock.classList.add("inactive");
-            addStudentToGroupBtn.classList.remove("active");
-            addStudentToGroupBtn.classList.add("inactive");
+            removeLoader(addStudentToGroupContentBlock);
+            refreshAddStudentToGroup();
         })
         .catch(error => {
             console.error('Error:', error);
@@ -330,4 +294,41 @@ function resetAddStudentToGroup(){
     });
     addStudentToGroupActiveCals = [];
 
+}
+
+function refreshAddStudentToGroup(){
+    createLoader(addStudentToGroupContentBlock);
+
+    groupData = [];
+
+    groupColumns = [
+        '',
+        'Название группы',
+        'Педагог',
+        'Количество/<br>лимит учеников',
+        'Комментарий'
+    ];
+    
+    addStudentToGroupTable = new CustomTable(document.querySelector("#add-student-to-group-table-container"), groupData, groupColumns, addStudentToGroupCheckboxCallBack);
+    addStudentToGroupActiveCals.forEach(element => {
+        deleteCalendar(element.getId(), "#add-student-to-group-calendars");
+    });
+    addStudentToGroupActiveCals = [];
+
+    fetch('https://alfa-amo.ru/testwidget/load_groups.php?branch_id=' + filialSelector.option + "&customer_id=" + studentSelector.option  + "&user_id=" + user_id , {
+            method: 'GET'
+    })
+    .then(response => response.json()) 
+    .then(data => {
+        //console.log(data);
+        removeLoader(addStudentToGroupContentBlock);
+        toggleConnectionMarks(data['amo'], data['alfa']);
+        createConnectionTips();
+        groupData = data["groups"];
+        addStudentToGroupTable.insertData(null, groupData);
+        addStudentToGroupTable.setUpRowOnClickHandler();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }

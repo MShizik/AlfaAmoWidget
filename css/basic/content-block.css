@@ -39,6 +39,18 @@
    color: var(--link-blue)!important;
 }
 
+.basement .widget-content-block .block-loader{
+   width:14px;
+   display: flex;
+   align-items: start;
+   margin-left: 10px;
+}
+
+.block-loader img{
+   width: 14px;
+   height: 14px;
+}
+
 .basement .widget-content-block.inactive,
 .basement .widget-content-block.disabled{
     display: flex;

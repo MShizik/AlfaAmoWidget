@@ -1,7 +1,7 @@
 var studentChoserContentBlock = document.querySelector("#student-choser-content-block");
 
 studentChoserContentBlock.addEventListener("click", () => {
-    toggleContentBlock(studentChoserContentBlock);
+    openContentBlock(studentChoserContentBlock);
 })
 
 let removeNoteAndWriteIntoResultField = function(_el){
@@ -22,10 +22,11 @@ let removeNoteAndWriteIntoResultField = function(_el){
 
     if (wrapper.querySelector("#student_choser_student_selector").parentElement.parentElement.classList.contains("selected") &&
     wrapper.querySelector("#student_choser_filial_selector").parentElement.parentElement.classList.contains("selected")){
-        let forbiddentBlocksQuery = ".forbidden";
+        let forbiddenBlocksQuery = ".forbidden:not(#add-student-content-block)";
+        forbiddenTip.innerHTML = "Учащийся уже записан в alfaCRM";
         if (studentSelector.option === "-1"){
-            forbiddentBlocksQuery = "#add-student-content-block";
-            forbiddenTip.innerHTML = "Учащийся не записан в alfaCrm";
+            forbiddenBlocksQuery = "#add-student-content-block";
+            forbiddenTip.innerHTML = "Учащийся не записан в alfaCRM";
             let closedBlocks = document.querySelectorAll(".widget-content-block:not(.static):not(.disabled)");
             closedBlocks.forEach(block => {
                 block.classList.add("forbidden");
@@ -33,7 +34,7 @@ let removeNoteAndWriteIntoResultField = function(_el){
                 block.classList.add("inactive");
             });
         }
-        let forbiddentBlocks = document.querySelectorAll(forbiddentBlocksQuery);
+        let forbiddentBlocks = document.querySelectorAll(forbiddenBlocksQuery);
         forbiddentBlocks.forEach(block => {
             block.classList.remove("forbidden");
             block.classList.remove("active");

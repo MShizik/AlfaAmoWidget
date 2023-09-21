@@ -1,4 +1,4 @@
-function toggleContentBlock(element){
+function openContentBlock(element){
     if (!element.classList.contains("active") && !element.classList.contains("forbidden")){
         var opened_blocks = document.querySelectorAll(".widget-content-block.active:not(.block-fixed)");
         opened_blocks.forEach(oblock => {
@@ -9,3 +9,18 @@ function toggleContentBlock(element){
         element.classList.remove("inactive");
     }
 };
+
+function closeContentBlock(element){
+    element.classList.remove("active");
+    element.classList.add("inactive");
+}
+
+function toggleBtn(btn){
+    if (!btn.classList.contains("active")){
+        btn.classList.add("active");
+        btn.classList.remove("inactive");
+    }else{
+        btn.classList.remove("active");
+        btn.classList.add("inactive");
+    }
+}

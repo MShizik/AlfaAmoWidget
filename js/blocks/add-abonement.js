@@ -24,7 +24,7 @@ var addAbonementTableCheckBoxBehavior = function(table, checkbox){
     var dataId = checkbox.id.replace("add_abonement_table_container_row_", "").replace("_checkbox", ""); 
     if (checkbox.checked){
         var dataForGeneration = {
-            "id" : getIdFromString(name),
+            "id" : dataId,
             "name" : name
         };
 
@@ -110,51 +110,17 @@ var addAbonementTableCheckBoxBehavior = function(table, checkbox){
     }
 }
 
-addAbonementContentBlock.addEventListener("click", () => {
+addAbonementContentBlock.addEventListener("click", () => {  
     if (addAbonementContentBlock.classList.contains("active") || addAbonementContentBlock.classList.contains("forbidden")) return;
-    toggleContentBlock(addAbonementContentBlock);
-
-    addAbonementBtn.classList.remove("active");
-    addAbonementBtn.classList.add("inactive");
-
-    abonementTableColumns = [
-        '',
-        'Название абонемента',
-        'Тарификация',
-        'Стоимость',
-        'Период действия'
-    ];
-    abonementTableData = [
-    ];
-    addAbonementsActiveGroups.forEach(element => {
-        deleteBlockOfChoice(element.id, "#" + choiceContainer.id);
-    });
-    addAbonementsActiveGroups = [];
-    activeCals = [];
-    
-    addAbonementSearchTable = new SearchWithTable(document.querySelector("#add_abonement_table_container"), document.querySelector("#add_abonement_search_input"), abonementTableData, abonementTableColumns, addAbonementTableCheckBoxBehavior, addAbonementBtn,onUpdate);
-    
-
-    fetch('https://alfa-amo.ru/testwidget/load_abonements.php?branch_id=' + filialSelector.option + "&user_id=" + user_id , {
-            method: 'GET'
-    })
-    .then(response => response.json()) 
-    .then(data => {
-        toggleConnectionMarks(data['amo'], data['alfa']);
-        createConnectionTips();
-        abonementTableData = data["abonements"];
-        addAbonementSearchTable.basicData = data["abonements"];
-        addAbonementSearchTable.tableObj.insertData(null, abonementTableData);
-        addAbonementSearchTable.tableObj.setUpRowOnClickHandler();
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+    openContentBlock(addAbonementContentBlock);
+    refreshAddAbonement();
 });
 
 addAbonementBtn.addEventListener("click", () => {
     if (addAbonementBtn.classList.contains("active")){
         addAbonementContentBlock.classList.add("used");
+        toggleBtn(addAbonementBtn);
+        createLoader(addAbonementContentBlock);
 
         var checkedCheckboxes = addAbonementContentBlock.querySelectorAll("tbody input:checked");
 
@@ -206,12 +172,6 @@ addAbonementBtn.addEventListener("click", () => {
         addAbonementsActiveGroups = [];
         activeCals = [];
 
-        
-        addAbonementContentBlock.classList.remove("active");
-        addAbonementContentBlock.classList.add("inactive");
-        addAbonementBtn.classList.remove("active");
-        addAbonementBtn.classList.add("inactive");
-
         //console.log(JSON.stringify(parsedData));
 
         fetch('https://alfa-amo.ru/adm/?token=aiUWVpSyAFs0BoEcMJTa9n3v&action=widget_add_abonement' , {
@@ -219,6 +179,8 @@ addAbonementBtn.addEventListener("click", () => {
             body : JSON.stringify(parsedData)
         })
         .then(response => {
+            removeLoader(addAbonementContentBlock);
+            refreshAddAbonement();
         })
         .catch(error => {
             console.error('Error:', error);
@@ -258,16 +220,57 @@ function resetAddAbonement(){
     }
 }
 
+function refreshAddAbonement(){
+    createLoader(addAbonementContentBlock);
+    addAbonementBtn.classList.remove("active");
+    addAbonementBtn.classList.add("inactive");
+
+    abonementTableColumns = [
+        '',
+        'Название абонемента',
+        'Тарификация',
+        'Стоимость',
+        'Период действия'
+    ];
+    abonementTableData = [
+    ];
+    addAbonementsActiveGroups.forEach(element => {
+        deleteBlockOfChoice(element.id, "#" + choiceContainer.id);
+    });
+    addAbonementsActiveGroups = [];
+    activeCals = [];
+    
+    addAbonementSearchTable = new SearchWithTable(document.querySelector("#add_abonement_table_container"), document.querySelector("#add_abonement_search_input"), abonementTableData, abonementTableColumns, addAbonementTableCheckBoxBehavior, addAbonementBtn,onUpdate);
+    
+
+    fetch('https://alfa-amo.ru/testwidget/load_abonements.php?branch_id=' + filialSelector.option + "&user_id=" + user_id , {
+            method: 'GET'
+    })
+    .then(response => response.json()) 
+    .then(data => {
+        removeLoader(addAbonementContentBlock);
+        toggleConnectionMarks(data['amo'], data['alfa']);
+        createConnectionTips();
+        abonementTableData = data["abonements"];
+        addAbonementSearchTable.basicData = data["abonements"];
+        addAbonementSearchTable.tableObj.insertData(null, abonementTableData);
+        addAbonementSearchTable.tableObj.setUpRowOnClickHandler();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
 function generateAbonementCalendar(data, insertionPlace){
     let placeToInsert = document.querySelector(insertionPlace);
     var id = data["id"];
     var name = data["name"];
-    generateAbonementCalendarBody("add_abonement_calendar_" + getIdFromString(name), name, placeToInsert);
+    generateAbonementCalendarBody("add_abonement_calendar_" + id, name, placeToInsert);
     return new CustomCalendar(document.querySelector(`#add_abonement_calendar_${id}`), abonementCalendarCallback, abonementCalendarClearCallback);
 }
 
-function generateAbonementPayCheckBox(name){
-    var id = "add_abonement_checkbox_" + getIdFromString(name);
+function generateAbonementPayCheckBox(id){
+    var id = "add_abonement_checkbox_" + id;
     `<div class="task_checkbox">
         <input type="checkbox" class="custom-checkbox" id="add_as_lead" name="add_as_lead" value="yes">
         <label for="add_as_lead">Записать как лид</label>

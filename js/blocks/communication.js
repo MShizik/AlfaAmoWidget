@@ -6,7 +6,8 @@ var messagesData = 0;
 
 communiactionContentBlock.addEventListener("click" , () => {
     if (communiactionContentBlock.classList.contains("active") || communiactionContentBlock.classList.contains("forbidden")) return;
-    toggleContentBlock(communiactionContentBlock);
+    openContentBlock(communiactionContentBlock);
+    createLoader(communiactionContentBlock);
 
     var communiactionWrapper = communiactionContentBlock.querySelector(".chat-wrapper");
 
@@ -19,7 +20,7 @@ communiactionContentBlock.addEventListener("click" , () => {
     .then(data => {
         toggleConnectionMarks(data['amo'], data['alfa']);
         createConnectionTips();
-
+        removeLoader(communiactionContentBlock);
         messagesData = data['communications'];
 
         if (messagesData.length < 10){
@@ -42,7 +43,7 @@ communiactionContentBlock.addEventListener("click" , () => {
 communicationBtn.addEventListener("click", () => {
     var communiactionWrapper = communiactionContentBlock.querySelector(".chat-wrapper");
     offset += 10;
-
+    createLoader(communiactionContentBlock);
     
 
     fetch('https://alfa-amo.ru/testwidget/load_communication.php?branch_id=' + filialSelector.option + "&user_id=" + user_id + "&offset=" + offset + "&student_id=" + studentSelector.option, {
@@ -52,7 +53,7 @@ communicationBtn.addEventListener("click", () => {
     .then(data => {
         toggleConnectionMarks(data['amo'], data['alfa']);
         createConnectionTips();
-
+        removeLoader(communiactionContentBlock);
         messagesData = data['communications'];
 
         if (messagesData.length < 10){

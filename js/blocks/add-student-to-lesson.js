@@ -10,6 +10,7 @@ let addStudentToLessonTable = null;
 var lessonsData = [];
 var lessonsColumns = [];
 
+
 var calInputChangedHandler = function(cal){
     var inputValues = cal.getValues();
     var inputs = cal.getInputs();
@@ -55,13 +56,15 @@ var selectorAfterSelectHandler = function(){
 
         //console.log('https://alfa-amo.ru/testwidget/load_lessons.php?branch_id=' + filialSelector.option + "&lesson_type_id=" + lessonSearchSelector.option + "&subject_id=" + subjectSearchSelector.option + "&user_id=" + user_id);
 
+        createLoader(addStudentToLessonContentBlock);
+
         fetch('https://alfa-amo.ru/testwidget/load_lessons.php?branch_id=' + filialSelector.option + "&lesson_type_id=" + lessonSearchSelector.option + "&subject_id=" + subjectSearchSelector.option + "&user_id=" + user_id , {
             method: 'GET'
         })
         .then(response => response.json()) 
         .then(data => {
             //console.log(data);
-            
+            removeLoader(addStudentToLessonContentBlock);
             toggleConnectionMarks(data['amo'], data['alfa']);
             createConnectionTips();
             lessonsData = data["lessons"];
@@ -118,43 +121,17 @@ var selectorAfterSelectHandler = function(){
 
 
 addStudentToLessonContentBlock.addEventListener("click" ,() =>{
-
     if (addStudentToLessonContentBlock.classList.contains("active") || addStudentToLessonContentBlock.classList.contains("forbidden")) return;
-    toggleContentBlock(addStudentToLessonContentBlock);
-    addStudentToLessonBtn.classList.remove("active");
-    addStudentToLessonBtn.classList.add("inactive");
-
+    openContentBlock(addStudentToLessonContentBlock);
+    refreshAddStudetnToLesson();
     
-    var filialSelectorIndex = filialSelector.option;
-
-    var lessonTypes = reconstructLessonTypes(filialSelectorIndex, lessonTypesByBranches);
-
-    lessonSearchSelector = ItcCustomSearchSelect.create('#add-student-to-lesson-lesson-selector', {
-        name: 'add-student-to-lesson-lesson-selector',
-        targetValue: 'Выбор',
-        options: lessonTypes,
-        callback: selectorAfterSelectHandler
-    });
-
-    var subjects = reconstructSubjects(filialSelectorIndex, subjectsByBranches);
-
-    subjectSearchSelector = ItcCustomSearchSelect.create('#add-student-to-lesson-subject-selector', {
-        name: 'add-student-to-lesson-subject-selector',
-        targetValue: 'Выбор',
-        options: subjects,
-        callback: selectorAfterSelectHandler
-    });
-
-
-
-    addStudentToLessonCalendar = new CustomCalendar(document.querySelector("#add-student-to-lesson-calendar"), calInputChangedHandler, calClearHandler);
-
-    document.querySelector("#add-student-to-lesson-table-container").classList.add("hidden");
 });
 
 addStudentToLessonBtn.addEventListener("click", () => {
     if (addStudentToLessonBtn.classList.contains("active")){
         addStudentToLessonContentBlock.classList.add("used");
+        toggleBtn(addStudentToLessonBtn);
+        createLoader(addStudentToLessonContentBlock);
 
         var checkedRows = document.querySelector("#add-student-to-lesson-table-container").querySelectorAll("input:checked");
         var parsedTableData = [];
@@ -191,10 +168,8 @@ addStudentToLessonBtn.addEventListener("click", () => {
             body : JSON.stringify(parsedData)
         })
         .then(response => {
-            addStudentToLessonContentBlock.classList.remove("active");
-            addStudentToLessonContentBlock.classList.add("inactive");
-            addStudentToLessonBtn.classList.remove("active");
-            addStudentToLessonBtn.classList.add("inactive");
+            removeLoader(addStudentToLessonContentBlock);
+            refreshAddStudetnToLesson();
         })
         .catch(error => {
             console.error('Error:', error);
@@ -236,6 +211,32 @@ function resetAddStudentToLesson(){
     lessonsData = [];
 
     addStudentToLessonTable != null && addStudentToLessonTable.insertData(null, []);
+}
+
+function refreshAddStudetnToLesson(){
+    var filialSelectorIndex = filialSelector.option;
+
+    var lessonTypes = reconstructLessonTypes(filialSelectorIndex, lessonTypesByBranches);
+
+    lessonSearchSelector = ItcCustomSearchSelect.create('#add-student-to-lesson-lesson-selector', {
+        name: 'add-student-to-lesson-lesson-selector',
+        targetValue: 'Выбор',
+        options: lessonTypes,
+        callback: selectorAfterSelectHandler
+    });
+
+    var subjects = reconstructSubjects(filialSelectorIndex, subjectsByBranches);
+
+    subjectSearchSelector = ItcCustomSearchSelect.create('#add-student-to-lesson-subject-selector', {
+        name: 'add-student-to-lesson-subject-selector',
+        targetValue: 'Выбор',
+        options: subjects,
+        callback: selectorAfterSelectHandler
+    });
+
+    addStudentToLessonCalendar = new CustomCalendar(document.querySelector("#add-student-to-lesson-calendar"), calInputChangedHandler, calClearHandler);
+
+    document.querySelector("#add-student-to-lesson-table-container").classList.add("hidden");
 }
 
 

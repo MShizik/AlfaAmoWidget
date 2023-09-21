@@ -1,6 +1,6 @@
 var basicLinkRegex = /^.*:\/\/.*\.(?:amocrm.ru|kommo.com)\/leads\/detail\/.*$/;
 
-var prevLinkMatch = document.location.href.match(basicLinkRegex);
+var prevLinkMatch = null;
 
 getFont();
 
@@ -29,12 +29,14 @@ inputMasksEventListner();
 
 
 setInterval(function() {
-    if (!document.location.href.match(basicLinkRegex) && prevLinkMatch !== true) {
+    if (!document.location.href.match(basicLinkRegex) && prevLinkMatch === null) {
         circle.classList.add("hidden");
         fullReset();
         mainBody.classList.add("hidden");
-    }else if (document.location.href.match(basicLinkRegex)){
+    }else if (document.location.href.match(basicLinkRegex) && prevLinkMatch === null){
         circle.classList.remove("hidden");
+        fullReset();
+        basicLoad();
     }
     prevLinkMatch = document.location.href.match(basicLinkRegex);
   }, 5000);
@@ -57,7 +59,6 @@ circle.addEventListener('click', () => {
 
 function createPopup(){
   mainBody.classList.remove("hidden");
-  basicLoad();
 }
 
 function getCircle(){
@@ -259,6 +260,8 @@ function getHtml(){
               <div class="block-desc">
                   Записать ученика в AlfaCRM
               </div>
+              <div class = "block-loader">
+              </div>
           </div>
           <div class="operation-content" id="add-student">
               <div class="task_checkbox">
@@ -282,6 +285,8 @@ function getHtml(){
               </div>
               <div class="block-desc">
                   Добавить ученика на урок
+              </div>
+              <div class = "block-loader">
               </div>
           </div>
           <div class="operation-content">
@@ -368,6 +373,8 @@ function getHtml(){
               <div class="block-desc">
                   Добавить ученика в группу
               </div>
+              <div class = "block-loader">
+              </div>
           </div>
           <div class="operation-content">
               <div class="table_container" id="add-student-to-group-table-container"></div>
@@ -394,6 +401,8 @@ function getHtml(){
               </div>
               <div class="block-desc">
                   Передать платеж
+              </div>
+              <div class = "block-loader">
               </div>
           </div>
           <div class="operation-content">
@@ -436,6 +445,8 @@ function getHtml(){
               <div class="block-desc">
                   Добавить абонемент
               </div>
+              <div class = "block-loader">
+              </div>
           </div>
           <div class="operation-content">
               <div id="add_abonement_selector_wrapper">
@@ -474,6 +485,8 @@ function getHtml(){
               </div>
               <div class="block-desc">
                   Коммуникации
+              </div>
+              <div class = "block-loader">
               </div>
           </div>
           <div class="operation-content">

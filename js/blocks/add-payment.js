@@ -13,68 +13,15 @@ var addPaymentIncomeSelector = null;
 
 addPaymentContentBlock.addEventListener("click", () => {
     if (addPaymentContentBlock.classList.contains("active") || addPaymentContentBlock.classList.contains("forbidden")) return;
-    toggleContentBlock(addPaymentContentBlock);
-
-    addPaymentBtn.classList.remove("active");
-    addPaymentBtn.classList.add("inactive");
-
-    addPaymentCasSelector = ItcCustomSelect.create('#add_payment_cas_selector', {
-        name: 'add_payment_cas_selector',
-        targetValue: 'Выбор',
-        options: addPaymentCasData,
-        callback : selectorActivateBtn
-    });
-
-    addPaymentCasSelector.updateData([]);
-
-    addPaymentCategorySelector = ItcCustomSelect.create('#add_payment_category_selector', {
-        name: 'add_payment_category_selector',
-        targetValue: 'Выбор',
-        options: addPaymentCategoryData,
-        callback : function() {
-            var filteredIncomeData = filterPayItemData(addPaymentIncomeData, addPaymentCategorySelector.option);
-            addPaymentIncomeSelector.updateData(filteredIncomeData);
-            selectorActivateBtn();
-        }
-    });
-
-    addPaymentCategorySelector.updateData([]);
-
-    addPaymentIncomeSelector = ItcCustomSelect.create('#add_payment_income_selector', {
-        name: 'add_payment_income_selector',
-        targetValue: 'Выбор',
-        options: addPaymentIncomeData,
-        callback : selectorActivateBtn
-    });
-
-    addPaymentIncomeSelector.updateData([]);
-
-    fetch('https://alfa-amo.ru/testwidget/load_pay.php?branch_id=' + filialSelector.option +  "&user_id=" + user_id , {
-            method: 'GET'
-    })
-    .then(response => response.json()) 
-    .then(data => {
-        //console.log(data);
-        toggleConnectionMarks(data['amo'], data['alfa']);
-        createConnectionTips();
-
-        addPaymentCategoryData = filterPayItemCategoryData(data['pay_item_category']);
-        addPaymentCasData = filterPayAccountData(data['pay_account']);
-
-        addPaymentCasSelector.updateData(addPaymentCasData);
-        addPaymentCategorySelector.updateData(addPaymentCategoryData);
-
-        addPaymentIncomeData = data['pay_item'];
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+    openContentBlock(addPaymentContentBlock);
+    refreshAddPayemnt();
 });
 
 
 addPaymentBtn.addEventListener("click" , () => {
     if (addPaymentBtn.classList.contains("active")){
         addPaymentContentBlock.classList.add("used");
+        createLoader(addPaymentContentBlock);
 
         var selectedCas = addPaymentCasSelector.option;
         var selectedCategory = addPaymentCategorySelector.option;
@@ -111,6 +58,10 @@ addPaymentBtn.addEventListener("click" , () => {
             fetch('https://alfa-amo.ru/adm/?token=aiUWVpSyAFs0BoEcMJTa9n3v&action=widget_add_payment' , {
                 method: 'POST',
                 body : JSON.stringify(parsedData)
+            })
+            .then(response => {
+                removeLoader(addPaymentContentBlock);
+                refreshAddPayemnt();
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -174,6 +125,66 @@ function resetAddPayment(){
     addPaymentCasSelector != null && addPaymentCasSelector.updateData([]);
     addPaymentCategorySelector != null && addPaymentCategorySelector.updateData([]);
     addPaymentIncomeSelector != null && addPaymentIncomeSelector.updateData([]);
+}
+
+function refreshAddPayemnt(){
+    createLoader(addPaymentContentBlock);
+
+    addPaymentBtn.classList.remove("active");
+    addPaymentBtn.classList.add("inactive");
+
+    addPaymentCasSelector = ItcCustomSelect.create('#add_payment_cas_selector', {
+        name: 'add_payment_cas_selector',
+        targetValue: 'Выбор',
+        options: addPaymentCasData,
+        callback : selectorActivateBtn
+    });
+
+    addPaymentCasSelector.updateData([]);
+
+    addPaymentCategorySelector = ItcCustomSelect.create('#add_payment_category_selector', {
+        name: 'add_payment_category_selector',
+        targetValue: 'Выбор',
+        options: addPaymentCategoryData,
+        callback : function() {
+            var filteredIncomeData = filterPayItemData(addPaymentIncomeData, addPaymentCategorySelector.option);
+            addPaymentIncomeSelector.updateData(filteredIncomeData);
+            selectorActivateBtn();
+        }
+    });
+
+    addPaymentCategorySelector.updateData([]);
+
+    addPaymentIncomeSelector = ItcCustomSelect.create('#add_payment_income_selector', {
+        name: 'add_payment_income_selector',
+        targetValue: 'Выбор',
+        options: addPaymentIncomeData,
+        callback : selectorActivateBtn
+    });
+
+    addPaymentIncomeSelector.updateData([]);
+
+    fetch('https://alfa-amo.ru/testwidget/load_pay.php?branch_id=' + filialSelector.option +  "&user_id=" + user_id , {
+            method: 'GET'
+    })
+    .then(response => response.json()) 
+    .then(data => {
+        //console.log(data);
+        removeLoader(addPaymentContentBlock);
+        toggleConnectionMarks(data['amo'], data['alfa']);
+        createConnectionTips();
+
+        addPaymentCategoryData = filterPayItemCategoryData(data['pay_item_category']);
+        addPaymentCasData = filterPayAccountData(data['pay_account']);
+
+        addPaymentCasSelector.updateData(addPaymentCasData);
+        addPaymentCategorySelector.updateData(addPaymentCategoryData);
+
+        addPaymentIncomeData = data['pay_item'];
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }
 
 
