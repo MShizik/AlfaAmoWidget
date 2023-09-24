@@ -181,10 +181,12 @@ addAbonementBtn.addEventListener("click", () => {
         .then(response => {
             removeLoader(addAbonementContentBlock);
             refreshAddAbonement();
-            toggleOperationResult(true, "Абонемент добавлен", addStudentContentBlock);
+            toggleOperationResult(true, "Абонемент добавлен", addAbonementContentBlock);
         })
         .catch(error => {
             console.error('Error:', error);
+            removeLoader(addAbonementContentBlock);
+            toggleOperationResult(false, "Произошла ошибка", addAbonementContentBlock);
         });
     }
 });
@@ -259,6 +261,8 @@ function refreshAddAbonement(){
     })
     .catch(error => {
         console.error('Error:', error);
+        removeLoader(addAbonementContentBlock);
+        toggleOperationResult(false, "Произошла ошибка", addAbonementContentBlock);
     });
 }
 

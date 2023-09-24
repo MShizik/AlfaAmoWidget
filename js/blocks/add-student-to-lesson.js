@@ -104,6 +104,8 @@ var selectorAfterSelectHandler = function(){
         })
         .catch(error => {
             console.error('Error:', error);
+            removeLoader(addStudentToLessonContentBlock);
+            toggleOperationResult(false, "Произошла ошибка", addStudentToLessonContentBlock);
         });
 
         if (lessonSearchSelector.option === "2"){
@@ -185,10 +187,12 @@ addStudentToLessonBtn.addEventListener("click", () => {
         .then(response => {
             removeLoader(addStudentToLessonContentBlock);
             refreshAddStudetnToLesson();
-            toggleOperationResult(true, "Студент добавлен на урок", addStudentContentBlock);
+            toggleOperationResult(true, "Студент добавлен на урок", addStudentToLessonContentBlock);
         })
         .catch(error => {
             console.error('Error:', error);
+            removeLoader(addStudentToLessonContentBlock);
+            toggleOperationResult(false, "Произошла ошибка", addStudentToLessonContentBlock);
         });
     }
 });

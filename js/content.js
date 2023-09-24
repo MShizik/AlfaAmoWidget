@@ -394,6 +394,18 @@ function getHtml(){
               </div>
           </div>
           <div class="operation-content">
+          <div id="add_group_selector_wrapper">
+                  <div class="selection-row">
+                      <div class="title">
+                          Группа
+                      </div>
+                      <div class="selector">
+                          <div class="input-wrapper">
+                              <input autocomplete="off" class="selection_with_table" id="add_group_search_input" type="text">
+                          </div>
+                      </div>
+                  </div>
+              </div>
               <div class="table_container" id="add-student-to-group-table-container"></div>
               <div class="choose_date_container" id = "add-student-to-group-calendars">
                   <div class="choose-date-description">

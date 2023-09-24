@@ -26,3 +26,9 @@
     column-gap: 16px;
     row-gap: 13px;
 }
+
+#add_group_selector_wrapper .selection-row{
+    width:320px;
+    justify-content: space-between;
+    
+}

@@ -62,9 +62,12 @@ addPaymentBtn.addEventListener("click" , () => {
             .then(response => {
                 removeLoader(addPaymentContentBlock);
                 refreshAddPayemnt();
+                toggleOperationResult(true, "Платеж добавлен", addPaymentContentBlock);
             })
             .catch(error => {
                 console.error('Error:', error);
+                removeLoader(addPaymentContentBlock);
+                toggleOperationResult(false, "Произошла ошибка", addPaymentContentBlock);
             });
 
             addPaymentCasSelector._reset();
@@ -181,11 +184,11 @@ function refreshAddPayemnt(){
         addPaymentCategorySelector.updateData(addPaymentCategoryData);
 
         addPaymentIncomeData = data['pay_item'];
-
-        toggleOperationResult(true, "Платеж добавлен", addStudentContentBlock);
     })
     .catch(error => {
         console.error('Error:', error);
+        removeLoader(addPaymentContentBlock);
+        toggleOperationResult(false, "Произошла ошибка", addPaymentContentBlock);
     });
 }
 

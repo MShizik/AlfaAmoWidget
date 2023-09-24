@@ -28,7 +28,7 @@ tbody{
 .scrollable_wrapper{
     max-height: 240px;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
 }
 
 .table thead tr th{
@@ -184,3 +184,18 @@ tbody tr {
   .scrollable_wrapper::-webkit-scrollbar-track {
     background-color: transparent;
   }
+
+  .scrollable_wrapper::-webkit-scrollbar:horizontal {
+    width: 20px;
+    height: 4px;
+    background: var(--basement);
+  }
+  
+  .scrollable_wrapper::-webkit-scrollbar-thumb:horizontal {
+    background: var(--inactive-gray);
+  }
+  
+  .scrollable_wrapper::-webkit-scrollbar-track:horizontal {
+    background-color: transparent;
+  }
+

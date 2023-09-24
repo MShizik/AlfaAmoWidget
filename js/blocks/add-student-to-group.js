@@ -63,7 +63,7 @@ addStudentToGroupBtn.addEventListener("click", () => {
         .then(response => {
             removeLoader(addStudentToGroupContentBlock);
             refreshAddStudentToGroup();
-            toggleOperationResult(true, "Студент добавлен в группу", addStudentContentBlock);
+            toggleOperationResult(true, "Студент добавлен в группу", addStudentToGroupContentBlock);
         })
         .catch(error => {
             console.error('Error:', error);
@@ -299,8 +299,8 @@ function resetAddStudentToGroup(){
 
 function refreshAddStudentToGroup(){
     createLoader(addStudentToGroupContentBlock);
-
-    groupData = [];
+    addStudentToGroupBtn.classList.remove("active");
+    addStudentToGroupBtn.classList.add("inactive");
 
     groupColumns = [
         '',
@@ -309,25 +309,28 @@ function refreshAddStudentToGroup(){
         'Количество/<br>лимит учеников',
         'Комментарий'
     ];
-    
-    addStudentToGroupTable = new CustomTable(document.querySelector("#add-student-to-group-table-container"), groupData, groupColumns, addStudentToGroupCheckboxCallBack);
+    groupData = [
+    ];
     addStudentToGroupActiveCals.forEach(element => {
         deleteCalendar(element.getId(), "#add-student-to-group-calendars");
     });
     addStudentToGroupActiveCals = [];
+    
+    addStudentToGroupTable = new SearchWithTable(document.querySelector("#add-student-to-group-table-container"), document.querySelector("#add_group_search_input"), groupData, groupColumns, addStudentToGroupCheckboxCallBack, addStudentToGroupBtn,() => {});
 
     fetch('https://alfa-amo.ru/testwidget/load_groups.php?branch_id=' + filialSelector.option + "&customer_id=" + studentSelector.option  + "&user_id=" + user_id , {
             method: 'GET'
     })
     .then(response => response.json()) 
     .then(data => {
-        //console.log(data);
+        console.log(data);
         removeLoader(addStudentToGroupContentBlock);
         toggleConnectionMarks(data['amo'], data['alfa']);
         createConnectionTips();
         groupData = data["groups"];
-        addStudentToGroupTable.insertData(null, groupData);
-        addStudentToGroupTable.setUpRowOnClickHandler();
+        addStudentToGroupTable.basicData = data["groups"];
+        addStudentToGroupTable.tableObj.insertData(null, groupData);
+        addStudentToGroupTable.tableObj.setUpRowOnClickHandler();
     })
     .catch(error => {
         console.error('Error:', error);
