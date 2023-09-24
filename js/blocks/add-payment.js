@@ -181,6 +181,8 @@ function refreshAddPayemnt(){
         addPaymentCategorySelector.updateData(addPaymentCategoryData);
 
         addPaymentIncomeData = data['pay_item'];
+
+        toggleOperationResult(true, "Платеж добавлен", addStudentContentBlock);
     })
     .catch(error => {
         console.error('Error:', error);

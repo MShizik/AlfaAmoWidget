@@ -181,6 +181,7 @@ addAbonementBtn.addEventListener("click", () => {
         .then(response => {
             removeLoader(addAbonementContentBlock);
             refreshAddAbonement();
+            toggleOperationResult(true, "Абонемент добавлен", addStudentContentBlock);
         })
         .catch(error => {
             console.error('Error:', error);

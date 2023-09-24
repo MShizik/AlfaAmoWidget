@@ -4,10 +4,17 @@ var addStudentRefresher  = document.querySelector("#add_student_refresher");
 var addStudentContentBlock = document.querySelector("#add-student-content-block");
 
 addStudentContentBlock.addEventListener("click" , () => {
+    if (addStudentContentBlock.classList.contains("active") || addStudentContentBlock.classList.contains("forbidden")) return
     openContentBlock(addStudentContentBlock);
     addStudentAsLeadCheckBox.checked = isLeadBasicState;
+    if (studentSelector.option !== "-1"){
+        addStudentBtn.classList.remove("active");
+        addStudentBtn.classList.add("inactive");
+    }else{
+        addStudentBtn.classList.remove("inactive");
+        addStudentBtn.classList.add("active");
+    }
 });
-
 
 addStudentBtn.addEventListener("click", e => {
     if (addStudentBtn.classList.contains("active")){
@@ -17,8 +24,10 @@ addStudentBtn.addEventListener("click", e => {
 
         var parentAmoId = null;
         if (parentSelector.index != -1){
-            parentAmoId = parentDataForSelector[parentSelector.index][2];
+            parentAmoId = parentDataForSelector[parentSelector.index][0];
         }
+        //console.log(parentDataForSelector);
+        //console.log(parentSelector.index);
         
         var studentAmoId = studentDataForSelector[studentSelector.index][2];
         var filialSelectorData = filialSelector.option;
@@ -33,7 +42,7 @@ addStudentBtn.addEventListener("click", e => {
             lead_id = result[1];
         }
 
-        console.log('https://alfa-amo.ru/testwidget/add_student.php?branch_id=' + filialSelectorData +  "&user_id=" + user_id +  "&student_id=" + studentAmoId +  "&parent_id=" + parentAmoId +  "&isLead=" + Number(isLead) +  "&lead_id=" + lead_id);
+        //console.log('https://alfa-amo.ru/testwidget/add_student.php?branch_id=' + filialSelectorData +  "&user_id=" + user_id +  "&student_id=" + studentAmoId +  "&parent_id=" + parentAmoId +  "&isLead=" + Number(isLead) +  "&lead_id=" + lead_id);
         
         fetch('https://alfa-amo.ru/testwidget/add_student.php?branch_id=' + filialSelectorData +  "&user_id=" + user_id +  "&student_id=" + studentAmoId +  "&parent_id=" + parentAmoId +  "&isLead=" + Number(isLead) +  "&lead_id=" + lead_id    , {
             method: 'GET'
@@ -41,7 +50,7 @@ addStudentBtn.addEventListener("click", e => {
         .then(response => response.json()) 
         .then(data => {
             //console.log(data);
-            if (data['added_id'] !== null){
+            if (data['added_id'] !== null && data['added_id'] != -1){
                 var selector = document.querySelector("#student_choser_student_selector");
 
                 var toggle = selector.querySelector(".itc-select__toggle");
@@ -62,6 +71,9 @@ addStudentBtn.addEventListener("click", e => {
 
                 forbiddenTip.innerHTML = "Ученик уже записан в alfaCRM";
                 removeLoader(addStudentContentBlock);
+                toggleOperationResult(true, "Студент добавлен", addStudentContentBlock);
+            }else{
+                toggleOperationResult(false, "Студент не был добавлен", addStudentContentBlock);
             }
             
         })

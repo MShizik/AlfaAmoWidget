@@ -24,3 +24,21 @@ function toggleBtn(btn){
         btn.classList.add("inactive");
     }
 }
+
+function toggleOperationResult(isFine, text, block){
+    var resultBlock = block.querySelector(".block-result");
+    var sign = resultBlock.querySelector(".result-arrow");
+    if (isFine){
+        sign.classList.remove("failure");
+        sign.classList.add("success");
+    }else{
+        sign.classList.remove("success");
+        sign.classList.add("failure");
+    }
+    var textBlock = resultBlock.querySelector(".result-text");
+    textBlock.innerHTML = text;
+    resultBlock.classList.remove("hidden");
+    setTimeout(() => {
+        resultBlock.classList.add("hidden");
+    }, 5000);
+}

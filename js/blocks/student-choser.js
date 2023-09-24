@@ -22,7 +22,7 @@ let removeNoteAndWriteIntoResultField = function(_el){
 
     if (wrapper.querySelector("#student_choser_student_selector").parentElement.parentElement.classList.contains("selected") &&
     wrapper.querySelector("#student_choser_filial_selector").parentElement.parentElement.classList.contains("selected")){
-        let forbiddenBlocksQuery = ".forbidden:not(#add-student-content-block)";
+        let forbiddenBlocksQuery = ".forbidden";
         forbiddenTip.innerHTML = "Учащийся уже записан в alfaCRM";
         if (studentSelector.option === "-1"){
             forbiddenBlocksQuery = "#add-student-content-block";

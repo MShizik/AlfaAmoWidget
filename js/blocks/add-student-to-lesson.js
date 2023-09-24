@@ -140,7 +140,6 @@ addStudentToLessonContentBlock.addEventListener("click" ,() =>{
     if (addStudentToLessonContentBlock.classList.contains("active") || addStudentToLessonContentBlock.classList.contains("forbidden")) return;
     openContentBlock(addStudentToLessonContentBlock);
     refreshAddStudetnToLesson();
-    
 });
 
 addStudentToLessonBtn.addEventListener("click", () => {
@@ -186,6 +185,7 @@ addStudentToLessonBtn.addEventListener("click", () => {
         .then(response => {
             removeLoader(addStudentToLessonContentBlock);
             refreshAddStudetnToLesson();
+            toggleOperationResult(true, "Студент добавлен на урок", addStudentContentBlock);
         })
         .catch(error => {
             console.error('Error:', error);

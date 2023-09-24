@@ -4,9 +4,13 @@ function createLoader(parentElement){
     var loaderElement = document.createElement("img");
     loaderElement.classList.add("extension-loader");
     loaderElement.src = loaderURL;
-    parentElement.querySelector(".title").querySelector(".block-loader").appendChild(loaderElement);
+    var loaderBlock = parentElement.querySelector(".title").querySelector(".block-loader");
+    loaderBlock.classList.remove("hidden");
+    loaderBlock.appendChild(loaderElement);
 }
 
 function removeLoader(parentElement){
-    parentElement.querySelector(".title").querySelector(".block-loader").removeChild(parentElement.querySelector(".extension-loader"));
+    var loaderBlock = parentElement.querySelector(".title").querySelector(".block-loader");
+    loaderBlock.classList.add("hidden");
+    loaderBlock.removeChild(parentElement.querySelector(".extension-loader"));
 }

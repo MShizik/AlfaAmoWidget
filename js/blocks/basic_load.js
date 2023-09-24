@@ -33,7 +33,7 @@ function basicLoad(){
 
     var isStudentFieldId = findContactFieldId();
 
-    //console.log(basicLoadUrl + '?cur_url=' + subdomain  + "&lead_id=" + lead_id + "&student_field_id=" + isStudentFieldId);
+    console.log(basicLoadUrl + '?cur_url=' + subdomain  + "&lead_id=" + lead_id + "&student_field_id=" + isStudentFieldId);
 
     fetch(basicLoadUrl + '?cur_url=' + subdomain  + "&lead_id=" + lead_id + "&student_field_id=" + isStudentFieldId, {
     method: 'GET'
