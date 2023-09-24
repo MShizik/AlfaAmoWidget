@@ -2,17 +2,42 @@ var addStudentAsLeadCheckBox = document.querySelector( "#add_as_lead");
 var addStudentBtn = document.querySelector("#add_student_btn");
 var addStudentRefresher  = document.querySelector("#add_student_refresher");
 var addStudentContentBlock = document.querySelector("#add-student-content-block");
+var reloadLinkBlock = document.querySelector("#add_student_refresh");
 
 addStudentContentBlock.addEventListener("click" , () => {
     if (addStudentContentBlock.classList.contains("active") || addStudentContentBlock.classList.contains("forbidden")) return
     openContentBlock(addStudentContentBlock);
     addStudentAsLeadCheckBox.checked = isLeadBasicState;
     if (studentSelector.option !== "-1"){
+        reloadLinkBlock.classList.remove("inactive");
+        reloadLinkBlock.classList.add("active");
         addStudentBtn.classList.remove("active");
         addStudentBtn.classList.add("inactive");
     }else{
         addStudentBtn.classList.remove("inactive");
         addStudentBtn.classList.add("active");
+        reloadLinkBlock.classList.add("inactive");
+        reloadLinkBlock.classList.remove("active");
+    }
+});
+
+
+reloadLinkBlock.addEventListener("click", () => {
+    if (reloadLinkBlock.classList.contains("active")){
+        createLoader(addStudentContentBlock);
+        //console.log('https://alfa-amo.ru/testwidget/reload_links.php?branch_id=' + filialSelector.option +  "&user_id=" + user_id +  "&student_id=" + studentDataForSelector[studentSelector.index][0] +  "&contact_id=" + studentDataForSelector[studentSelector.index][2]);
+        fetch('https://alfa-amo.ru/testwidget/reload_links.php?branch_id=' + filialSelector.option +  "&user_id=" + user_id +  "&student_id=" + studentDataForSelector[studentSelector.index][0] +  "&contact_id=" + studentDataForSelector[studentSelector.index][2] , {
+            method: 'GET'
+        }).
+        then(response => {
+            removeLoader(addStudentContentBlock);
+            toggleOperationResult(true, "Ссылка обновлена", addStudentContentBlock);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            removeLoader(addStudentContentBlock);
+            toggleOperationResult(false, "Студент не был добавлен", addStudentContentBlock);
+        });
     }
 });
 
@@ -65,20 +90,24 @@ addStudentBtn.addEventListener("click", e => {
                     block.classList.remove("forbidden");
                 });
 
-                addStudentContentBlock.classList.remove("active");
-                addStudentContentBlock.classList.add("inactive");
-                addStudentContentBlock.classList.add("forbidden");
+                reloadLinkBlock.classList.remove("inactive");
+                reloadLinkBlock.classList.add("active");
+                addStudentBtn.classList.remove("active");
+                addStudentBtn.classList.add("inactive");
 
                 forbiddenTip.innerHTML = "Ученик уже записан в alfaCRM";
                 removeLoader(addStudentContentBlock);
                 toggleOperationResult(true, "Студент добавлен", addStudentContentBlock);
             }else{
+                removeLoader(addStudentContentBlock);
                 toggleOperationResult(false, "Студент не был добавлен", addStudentContentBlock);
             }
             
         })
         .catch(error => {
             console.error('Error:', error);
+            removeLoader(addStudentContentBlock);
+            toggleOperationResult(false, "Студент не был добавлен", addStudentContentBlock);
         });
     }
 });

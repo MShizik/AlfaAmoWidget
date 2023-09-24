@@ -1,4 +1,4 @@
-
+var updateIsRunning = false;
 var connectionSignAmo = document.querySelector("#amo-connection");
 var connectionSignAlfa = document.querySelector("#alfa-connection");
 
@@ -34,60 +34,64 @@ function basicLoad(){
     var isStudentFieldId = findContactFieldId();
 
     console.log(basicLoadUrl + '?cur_url=' + subdomain  + "&lead_id=" + lead_id + "&student_field_id=" + isStudentFieldId);
-
-    fetch(basicLoadUrl + '?cur_url=' + subdomain  + "&lead_id=" + lead_id + "&student_field_id=" + isStudentFieldId, {
-    method: 'GET'
-    })
-    .then(response => response.json()) 
-    .then(data => {
-        //console.log(data);
-        var dbCon = data["db"];
-        if (dbCon){
-            toggleConnectionMarks(data['amo'], data['alfa']);
-            user_id = data['user_id'];
-            if (user_id === null){
-                toggleConnectionMarks(false, false);
-                createErrorLoadShower('Зарегистрируйтесь <a href = "https://comontech.ru" >comontech.ru</a>');
-            }
-            if (data['is_active'] === 0){
-                toggleConnectionMarks(false, false);
-                createErrorLoadShower('Продлите подписку');
-            }
-            createConnectionTips();
-
-            if (user_id !== null && data['is_active'] === 1){
-
-                let filialData = parseBranchData(data['branches']);
-                filialSelector.updateData(filialData);
-
-                subjectsByBranches = data['subjects'];
-
-                
-
-                createConnectionTips();
-
-                updateSubscriptionValue(data['subEnd']);
-
-                studentsData = data['students'];
-                parentsData = data['parents'];
-
-                studentDataForSelector = parseStudentsData(studentsData);
-                parentDataForSelector = parseParentsData(parentsData);
-
-
-                parentSelector.updateData(parentDataForSelector);
-
-                studentSelector.updateData(studentDataForSelector);
-
-                isLeadBasicState = Boolean(data['isLead']);
-
-                lessonTypesByBranches = data['lessonTypes'];
-            }
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+    if (!updateIsRunning) {
+        updateIsRunning = true;
+        fetch(basicLoadUrl + '?cur_url=' + subdomain  + "&lead_id=" + lead_id + "&student_field_id=" + isStudentFieldId, {
+            method: 'GET'
+            })
+            .then(response => response.json()) 
+            .then(data => {
+                //console.log(data);
+                var dbCon = data["db"];
+                if (dbCon){
+                    toggleConnectionMarks(data['amo'], data['alfa']);
+                    user_id = data['user_id'];
+                    if (user_id === null){
+                        toggleConnectionMarks(false, false);
+                        createErrorLoadShower('Зарегистрируйтесь <a href = "https://comontech.ru" >comontech.ru</a>');
+                    }
+                    if (data['is_active'] === 0){
+                        toggleConnectionMarks(false, false);
+                        createErrorLoadShower('Продлите подписку');
+                    }
+                    createConnectionTips();
+        
+                    if (user_id !== null && data['is_active'] === 1){
+        
+                        let filialData = parseBranchData(data['branches']);
+                        filialSelector.updateData(filialData);
+        
+                        subjectsByBranches = data['subjects'];
+        
+                        
+        
+                        createConnectionTips();
+        
+                        updateSubscriptionValue(data['subEnd']);
+        
+                        studentsData = data['students'];
+                        parentsData = data['parents'];
+        
+                        studentDataForSelector = parseStudentsData(studentsData);
+                        parentDataForSelector = parseParentsData(parentsData);
+        
+        
+                        parentSelector.updateData(parentDataForSelector);
+        
+                        studentSelector.updateData(studentDataForSelector);
+        
+                        isLeadBasicState = Boolean(data['isLead']);
+        
+                        lessonTypesByBranches = data['lessonTypes'];
+                    }
+                }
+                updateIsRunning = false;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+    
 }
 
 function createErrorLoadShower(message){

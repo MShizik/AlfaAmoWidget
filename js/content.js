@@ -38,6 +38,12 @@ setInterval(function() {
         fullReset();
         basicLoad();
     }
+    else if (document.location.href.match(basicLinkRegex) && prevLinkMatch !== null){
+        if (checkContactsAmount()){
+            fullReset();
+            basicLoad();
+        }
+    }
     prevLinkMatch = document.location.href.match(basicLinkRegex);
   }, 5000);
 
@@ -59,6 +65,17 @@ circle.addEventListener('click', () => {
 
 function createPopup(){
   mainBody.classList.remove("hidden");
+  if (checkContactsAmount()){
+    fullReset();
+    basicLoad();
+  }
+}
+
+function checkContactsAmount() {
+    if (arraysEqual(studentsData, parentsData)){
+        return studentsData.length + parentsData.length < document.querySelectorAll("#contacts_list > li").length + 1;
+    }
+    return studentsData.length + parentsData.length < document.querySelectorAll("#contacts_list > li").length;
 }
 
 function getCircle(){
@@ -605,4 +622,8 @@ function fullReset(){
     resetAddStudent();
     resetStudentChoser();
     resetCommunication();
+}
+
+function arraysEqual(a1,a2) {
+    return JSON.stringify(a1)==JSON.stringify(a2);
 }

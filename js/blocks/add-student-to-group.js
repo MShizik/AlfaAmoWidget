@@ -67,6 +67,8 @@ addStudentToGroupBtn.addEventListener("click", () => {
         })
         .catch(error => {
             console.error('Error:', error);
+            removeLoader(addStudentToGroupContentBlock);
+            toggleOperationResult(true, "Студент добавлен в группу", addStudentToGroupContentBlock);
         });
     }
 });

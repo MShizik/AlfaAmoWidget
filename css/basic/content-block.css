@@ -40,13 +40,17 @@
 }
 
 .basement .widget-content-block .block-loader{
+   display: none;
+}
+
+.basement .widget-content-block.active .block-loader{
    width:14px;
    display: flex;
    align-items: start;
    margin-left: 10px;
 }
 
-.block-loader img{
+.widget-content-block.active .block-loader img{
    width: 14px;
    height: 14px;
 }

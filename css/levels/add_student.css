@@ -31,3 +31,20 @@
     font-weight: 600;
     color: var(--button-gray);
 }
+
+.task_button .additional-info.inactive a{
+    cursor: default;
+    color: var(--text-gray);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2;
+
+    text-decoration-line: underline;
+}
+
+.task_button .additional-info.active{
+    background-color: transparent;
+}

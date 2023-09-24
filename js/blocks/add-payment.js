@@ -109,10 +109,10 @@ function filterPayAccountData(data){
     return result;
 }
 
-function filterPayItemData(data, categoryId = -1){
+function filterPayItemData(data, categoryId){
     var result = [];
     data.forEach(item => {
-        if (categoryId != -1 && item['id'] == categoryId){
+        if (categoryId !== -1 && parseInt(item['category_id']) === parseInt(categoryId)){
             result.push([item['id'], item['name']]);
         }
     });
@@ -149,8 +149,11 @@ function refreshAddPayemnt(){
         name: 'add_payment_category_selector',
         targetValue: 'Выбор',
         options: addPaymentCategoryData,
-        callback : function() {
+        callback : () =>  {
+            console.log(addPaymentIncomeData)
+            console.log(addPaymentCategorySelector.option);
             var filteredIncomeData = filterPayItemData(addPaymentIncomeData, addPaymentCategorySelector.option);
+            console.log(filteredIncomeData);
             addPaymentIncomeSelector.updateData(filteredIncomeData);
             selectorActivateBtn();
         }
@@ -176,6 +179,7 @@ function refreshAddPayemnt(){
         removeLoader(addPaymentContentBlock);
         toggleConnectionMarks(data['amo'], data['alfa']);
         createConnectionTips();
+        addPaymentIncomeData = data['pay_item'];
 
         addPaymentCategoryData = filterPayItemCategoryData(data['pay_item_category']);
         addPaymentCasData = filterPayAccountData(data['pay_account']);
@@ -183,7 +187,7 @@ function refreshAddPayemnt(){
         addPaymentCasSelector.updateData(addPaymentCasData);
         addPaymentCategorySelector.updateData(addPaymentCategoryData);
 
-        addPaymentIncomeData = data['pay_item'];
+        
     })
     .catch(error => {
         console.error('Error:', error);
