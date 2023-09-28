@@ -42,7 +42,9 @@ addStudentToGroupBtn.addEventListener("click", () => {
         var filialSelectorData = filialSelector.option;
 
         addStudentToGroupActiveCals.forEach(element => {
-            deleteCalendar(element.getId(), "#add-student-to-group-calendars");
+            if (element !== null){
+                deleteCalendar(element.getId(), "#add-student-to-group-calendars");
+            }
         });
         addStudentToGroupActiveCals = [];
 
@@ -108,6 +110,7 @@ function generateCalendar(data, insertionPlace){
         generateCalendarBody(id, name, placeToInsert);
         return new CustomCalendar(document.querySelector(`#group_cal_${id}`), groupCalendarCallback, groupClearCalendarCallback);
     }
+    return null;
     
 }
 
