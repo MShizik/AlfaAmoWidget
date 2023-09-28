@@ -33,7 +33,7 @@ function basicLoad(){
 
     var isStudentFieldId = findContactFieldId();
 
-    console.log(basicLoadUrl + '?cur_url=' + subdomain  + "&lead_id=" + lead_id + "&student_field_id=" + isStudentFieldId);
+    //console.log(basicLoadUrl + '?cur_url=' + subdomain  + "&lead_id=" + lead_id + "&student_field_id=" + isStudentFieldId);
     if (!updateIsRunning) {
         updateIsRunning = true;
         fetch(basicLoadUrl + '?cur_url=' + subdomain  + "&lead_id=" + lead_id + "&student_field_id=" + isStudentFieldId, {
@@ -62,8 +62,6 @@ function basicLoad(){
                         filialSelector.updateData(filialData);
         
                         subjectsByBranches = data['subjects'];
-        
-                        
         
                         createConnectionTips();
         

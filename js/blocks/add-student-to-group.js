@@ -328,7 +328,7 @@ function refreshAddStudentToGroup(){
     })
     .then(response => response.json()) 
     .then(data => {
-        console.log(data);
+        //console.log(data);
         removeLoader(addStudentToGroupContentBlock);
         toggleConnectionMarks(data['amo'], data['alfa']);
         createConnectionTips();
