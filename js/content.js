@@ -166,14 +166,14 @@ function getHtml(){
                   01
               </div>
               <div class="block-desc">
-                  Выбрать учащегося в AlfaCRM
+                  ${STUDENT_CHOSER_BLOCK_DESC}
               </div>
           </div>
           <div class = "inactive-info">
               <div class= "selection-result hidden" id = "student_choser_parent_inactive_result">
                   <div class = "result">
                       <div class = "result-label">
-                          Родитель/заказчик
+                        ${STUDENT_CHOSER_PARENT_LABEL}
                       </div>
                       <div class = "result-value">
                           Имя Фамилия
@@ -183,7 +183,7 @@ function getHtml(){
               <div class= "selection-result hidden" id = "student_choser_student_inactive_result">
                   <div class = "result">
                       <div class = "result-label">
-                          Ученик
+                        ${STUDENT_CHOSER_STUDENT_LABEL}
                       </div>
                       <div class = "result-value">
                           Имя Фамилия
@@ -193,7 +193,7 @@ function getHtml(){
               <div class= "selection-result hidden" id = "student_choser_filial_inactive_result">
                   <div class = "result">
                       <div class = "result-label">
-                          Филлиал
+                        ${STUDENT_CHOSER_BRANCH_LABEL}
                       </div>
                       <div class = "result-value">
                           Филлиал 3
@@ -205,7 +205,7 @@ function getHtml(){
               <div id="student-selector">
                   <div class="selection-row unselected">
                       <div class="title">
-                          Родитель/заказчик
+                        ${STUDENT_CHOSER_PARENT_LABEL}
                       </div>
                       <div class="selector">
                           <div id="student_choser_parent_selector"></div>
@@ -215,7 +215,7 @@ function getHtml(){
                       <div class= "selection-result hidden" id = "student_choser_parent_result">
                           <div class = "result">
                               <div class = "result-label">
-                                  Родитель/заказчик
+                                ${STUDENT_CHOSER_PARENT_LABEL}
                               </div>
                               <div class = "result-value">
                                   Имя Фамилия
@@ -225,18 +225,18 @@ function getHtml(){
                   </div>
                   <div class="selection-row unselected">
                       <div class="title">
-                          Ученик
+                        ${STUDENT_CHOSER_STUDENT_LABEL}
                       </div>
                       <div class="selector">
                           <div id="student_choser_student_selector"></div>
                       </div>
                       <div class="widget-note">
-                          Ученик не выбран
+                        ${STUDENT_CHOSER_STUDENT_WARN}
                       </div>
                       <div class= "selection-result hidden" id = "student_choser_student_result">
                           <div class = "result">
                               <div class = "result-label">
-                                  Ученик
+                                ${STUDENT_CHOSER_STUDENT_LABEL}
                               </div>
                               <div class = "result-value">
                                   Имя Фамилия
@@ -246,18 +246,18 @@ function getHtml(){
                   </div>
                   <div class="selection-row unselected">
                       <div class="title">
-                          Филлиал
+                          ${STUDENT_CHOSER_BRANCH_LABEL}
                       </div>
                       <div class="selector">
                           <div id="student_choser_filial_selector"></div>
                       </div>
                       <div class="widget-note">
-                          Филлиал не выбран
+                        ${STUDENT_CHOSER_BRANCH_WARN}
                       </div>
                       <div class= "selection-result hidden" id = "student_choser_filial_result">
                           <div class = "result">
                               <div class = "result-label">
-                                  Филлиал
+                                ${STUDENT_CHOSER_BRANCH_LABEL}
                               </div>
                               <div class = "result-value">
                                   Филлиал 3
@@ -274,7 +274,7 @@ function getHtml(){
                   02
               </div>
               <div class="block-desc">
-                  Записать ученика в AlfaCRM
+                  ${ADD_STUDENT_BLOCK_DESC}
               </div>
               <div class = "block-loader hidden">
               </div>
@@ -288,14 +288,14 @@ function getHtml(){
           <div class="operation-content" id="add-student">
               <div class="task_checkbox">
                   <input type="checkbox" class="custom-checkbox" id="add_as_lead" name="add_as_lead" value="yes">
-                  <label for="add_as_lead">Записать как лид</label>
+                  <label for="add_as_lead">${ADD_STUDENT_IS_LEAD_LABEL}</label>
               </div>
               <div class="task_button">
                   <button class="basic_btn active" id = "add_student_btn">
-                      Записать ученика в AlfaCRM
+                      ${ADD_STUDENT_MAIN_BTN_TXT}
                   </button>
                   <div class="additional-info" id = "add_student_refresh">
-                      <a>Восстановить ссылку на карточку AlfaCRM</a>
+                      <a>${ADD_STUDENT_REFRESH_LINK_TXT}</a>
                   </div>
               </div>
           </div>
@@ -306,7 +306,7 @@ function getHtml(){
                   03
               </div>
               <div class="block-desc">
-                  Добавить ученика на урок
+                  ${LESSON_ADD_STUDENT_BLOCK_DESC}
               </div>
               <div class = "block-loader hidden">
               </div>
@@ -321,7 +321,7 @@ function getHtml(){
               <div id="lesson-selector">
                   <div class="selection-row">
                       <div class="title">
-                          Урок
+                          ${LESSON_ADD_STUDENT_SEL_LESSON_LABEL}
                       </div>
                       <div class="selector">
                           <div id="add-student-to-lesson-lesson-selector"></div>
@@ -329,7 +329,7 @@ function getHtml(){
                   </div>
                   <div class="selection-row">
                       <div class="title">
-                          Предмет
+                          ${LESSON_ADD_STUDENT_SEL_SUBJECT_LABEL}
                       </div>
                       <div class="selector">
                           <div id="add-student-to-lesson-subject-selector"></div>
@@ -339,7 +339,7 @@ function getHtml(){
                   <div class="calendar-wrapper" id="add-student-to-lesson-calendar-wrapper">
                       <div class="date_picker" id="add-student-to-lesson-calendar">
                           <div class="date_picker_input" id="date-picker-input-add-student-to-lesson">
-                              <label>Выбрать даты:</label>
+                              <label>${LESSON_ADD_STUDENT_SEL_DATES_LABEL}</label>
                               <div class="cal_input_block">
                                   <div class="cal_input_icon">
                                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewbox="0 0 14 14" fill="none">
@@ -379,7 +379,7 @@ function getHtml(){
               </div>
               <div class="table_container" id="add-student-to-lesson-table-container"></div>
               <button class="basic_btn inactive" id = "add-student-to-lesson-btn">
-                  Добавить ученика на урок
+                  ${LESSON_ADD_STUDENT_MAIN_BTN_TXT}
               </button>
           </div>
       </div>
@@ -389,7 +389,7 @@ function getHtml(){
                   04
               </div>
               <div class="block-desc">
-                  Создать урок
+                  ${ADD_LESSON_BLOCK_DESC}
               </div>
           </div>
       </div>
@@ -399,7 +399,7 @@ function getHtml(){
                   05
               </div>
               <div class="block-desc">
-                  Добавить ученика в группу
+                  ${GROUP_ADD_STUDENT_BLOCK_DESC}
               </div>
               <div class = "block-loader hidden">
               </div>
@@ -414,7 +414,7 @@ function getHtml(){
           <div id="add_group_selector_wrapper">
                   <div class="selection-row">
                       <div class="title">
-                          Группа
+                          ${GROUP_ADD_STUDENT_SEL_GROUP_LABEL}
                       </div>
                       <div class="selector">
                           <div class="input-wrapper">
@@ -427,16 +427,16 @@ function getHtml(){
               <div class="choose_date_container" id = "add-student-to-group-calendars">
                   <div class="choose-date-description">
                       <div class="main-title">
-                          Выбрать даты:
+                          ${GROUP_ADD_STUDENT_CAL_BLOCK_MAIN_TITLE}
                       </div>
                       <div class="main-description">
-                          Выберите период участия в группе. Если не указано по какое число добавляется ученик, то он добавляется бессрочно
+                          ${GROUP_ADD_STUDENT_CAL_BLOCK_DESC}
                       </div>
                   </div>
                   <div class="plug"></div>
               </div>
               <button class="basic_btn inactive" id = "add-student-to-group-btn">
-                  Добавить ученика в группу
+                  ${GROUP_ADD_STUDENT_MAIN_BTN_TXT}
               </button>
           </div>
       </div>
@@ -446,7 +446,7 @@ function getHtml(){
                   06
               </div>
               <div class="block-desc">
-                  Передать платеж
+                  ${ADD_PAYMENT_BLOCK_DESC}
               </div>
               <div class = "block-loader hidden">
               </div>
@@ -461,7 +461,7 @@ function getHtml(){
               <div id="add-payment-selector">
                   <div class="selection-row">
                       <div class="title">
-                          Касса
+                          ${ADD_PAYMENT_SEL_CAS_TITLE}
                       </div>
                       <div class="selector">
                           <div id="add_payment_cas_selector"></div>
@@ -469,7 +469,7 @@ function getHtml(){
                   </div>
                   <div class="selection-row">
                       <div class="title">
-                          Категория статей
+                          ${ADD_PAYMENT_SEL_CATEGORY_TITLE}
                       </div>
                       <div class="selector">
                           <div id="add_payment_category_selector"></div>
@@ -477,7 +477,7 @@ function getHtml(){
                   </div>
                   <div class="selection-row">
                       <div class="title">
-                          Статья дохода
+                          ${ADD_PAYMENT_SEL_INCOME_TITLE}
                       </div>
                       <div class="selector">
                           <div id="add_payment_income_selector"></div>
@@ -485,7 +485,7 @@ function getHtml(){
                   </div>
               </div>
               <button class="basic_btn inactive" id = "add-payment-btn">
-                  Пополнить баланс
+                  ${ADD_PAYMENT_MAIN_BTN_TXT}
               </button>
           </div>
       </div>
@@ -495,7 +495,7 @@ function getHtml(){
                   07
               </div>
               <div class="block-desc">
-                  Добавить абонемент
+                  ${ADD_ABONEMENT_BLOCK_DESC}
               </div>
               <div class = "block-loader hidden">
               </div>
@@ -510,7 +510,7 @@ function getHtml(){
               <div id="add_abonement_selector_wrapper">
                   <div class="selection-row">
                       <div class="title">
-                          Абонемент
+                          ${ADD_ABONEMENT_SEL_ABONEMENT_TITLE}
                       </div>
                       <div class="selector">
                           <div class="input-wrapper">
@@ -523,16 +523,16 @@ function getHtml(){
               <div class="choose_data_container" id = "add-abonement-data-container">
                 <div class="choose-data-description">
                     <div class="main-title">
-                        Добавить абонемент:
+                        ${ADD_ABONEMENT_DATA_BLOCK_MAIN_TITLE}
                     </div>
                     <div class="main-description">
-                        Выберите данные для добавления абонемента.
+                        ${ADD_ABONEMENT_DATA_BLOCK_MAIN_DESC}
                     </div>
                 </div>
                 <div class="plug"></div>
             </div>
               <button class="basic_btn inactive" id = "add-abonement-btn">
-                  Добавить абонемент
+                  ${ADD_ABONEMENT_MAIN_BTN_TXT}
               </button>
           </div>
       </div>
@@ -542,7 +542,7 @@ function getHtml(){
                   08
               </div>
               <div class="block-desc">
-                  Коммуникации
+                  ${COMMUNICATION_BLOCK_DESC}
               </div>
               <div class = "block-loader hidden">
               </div>
@@ -558,7 +558,7 @@ function getHtml(){
                   
               </div>
               <button class="basic_btn inactive" id = "communication-btn">
-                  Загрузить следующие 10 сообщений
+                  ${COMMUNICATION_MAIN_BTN}
               </button>
           </div>
       </div>
@@ -568,7 +568,7 @@ function getHtml(){
 <div class="footer">
   <div class="company-logo">
       <div class="main-info">
-          Сделано<br> на платформе
+          ${FOOTER_COMPANY_INFO}
       </div>
       <div class="logo"></div>
   </div>
@@ -578,7 +578,7 @@ function getHtml(){
       </div>
   </div>
   <button class="basic_btn active" id = "footer-knowledgebase-btn">
-      База знаний
+      ${FOOTER_KNOWLEDGEBASE_BTN_TXT}
   </button>
 </div>
 <a href = "https://t.me/Comontech108">

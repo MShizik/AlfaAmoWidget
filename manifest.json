@@ -25,6 +25,7 @@
         "*://*.amocrm.ru/*",
         "*://*.kommo.com/*"],
       "js": [
+        "js/localization.js",
         "js/behavior/input-mask.js",
         "js/content.js",
         "js/behavior/tip-behavior.js",
