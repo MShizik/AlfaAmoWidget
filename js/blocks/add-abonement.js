@@ -276,10 +276,6 @@ function generateAbonementCalendar(data, insertionPlace){
 
 function generateAbonementPayCheckBox(id){
     var id = "add_abonement_checkbox_" + id;
-    `<div class="task_checkbox">
-        <input type="checkbox" class="custom-checkbox" id="add_as_lead" name="add_as_lead" value="yes">
-        <label for="add_as_lead">Записать как лид</label>
-    </div>`
     var checkbox = document.createElement("div");
     checkbox.classList.add("task_checkbox");
 

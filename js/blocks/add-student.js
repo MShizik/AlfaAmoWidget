@@ -36,7 +36,7 @@ reloadLinkBlock.addEventListener("click", () => {
         .catch(error => {
             console.error('Error:', error);
             removeLoader(addStudentContentBlock);
-            toggleOperationResult(false, "Студент не был добавлен", addStudentContentBlock);
+            toggleOperationResult(false, "Ошибка", addStudentContentBlock);
         });
     }
 });
