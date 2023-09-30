@@ -1,6 +1,7 @@
 var addStudentAsLeadCheckBox = document.querySelector( "#add_as_lead");
 var addStudentBtn = document.querySelector("#add_student_btn");
 var addStudentRefresher  = document.querySelector("#add_student_refresher");
+var updateLinkBlock = document.querySelector("#update_student_data");
 var addStudentContentBlock = document.querySelector("#add-student-content-block");
 var reloadLinkBlock = document.querySelector("#add_student_refresh");
 
@@ -11,6 +12,8 @@ addStudentContentBlock.addEventListener("click" , () => {
     if (studentSelector.option !== "-1"){
         reloadLinkBlock.classList.remove("inactive");
         reloadLinkBlock.classList.add("active");
+        updateLinkBlock.classList.remove("inactive");
+        updateLinkBlock.classList.add("active");
         addStudentBtn.classList.remove("active");
         addStudentBtn.classList.add("inactive");
     }else{
@@ -18,6 +21,8 @@ addStudentContentBlock.addEventListener("click" , () => {
         addStudentBtn.classList.add("active");
         reloadLinkBlock.classList.add("inactive");
         reloadLinkBlock.classList.remove("active");
+        updateLinkBlock.classList.add("inactive");
+        updateLinkBlock.classList.remove("active");
     }
 });
 
@@ -29,14 +34,51 @@ reloadLinkBlock.addEventListener("click", () => {
         fetch('https://alfa-amo.ru/testwidget/reload_links.php?branch_id=' + filialSelector.option +  "&user_id=" + user_id +  "&student_id=" + studentDataForSelector[studentSelector.index][0] +  "&contact_id=" + studentDataForSelector[studentSelector.index][2] , {
             method: 'GET'
         }).
-        then(response => {
+        then(response => response.json()).
+        then(data => {
             removeLoader(addStudentContentBlock);
-            toggleOperationResult(true, ADD_STUDENT_RES_REFRESH_LINK_TXT_SUC, addStudentContentBlock);
+            toggleOperationResult(true, ADD_STUDENT_RES_SUBACTIONS_TXT_FAILURE, addStudentContentBlock);
         })
         .catch(error => {
             console.error('Error:', error);
             removeLoader(addStudentContentBlock);
-            toggleOperationResult(false, ADD_STUDENT_RES_REFRESH_LINK_TXT_FAILURE, addStudentContentBlock);
+            toggleOperationResult(false, ADD_STUDENT_RES_SUBACTIONS_TXT_FAILURE, addStudentContentBlock);
+        });
+    }
+});
+
+updateLinkBlock.addEventListener("click", () => {
+    if (updateLinkBlock.classList.contains("active")){
+
+        var lead_id = null;
+        var link = document.location.href;
+        var regex = /^https:\/\/.*?\/.*?\/.*?\/(.*?)$/;
+        var result = regex.exec(link);
+
+        if (result && result.length > 1) {
+            lead_id = result[1];
+        }
+
+        createLoader(addStudentContentBlock);
+        //console.log('https://alfa-amo.ru/testwidget/update_student.php?branch_id=' + filialSelector.option +  "&user_id=" + user_id +  "&student_id=" + studentDataForSelector[studentSelector.index][0] +  "&contact_id=" + studentDataForSelector[studentSelector.index][2] + "&lead_id=" + lead_id);
+        fetch('https://alfa-amo.ru/testwidget/update_student.php?branch_id=' + filialSelector.option +  "&user_id=" + user_id +  "&student_id=" + studentDataForSelector[studentSelector.index][0] +  "&contact_id=" + studentDataForSelector[studentSelector.index][2] + "&lead_id=" + lead_id, {
+            method: 'GET'
+        }).
+        then(response => response.json()).
+        then(data => {
+            removeLoader(addStudentContentBlock);
+            //console.log(data);
+            if (data['res'] === true){
+                toggleOperationResult(true, ADD_STUDENT_RES_UPDATE_DATA_TXT_SUC, addStudentContentBlock);
+            }
+            else{
+                toggleOperationResult(false, ADD_STUDENT_RES_SUBACTIONS_TXT_FAILURE, addStudentContentBlock);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            removeLoader(addStudentContentBlock);
+            toggleOperationResult(false, ADD_STUDENT_RES_SUBACTIONS_TXT_FAILURE, addStudentContentBlock);
         });
     }
 });
@@ -92,6 +134,8 @@ addStudentBtn.addEventListener("click", e => {
 
                 reloadLinkBlock.classList.remove("inactive");
                 reloadLinkBlock.classList.add("active");
+                updateLinkBlock.classList.remove("inactive");
+                updateLinkBlock.classList.add("active");
                 addStudentBtn.classList.remove("active");
                 addStudentBtn.classList.add("inactive");
 

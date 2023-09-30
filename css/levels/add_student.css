@@ -5,6 +5,22 @@
     gap: 6px;
 }
 
+.task_button .subactions{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.subactions .devider{
+    height: 7px;
+    width: 7px;
+    background-color: var(--light-blue-border);
+    border-radius: 50%;
+    display: inline-block;
+}
+
 .task_button .additional-info{
     width: fit-content;
     max-width: 150px;

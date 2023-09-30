@@ -295,8 +295,13 @@ function getHtml(){
                   <button class="basic_btn active" id = "add_student_btn">
                       ${ADD_STUDENT_MAIN_BTN_TXT}
                   </button>
-                  <div class="additional-info" id = "add_student_refresh">
-                      <a>${ADD_STUDENT_REFRESH_LINK_TXT}</a>
+                  <div class = "subactions">
+                    <div class="additional-info" id = "update_student_data">
+                        <a>${ADD_STUDENT_UPDATE_LINK_TXT}</a>
+                    </div>
+                    <div class="additional-info" id = "add_student_refresh">
+                        <a>${ADD_STUDENT_REFRESH_LINK_TXT}</a>
+                    </div>
                   </div>
               </div>
           </div>

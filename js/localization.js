@@ -18,8 +18,10 @@ var ADD_STUDENT_BLOCK_DESC = "Записать учащегося в AlfaCRM";
 var ADD_STUDENT_IS_LEAD_LABEL = "Записать как лид";
 var ADD_STUDENT_MAIN_BTN_TXT = "Записать учащегося в AlfaCRM";
 var ADD_STUDENT_REFRESH_LINK_TXT = "Восстановить ссылку на карточку AlfaCRM";
+var ADD_STUDENT_UPDATE_LINK_TXT = "Обновить";
 var ADD_STUDENT_RES_REFRESH_LINK_TXT_SUC = "Ссылка обновлена";
-var ADD_STUDENT_RES_REFRESH_LINK_TXT_FAILURE = "Ошибка";
+var ADD_STUDENT_RES_UPDATE_DATA_TXT_SUC = "Данные обновлены";
+var ADD_STUDENT_RES_SUBACTIONS_TXT_FAILURE = "Ошибка";
 var ADD_STUDENT_RES_ADD_TXT_SUC = "Студент добавлен";
 var ADD_STUDENT_RES_ADD_TXT_FAILURE = "Студент не был добавлен";
 
@@ -166,8 +168,10 @@ var CAL_MONTHS = [
       ADD_STUDENT_IS_LEAD_LABEL = "Add as lead";
       ADD_STUDENT_MAIN_BTN_TXT = "Add student to AlfaCRM";
       ADD_STUDENT_REFRESH_LINK_TXT = "Restore link to AlfaCRM card";
+      ADD_STUDENT_UPDATE_LINK_TXT = "Update";
       ADD_STUDENT_RES_REFRESH_LINK_TXT_SUC = "Link updated";
-      ADD_STUDENT_RES_REFRESH_LINK_TXT_FAILURE = "Error";
+      ADD_STUDENT_RES_UPDATE_DATA_TXT_SUC = "Data updated";
+      ADD_STUDENT_RES_SUBACTIONS_TXT_FAILURE = "Error";
       ADD_STUDENT_RES_ADD_TXT_SUC = "Student added";
       ADD_STUDENT_RES_ADD_TXT_FAILURE = "Student was not added";
   
@@ -302,9 +306,11 @@ var CAL_MONTHS = [
       ADD_STUDENT_BLOCK_DESC = "Записать учащегося в AlfaCRM";
       ADD_STUDENT_IS_LEAD_LABEL = "Записать как лид";
       ADD_STUDENT_MAIN_BTN_TXT = "Записать учащегося в AlfaCRM";
-      ADD_STUDENT_REFRESH_LINK_TXT = "Восстановить ссылку на карточку AlfaCRM";
+      ADD_STUDENT_REFRESH_LINK_TXT = "Восстановить ссылку";
+      ADD_STUDENT_UPDATE_LINK_TXT = "Обновить";
       ADD_STUDENT_RES_REFRESH_LINK_TXT_SUC = "Ссылка обновлена";
-      ADD_STUDENT_RES_REFRESH_LINK_TXT_FAILURE = "Ошибка";
+      ADD_STUDENT_RES_UPDATE_DATA_TXT_SUC = "Данные обновлены";
+      ADD_STUDENT_RES_SUBACTIONS_TXT_FAILURE = "Ошибка";
       ADD_STUDENT_RES_ADD_TXT_SUC = "Студент добавлен";
       ADD_STUDENT_RES_ADD_TXT_FAILURE = "Студент не был добавлен";
   
