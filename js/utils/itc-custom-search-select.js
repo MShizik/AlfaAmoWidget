@@ -16,7 +16,7 @@ class ItcCustomSearchSelect {
       this.basicOptions = [];
       let selectedIndex = -1;
       let selectedValue = '';
-      let selectedContent = 'Выберите из списка';
+      let selectedContent = SEL_LABEL;
       options.forEach((option, index) => {
         let selectedClass = '';
         if (option[0] === targetValue) {
@@ -133,7 +133,7 @@ class ItcCustomSearchSelect {
 
         input.addEventListener('blur', e => {
             setTimeout(function(){
-              if (e.target.innerHTML === '') e.target.innerHTML = "Выберите из списка";
+              if (e.target.innerHTML === '') e.target.innerHTML = SEL_LABEL;
             },100);
         });
     }

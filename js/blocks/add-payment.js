@@ -62,12 +62,12 @@ addPaymentBtn.addEventListener("click" , () => {
             .then(response => {
                 removeLoader(addPaymentContentBlock);
                 refreshAddPayemnt();
-                toggleOperationResult(true, "Платеж добавлен", addPaymentContentBlock);
+                toggleOperationResult(true, ADD_PAYMENT_RES_ADD_SUC, addPaymentContentBlock);
             })
             .catch(error => {
                 console.error('Error:', error);
                 removeLoader(addPaymentContentBlock);
-                toggleOperationResult(false, "Произошла ошибка", addPaymentContentBlock);
+                toggleOperationResult(false, ADD_PAYMENT_RES_FAILURE, addPaymentContentBlock);
             });
 
             addPaymentCasSelector._reset();
@@ -192,7 +192,7 @@ function refreshAddPayemnt(){
     .catch(error => {
         console.error('Error:', error);
         removeLoader(addPaymentContentBlock);
-        toggleOperationResult(false, "Произошла ошибка", addPaymentContentBlock);
+        toggleOperationResult(false, ADD_PAYMENT_RES_FAILURE, addPaymentContentBlock);
     });
 }
 

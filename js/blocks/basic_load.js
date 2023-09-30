@@ -48,11 +48,11 @@ function basicLoad(){
                     user_id = data['user_id'];
                     if (user_id === null){
                         toggleConnectionMarks(false, false);
-                        createErrorLoadShower('Зарегистрируйтесь <a href = "https://comontech.ru" >comontech.ru</a>');
+                        createErrorLoadShower(BASIC_ERROR_UNREGISTER);
                     }
                     if (data['is_active'] === 0){
                         toggleConnectionMarks(false, false);
-                        createErrorLoadShower('Продлите подписку');
+                        createErrorLoadShower(BASIC_ERROR_SUB);
                     }
                     createConnectionTips();
         
@@ -172,7 +172,7 @@ function updateSubscriptionValue(dateOfEnd){
     curDate.setHours(0, 0, 0, 0);
     var subLen = Math.floor((endDate - curDate) / (1000 * 60 * 60 * 24));
     var footerSubscriptionInfo = document.querySelector(".footer .info-block");
-    footerSubscriptionInfo.innerHTML = "Подписка " + subLen + " " + declOfNum(subLen, ["день", "дня", "дней"]);
+    footerSubscriptionInfo.innerHTML = FOOTER_SUB_LABEL + " " + subLen + " " + declOfNum(subLen, ["день", "дня", "дней"]);
 }
 
 function declOfNum(number, words) {  

@@ -14,7 +14,8 @@ if (prevLinkMatch){
 circle.innerHTML = getCircle();
 document.body.appendChild(circle);
 
-
+var isEng = document.querySelector("html").classList.contains("en");
+updateLocalization(isEng);
 
 var mainBody = document.createElement('div');
 mainBody.classList.add("basement");
@@ -346,8 +347,8 @@ function getHtml(){
                                           <path fill-rule="evenodd" clip-rule="evenodd" d="M2.25667 1.74459V0H3.9481V1.74459H10.0517V0H11.7431V1.74459H12.1105C13.7255 1.74459 13.9791 2.03447 14 3.45121V12.2503C14 13.489 13.8885 14 12.3656 14H1.64392C0.121022 14 0 13.6287 0 12.1248V3.62268C0.0204458 2.42723 0.136099 1.74459 1.7507 1.74459L2.25667 1.74459ZM1.35359 11.8814C1.35359 12.3546 1.4963 12.3861 1.80608 12.3861H12.2508C12.5602 12.3861 12.6469 12.3787 12.6469 11.9047V4.80285C12.6382 4.43703 12.5197 4.37272 12.2791 4.37272H1.69559C1.45479 4.37272 1.35029 4.42559 1.35359 4.7071L1.35359 11.8814Z" fill="#AFBCBE"/>
                                       </svg>
                                   </div>
-                                  <input type="text" class="cal_date_input first" id="input-cal-add-student-to-lesson" placeholder="с __.__.____" data-slots="_"/>
-                                  <input type="text" class="cal_date_input second" id="input-cal-second-add-student-to-lesson" placeholder="по __.__.____" data-slots="_"/>
+                                  <input type="text" class="cal_date_input first" id="input-cal-add-student-to-lesson" placeholder="${CAL_FROM}__.__.____" data-slots="_"/>
+                                  <input type="text" class="cal_date_input second" id="input-cal-second-add-student-to-lesson" placeholder="${CAL_TO}__.__.____" data-slots="_"/>
                                   <div class="cal_input_clear">
                                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewbox="0 0 14 14" fill="none">
                                           <path d="M12.8337 2.34175L11.6587 1.16675L7.00033 5.82508L2.34199 1.16675L1.16699 2.34175L5.82533 7.00008L1.16699 11.6584L2.34199 12.8334L7.00033 8.17508L11.6587 12.8334L12.8337 11.6584L8.17533 7.00008L12.8337 2.34175Z" fill="#AFBCBE"/>

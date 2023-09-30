@@ -65,12 +65,12 @@ addStudentToGroupBtn.addEventListener("click", () => {
         .then(response => {
             removeLoader(addStudentToGroupContentBlock);
             refreshAddStudentToGroup();
-            toggleOperationResult(true, "Студент добавлен в группу", addStudentToGroupContentBlock);
+            toggleOperationResult(true, GROUP_ADD_STUDENT_RES_ADD_SUC, addStudentToGroupContentBlock);
         })
         .catch(error => {
             console.error('Error:', error);
             removeLoader(addStudentToGroupContentBlock);
-            toggleOperationResult(true, "Студент не добавлен в группу", addStudentToGroupContentBlock);
+            toggleOperationResult(true, GROUP_ADD_STUDENT_RES_ADD_FAILURE, addStudentToGroupContentBlock);
         });
     }
 });
@@ -181,14 +181,14 @@ function generateCalendarBody(id, name, parent){
     input1.setAttribute('type', 'text');
     input1.setAttribute('class', 'cal_date_input first');
     input1.setAttribute('id', id + "_first_input");
-    input1.setAttribute('placeholder', 'с __.__.____');
+    input1.setAttribute('placeholder', CAL_FROM + "__.__.____");
     input1.setAttribute('data-slots', '');
 
     const input2 = document.createElement('input');
     input2.setAttribute('type', 'text');
     input2.setAttribute('class', 'cal_date_input second');
     input2.setAttribute('id', id + "_second_input");
-    input2.setAttribute('placeholder', 'по __.__.____');
+    input2.setAttribute('placeholder', CAL_TO + '__.__.____');
     input2.setAttribute('data-slots', '');
 
     const div6 = document.createElement('div');
@@ -307,13 +307,7 @@ function refreshAddStudentToGroup(){
     addStudentToGroupBtn.classList.remove("active");
     addStudentToGroupBtn.classList.add("inactive");
 
-    groupColumns = [
-        '',
-        'Название группы',
-        'Педагог',
-        'Количество/<br>лимит учеников',
-        'Комментарий'
-    ];
+    groupColumns = GROUP_ADD_STUDENT_COLUMNS;
     groupData = [
     ];
     addStudentToGroupActiveCals.forEach(element => {

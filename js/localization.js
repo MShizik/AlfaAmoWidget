@@ -118,6 +118,9 @@ var TIP_DISABLED = "Эта функция находится\n в разрабо
 var TIP_FORBIDDEN = "Вы не выбрали учащегося";
 var SEARCH_LABEL = "Поиск...";
 var SEL_LABEL = "Выберите из списка";
+var ZERO_SEL_LABEL = "Выбор отсутсвует";
+var CAL_FROM = "с ";
+var CAL_TO = "по ";
 var CAL_DAYS = [
     "Вс",
     "Пн",
@@ -256,6 +259,9 @@ var CAL_MONTHS = [
       TIP_FORBIDDEN = "You have not selected a student";
       SEARCH_LABEL = "Search...";
       SEL_LABEL = "Select from the list";
+      ZERO_SEL_LABEL = "Nothing to select";
+      CAL_FROM = "from ";
+      CAL_TO = "to ";
       CAL_DAYS = [
         "Sun",
         "Mon",
@@ -390,6 +396,9 @@ var CAL_MONTHS = [
        TIP_FORBIDDEN = "Вы не выбрали учащегося";
        SEARCH_LABEL = "Поиск...";
        SEL_LABEL = "Выберите из списка";
+       ZERO_SEL_LABEL = "Выбор отсутсвует";
+       CAL_FROM = "с ";
+       CAL_TO = "по ";
        CAL_DAYS = [
             "Вс",
             "Пн",

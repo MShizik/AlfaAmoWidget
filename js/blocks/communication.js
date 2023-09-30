@@ -35,6 +35,7 @@ communiactionContentBlock.addEventListener("click" , () => {
     })
     .catch(error => {
         console.error('Error:', error);
+        removeLoader(communiactionContentBlock);
     });
 
     
@@ -71,6 +72,7 @@ communicationBtn.addEventListener("click", () => {
     })
     .catch(error => {
         console.error('Error:', error);
+        removeLoader(communiactionContentBlock);
     });
 });
 
@@ -113,7 +115,7 @@ function generateChatMessage(message){
 
     let writerStatus = document.createElement('div');
     writerStatus.classList.add("writer-status");
-    writerStatus.innerHTML = isManager ? "Менеджер" : "Клиент";
+    writerStatus.innerHTML = isManager ? COMMUNICATION_MANAGER_TITLE : COMMUNICATION_CLIENT_TITLE;
 
 
     let messageText = document.createElement('div');

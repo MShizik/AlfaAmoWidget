@@ -31,12 +31,12 @@ reloadLinkBlock.addEventListener("click", () => {
         }).
         then(response => {
             removeLoader(addStudentContentBlock);
-            toggleOperationResult(true, "Ссылка обновлена", addStudentContentBlock);
+            toggleOperationResult(true, ADD_STUDENT_RES_REFRESH_LINK_TXT_SUC, addStudentContentBlock);
         })
         .catch(error => {
             console.error('Error:', error);
             removeLoader(addStudentContentBlock);
-            toggleOperationResult(false, "Ошибка", addStudentContentBlock);
+            toggleOperationResult(false, ADD_STUDENT_RES_REFRESH_LINK_TXT_FAILURE, addStudentContentBlock);
         });
     }
 });
@@ -95,19 +95,19 @@ addStudentBtn.addEventListener("click", e => {
                 addStudentBtn.classList.remove("active");
                 addStudentBtn.classList.add("inactive");
 
-                forbiddenTip.innerHTML = "Ученик уже записан в alfaCRM";
+                forbiddenTip.innerHTML = FORBIDDEN_TIP_STUDENT_EXIST;
                 removeLoader(addStudentContentBlock);
-                toggleOperationResult(true, "Студент добавлен", addStudentContentBlock);
+                toggleOperationResult(true, ADD_STUDENT_RES_ADD_TXT_SUC, addStudentContentBlock);
             }else{
                 removeLoader(addStudentContentBlock);
-                toggleOperationResult(false, "Студент не был добавлен", addStudentContentBlock);
+                toggleOperationResult(false, ADD_STUDENT_RES_ADD_TXT_FAILURE, addStudentContentBlock);
             }
             
         })
         .catch(error => {
             console.error('Error:', error);
             removeLoader(addStudentContentBlock);
-            toggleOperationResult(false, "Студент не был добавлен", addStudentContentBlock);
+            toggleOperationResult(false, ADD_STUDENT_RES_ADD_TXT_FAILURE, addStudentContentBlock);
         });
     }
 });

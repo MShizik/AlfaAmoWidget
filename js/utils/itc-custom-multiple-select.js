@@ -15,7 +15,7 @@ class ItcCustomMultipleSelect {
       const items = [];
       let selectedIndex = -1;
       let selectedValue = '';
-      let selectedContent = 'Выберите из списка';
+      let selectedContent = SEL_LABEL;
       options.forEach((option, index) => {
         let selectedClass = '';
         if (option[0] === targetValue) {
@@ -122,7 +122,7 @@ class ItcCustomMultipleSelect {
         this._elToggle.dataset.index = this._elToggle.dataset.index.replace(elOption.dataset.index + ";", "");
         elOption.classList.remove(this.constructor.EL_OPTION_SELECTED);
         if (this._el.querySelectorAll(`.${this.constructor.EL_OPTION_SELECTED}`).length === 0){
-          this._elToggle.innerHTML = "Выберите из списка";
+          this._elToggle.innerHTML = SEL_LABEL;
           this._el.classList.remove("data-selected");
         }
       }      
@@ -199,10 +199,10 @@ class ItcCustomMultipleSelect {
         this._changeValue(optionsWrapper.querySelector("li"));
       }
       else if (data.length === 0){
-        this._elToggle.innerHTML = "Выбор отсутствует";
+        this._elToggle.innerHTML = ZERO_SEL_LABEL;
         this._elToggle.dataset.option = "-1";
       }else{
-        this._elToggle.innerHTML = "Выберите из списка";
+        this._elToggle.innerHTML = SEL_LABEL;
         this._elToggle.dataset.option = "-1";
       }
 

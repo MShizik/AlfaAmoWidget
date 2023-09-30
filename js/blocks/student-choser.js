@@ -23,10 +23,10 @@ let removeNoteAndWriteIntoResultField = function(_el){
     if (wrapper.querySelector("#student_choser_student_selector").parentElement.parentElement.classList.contains("selected") &&
     wrapper.querySelector("#student_choser_filial_selector").parentElement.parentElement.classList.contains("selected")){
         let forbiddenBlocksQuery = ".forbidden";
-        forbiddenTip.innerHTML = "Учащийся уже записан в alfaCRM";
+        forbiddenTip.innerHTML = FORBIDDEN_TIP_STUDENT_EXIST;
         if (studentSelector.option === "-1"){
             forbiddenBlocksQuery = "#add-student-content-block";
-            forbiddenTip.innerHTML = "Учащийся не записан в alfaCRM";
+            forbiddenTip.innerHTML = FORBIDDEN_TIP_STUDENT_UNEXIST;
             let closedBlocks = document.querySelectorAll(".widget-content-block:not(.static):not(.disabled)");
             closedBlocks.forEach(block => {
                 block.classList.add("forbidden");

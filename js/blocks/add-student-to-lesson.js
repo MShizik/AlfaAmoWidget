@@ -18,7 +18,7 @@ var calInputChangedHandler = function(cal){
     var inputs = cal.getInputs();
     var firstDate = inputValues['firstInput'];
     var secondDate = inputValues['secondInput'];
-    if (addStudentToLessonTable !== null && firstDate !== null && ((secondDate === null && inputs['secondInput'].value.replace(/\./g, "").replace(/[а-яА-ЯёЁ]/g, "").replace(/\./g, "").replace(" ", "").length === 0) || secondDate !== null)){
+    if (addStudentToLessonTable !== null && firstDate !== null && ((secondDate === null && inputs['secondInput'].value.replace(/\./g, "").replace(/\D+/g, "").replace(/\./g, "").replace(" ", "").length === 0) || secondDate !== null)){
         var cropedData = [];
         lessonsData.forEach(data=> {
             var parsedData = Date.parse(data['date'].split(".").reverse().join("-"));
@@ -105,31 +105,13 @@ var selectorAfterSelectHandler = function(){
         .catch(error => {
             console.error('Error:', error);
             removeLoader(addStudentToLessonContentBlock);
-            toggleOperationResult(false, "Произошла ошибка", addStudentToLessonContentBlock);
+            toggleOperationResult(false, LESSON_ADD_STUDENT_RES_ADD_TXT_FAILURE, addStudentToLessonContentBlock);
         });
 
         if (lessonSearchSelector.option === "2"){
-            lessonsColumns = [
-                '',
-                'Дата',
-                'Время урока',
-                'Предмет',
-                'Педагог',
-                'Аудитория',
-                'Название группы',
-                'Лимит учеников',
-                'Комментарий'
-            ];
+            lessonsColumns = LESSON_ADD_STUDENT_GROUP_COLUMNS_LIST;
         }else{
-            lessonsColumns = [
-                '',
-                'Дата',
-                'Время урока',
-                'Предмет',
-                'Педагог',
-                'Аудитория',
-                'Комментарий'
-            ];
+            lessonsColumns = LESSON_ADD_STUDENT_SHORT_COLUMNS_LIST;
         }
 
         addStudentToLessonTable = new CustomTable(tableWrapper, [], lessonsColumns, checkboxHandler);
@@ -187,12 +169,12 @@ addStudentToLessonBtn.addEventListener("click", () => {
         .then(response => {
             removeLoader(addStudentToLessonContentBlock);
             refreshAddStudetnToLesson();
-            toggleOperationResult(true, "Студент добавлен на урок", addStudentToLessonContentBlock);
+            toggleOperationResult(true, LESSON_ADD_STUDENT_RES_ADD_TXT_SUC, addStudentToLessonContentBlock);
         })
         .catch(error => {
             console.error('Error:', error);
             removeLoader(addStudentToLessonContentBlock);
-            toggleOperationResult(false, "Произошла ошибка", addStudentToLessonContentBlock);
+            toggleOperationResult(false, LESSON_ADD_STUDENT_RES_ADD_TXT_FAILURE, addStudentToLessonContentBlock);
         });
     }
 });

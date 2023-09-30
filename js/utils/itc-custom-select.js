@@ -15,7 +15,7 @@ class ItcCustomSelect {
       const items = [];
       let selectedIndex = -1;
       let selectedValue = '';
-      let selectedContent = 'Выберите из списка';
+      let selectedContent = SEL_LABEL;
       options.forEach((option, index) => {
         let selectedClass = '';
         if (option[0] === targetValue) {
@@ -107,7 +107,7 @@ class ItcCustomSelect {
       if (selected) {
         selected.classList.remove(this.constructor.EL_OPTION_SELECTED);
       }
-      this._elToggle.innerHTML = 'Выберите из списка';
+      this._elToggle.innerHTML = SEL_LABEL;
       this._elToggle.value = '';
       this._elToggle.dataset.index = '-1';
       this._el.dispatchEvent(new CustomEvent('itc.select.change'));
@@ -164,10 +164,10 @@ class ItcCustomSelect {
         this._changeValue(optionsWrapper.querySelector("li"));
       }
       else if (data.length === 0){
-        this._elToggle.innerHTML = "Выбор отсутствует";
+        this._elToggle.innerHTML = ZERO_SEL_LABEL;
         this._elToggle.dataset.option = "-1";
       }else{
-        this._elToggle.innerHTML = "Выберите из списка";
+        this._elToggle.innerHTML = SEL_LABEL;
         this._elToggle.dataset.option = "-1";
       }
 

@@ -1,7 +1,7 @@
 var disabledFunctions = document.querySelectorAll(".disabled");
 
 var tip = document.createElement('div');
-tip.innerHTML = "Эта функция находится\n в разработке";
+tip.innerHTML = TIP_DISABLED;
 tip.classList.add("tip");
 
 disabledFunctions.forEach(element => {
@@ -24,7 +24,7 @@ disabledFunctions.forEach(element => {
 
 var forbiddenBlocks = document.querySelectorAll(".forbidden");
 var forbiddenTip = document.createElement('div');
-forbiddenTip.innerHTML = "Вы не выбрали учащегося";
+forbiddenTip.innerHTML = TIP_FORBIDDEN;
 forbiddenTip.classList.add("tip");
 
 forbiddenBlocks.forEach(element => {
@@ -53,7 +53,7 @@ forbiddenBlocks.forEach(element => {
 
 var tgWiget = document.querySelectorAll(".widget-tg-circle");
 var tgTip = document.createElement('div');
-tgTip.innerHTML = "Чат с поддержкой";
+tgTip.innerHTML = TIP_TG;
 tgTip.classList.add("tip");
 
 tgWiget.forEach(element => {
@@ -77,7 +77,7 @@ tgWiget.forEach(element => {
 function createConnectionTips(){
     var connectionIndicators = document.querySelectorAll(".connection-failure");
     var connectionTip = document.createElement('div');
-    connectionTip.innerHTML = "Нет связи с сервисом";
+    connectionTip.innerHTML = TIP_CONNECTION;
     connectionTip.classList.add("tip");
 
     connectionIndicators.forEach(element => {

@@ -18,7 +18,7 @@ class SearchWithTable{
         this.columns = columns;
         this.tableContainer = tableContainer;
 
-        this.input.value = "Поиск...";
+        this.input.value = SEARCH_LABEL;
         this.currentValue = "";
         this.tableObj = new CustomTable(this.tableContainer, this.basicData, this.columns, checkBoxCallBack);
 
@@ -64,7 +64,7 @@ class SearchWithTable{
 
         this.input.addEventListener('blur', e => {
           if (e.target.value === ''){
-            e.target.value = "Поиск...";
+            e.target.value = SEARCH_LABEL;
           }
           e.target.classList.remove("used");
         });

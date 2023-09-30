@@ -7,30 +7,8 @@ class CustomCalendar{
     this.calHeader = null;
     this.calHeaderTitle = null;
     this.calDays = null;
-    this.days = [
-      
-      "Вс",
-      "Пн",
-      "Вт",
-      "Ср",
-      "Чт",
-      "Пт",
-      "Сб"
-    ];
-    this.months = [
-      "январь",
-      "февраль",
-      "март",
-      "апрель",
-      "май",
-      "июнь",
-      "июль",
-      "август",
-      "сентябрь",
-      "октябрь",
-      "ноябрь",
-      "декабрь"
-    ];
+    this.days = CAL_DAYS;
+    this.months = CAL_MONTHS;
     this.todayTimestamp = null;
     this.oneDay = 60 * 60 * 24 * 1000;
     this.selectedDay = null;
@@ -173,7 +151,7 @@ class CustomCalendar{
   }
 
   _changeDateFromInput(input, isFirst){
-    if (input.value.replace(/\_/g, "").replace(/[а-яА-ЯёЁ]/g, "").replace(/\./g, "").replace(" ", "").length === 0){
+    if (input.value.replace(/\_/g, "").replace(/\D+/g, "").replace(/\./g, "").replace(" ", "").length === 0){
       if (isFirst){
         this.firstSelectedDay = null;
       }
@@ -186,21 +164,21 @@ class CustomCalendar{
           this.setCalBody();
           this.updateInput();
     }
-    if (input.value.replace(/\_/g, "").replace(/[а-яА-ЯёЁ]/g, "").replace(/\./g, "").replace(" ", "").length === 8){
+    if (input.value.replace(/\_/g, "").replace(/\D+/g, "").replace(/\./g, "").replace(" ", "").length === 8){
       let date = this._getTimeStampFromInput(input);
       if (!isNaN(date)){
         if (date.getTime() === this.firstSelectedDay){
           if (isFirst){
-            input.value = "с " + this.getDateStringFromTimestamp(this.firstSelectedDay);
+            input.value = CAL_FROM + this.getDateStringFromTimestamp(this.firstSelectedDay);
           }else{
-            input.value = "по " + this.getDateStringFromTimestamp(this.secondSelectedDay);
+            input.value = CAL_TO + this.getDateStringFromTimestamp(this.secondSelectedDay);
           }
           return;
         }else if ( date.getTime() === this.secondSelectedDay){
           if (isFirst){
-            input.value = "с " + this.getDateStringFromTimestamp(this.firstSelectedDay);
+            input.value = CAL_FROM + this.getDateStringFromTimestamp(this.firstSelectedDay);
           }else{
-            input.value = "по " + this.getDateStringFromTimestamp(this.secondSelectedDay);
+            input.value = CAL_TO + this.getDateStringFromTimestamp(this.secondSelectedDay);
           }
           return;
         }
@@ -216,15 +194,15 @@ class CustomCalendar{
           this.secondSelectedDay = date
         }
         else if (!isFirst && ( date < this.firstSelectedDay || this.firstSelectedDay === null)){
-          this.secondInput.value = "по " + this.getDateStringFromTimestamp(this.firstSelectedDay);
+          this.secondInput.value = CAL_TO + this.getDateStringFromTimestamp(this.firstSelectedDay);
           this.firstSelectedDay = date;
-          this.firstInput.value = "с " + this.getDateStringFromTimestamp(date);
+          this.firstInput.value = CAL_FROM + this.getDateStringFromTimestamp(date);
         }
         else if (isFirst && date > this.secondSelectedDay)
         {
-          this.firstInput.value = "с " + this.getDateStringFromTimestamp(this.secondSelectedDay);
+          this.firstInput.value = CAL_FROM + this.getDateStringFromTimestamp(this.secondSelectedDay);
           this.secondSelectedDay = date;
-          this.secondInput.value = "по " + this.getDateStringFromTimestamp(date);
+          this.secondInput.value = CAL_TO + this.getDateStringFromTimestamp(date);
         }
         this.selectOnClick();
         this.calendar.innerHTML = "";
@@ -462,8 +440,8 @@ class CustomCalendar{
 
   setDateToInput(timestamp, input){
     let dateString = this.getDateStringFromTimestamp(timestamp);
-    if (input == this.firstInput) dateString = "с " + dateString;
-    if (input == this.secondInput) dateString = "по " + dateString;
+    if (input == this.firstInput) dateString = CAL_FROM + dateString;
+    if (input == this.secondInput) dateString = CAL_TO + dateString;
     input.value = dateString;
   }
 
@@ -513,7 +491,7 @@ class CustomCalendar{
   checkDateSelectionDirection(cellTimeStamp){
     return !(cellTimeStamp >= this.secondSelectedDay && this.secondSelectedDay !== null) &&
           ((cellTimeStamp <= this.firstSelectedDay && this.firstSelectedDay !== null && this.secondSelectedDay !== null) ||
-          this.firstInput.value.replace("_", "").replace(/[а-яА-ЯёЁ]/g, "").replace(/\./g, "").replace(" ", "").length === 0 || 
+          this.firstInput.value.replace("_", "").replace(/\D+/g, "").replace(/\./g, "").replace(" ", "").length === 0 || 
           this.firstInput.classList.contains('onFocus'));
   }
 
@@ -523,11 +501,11 @@ class CustomCalendar{
   }
 
   _checkInputFillnes(input){
-    return input.value.replace("_", "").replace(/[а-яА-ЯёЁ]/g, "").replace(/\./g, "").replace(" ", "").length === 8;
+    return input.value.replace("_", "").replace(/\D+/g, "").replace(/\./g, "").replace(" ", "").length === 8;
   }
 
   _getTimeStampFromInput(input){
-    let stringDate = input.value.replace("_", "").replace(/[а-яА-ЯёЁ]/g, "").replace(" ", "");
+    let stringDate = input.value.replace("_", "").replace(/\D+/g, "").replace(" ", "");
     let splittedDate = stringDate.split(".");
     let date = Date.parse(splittedDate[2] + "-" + splittedDate[1] + "-" + splittedDate[0]);
     if (!isNaN(date)){
