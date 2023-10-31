@@ -22,10 +22,15 @@ communiactionContentBlock.addEventListener("click" , () => {
         createConnectionTips();
         removeLoader(communiactionContentBlock);
         messagesData = data['communications'];
+        hasNext = data['next'];
 
-        if (messagesData.length < 10){
+        if (hasNext != 1){
             communicationBtn.classList.remove("active");
             communicationBtn.classList.add("inactive");
+        }
+        else{
+            communicationBtn.classList.remove("inactive");
+            communicationBtn.classList.add("active");
         }
 
         messagesData.forEach(data => {
@@ -42,6 +47,7 @@ communiactionContentBlock.addEventListener("click" , () => {
 });
 
 communicationBtn.addEventListener("click", () => {
+    if (communicationBtn.classList.contains("inactive")) return;
     var communiactionWrapper = communiactionContentBlock.querySelector(".chat-wrapper");
     offset += 10;
     createLoader(communiactionContentBlock);
@@ -56,8 +62,8 @@ communicationBtn.addEventListener("click", () => {
         createConnectionTips();
         removeLoader(communiactionContentBlock);
         messagesData = data['communications'];
-
-        if (messagesData.length < 10){
+        hasNext = data['next'];
+        if (hasNext != 1){
             communicationBtn.classList.remove("active");
             communicationBtn.classList.add("inactive");
         }else{

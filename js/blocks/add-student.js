@@ -138,8 +138,7 @@ addStudentBtn.addEventListener("click", e => {
                 updateLinkBlock.classList.add("active");
                 addStudentBtn.classList.remove("active");
                 addStudentBtn.classList.add("inactive");
-
-                forbiddenTip.innerHTML = FORBIDDEN_TIP_STUDENT_EXIST;
+                
                 removeLoader(addStudentContentBlock);
                 toggleOperationResult(true, ADD_STUDENT_RES_ADD_TXT_SUC, addStudentContentBlock);
             }else{
