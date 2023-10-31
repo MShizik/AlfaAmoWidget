@@ -75,7 +75,7 @@ var GROUP_ADD_STUDENT_COLUMNS = [
 ];
 
 //Содержимое блока добавления платежа
-var ADD_PAYMENT_BLOCK_DESC = "Передать платежа";
+var ADD_PAYMENT_BLOCK_DESC = "Передать платеж";
 var ADD_PAYMENT_SEL_CAS_TITLE = "Касса";
 var ADD_PAYMENT_SEL_CATEGORY_TITLE = "Категории статей";
 var ADD_PAYMENT_SEL_INCOME_TITLE = "Статья дохода";
@@ -360,7 +360,7 @@ var CAL_MONTHS = [
         'Комментарий'
       ];
   
-      ADD_PAYMENT_BLOCK_DESC = "Передать платежа";
+      ADD_PAYMENT_BLOCK_DESC = "Передать платеж";
       ADD_PAYMENT_SEL_CAS_TITLE = "Касса";
       ADD_PAYMENT_SEL_CATEGORY_TITLE = "Категории статей";
       ADD_PAYMENT_SEL_INCOME_TITLE = "Статья дохода";
