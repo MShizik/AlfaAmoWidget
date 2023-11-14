@@ -52,6 +52,7 @@ var LESSON_ADD_STUDENT_SHORT_COLUMNS_LIST = [
     'Предмет',
     'Педагог',
     'Аудитория',
+    'Количество учеников',
     'Комментарий'
 ];
 
@@ -202,6 +203,7 @@ var CAL_MONTHS = [
         'Subject',
         'Teacher',
         'Classroom',
+        'Student`s amount',
         'Comment'
       ];
   
@@ -340,6 +342,7 @@ var CAL_MONTHS = [
         'Предмет',
         'Педагог',
         'Аудитория',
+        'Количество учеников',
         'Комментарий'
       ];
   
