@@ -47,7 +47,7 @@ forbiddenBlocks.forEach(element => {
             forbiddenTip.style.position = "absolute";
             forbiddenTip.style.left = e.clientX + 15 +'px';
             forbiddenTip.style.top = e.clientY + 'px';
-        }else{
+        }else if (forbiddenTip.parentElement == document.body){
             document.body.removeChild(forbiddenTip);
         }
     });
