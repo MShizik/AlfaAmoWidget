@@ -29,11 +29,51 @@ class SearchWithTable{
         this.setUpInputBehavior()
     }
 
+    insertBasicData(tableCont, data){
+        console.log(data);
+        this.basicData = data;
+        this.currentValue = this.input.value;
+        if (this.currentValue === '' || this.currentValue === SEARCH_LABEL){
+            this.tableObj.insertData(tableCont, this.basicData);
+            this.tableObj.setUpRowOnClickHandler();
+            this.connectedBtn.classList.remove("active");
+            this.connectedBtn.classList.add("inactive");
+            this.input.classList.add("used");
+        }else{
+            let sharpedData = [];
+            this.basicData.forEach(dataItem => {
+                if ('name' in dataItem){
+                    if (dataItem['name'].toLowerCase().includes(this.currentValue.toLowerCase())){
+                        sharpedData.push(dataItem);
+                    }
+                }
+                else if ('teachers' in dataItem){
+                    if (dataItem['teachers'].toLowerCase().includes(this.currentValue.toLowerCase())){
+                        sharpedData.push(dataItem);
+                    }
+                }
+                /*Object.values(dataItem).some(value => {
+                    if (value.toLowerCase().includes(searchTerm.toLowerCase())){
+                        sharpedData.push(dataItem);
+                        return true;
+                    }
+                });*/
+            });
+            if(sharpedData.length !== 0){
+                this.tableObj.insertData(null, sharpedData);
+                this.tableObj.setUpRowOnClickHandler();
+                this.connectedBtn.classList.remove("active");
+                this.connectedBtn.classList.add("inactive");
+            }
+        }
+        this.onUpdate(this.tableObj);    
+    }
+
     setUpInputBehavior(){
         this.input.addEventListener('input', e => {
             this.currentValue = this.input.value;
             let searchTerm = e.target.value;
-            if (e.target.value === ''){
+            if (e.target.value === '' || e.target.value === SEARCH_LABEL){
                 this.tableObj.insertData(null, this.basicData);
                 this.tableObj.setUpRowOnClickHandler();
                 this.connectedBtn.classList.remove("active");
@@ -42,8 +82,15 @@ class SearchWithTable{
             }else{
                 let sharpedData = [];
                 this.basicData.forEach(dataItem => {
-                    if (dataItem['name'].toLowerCase().includes(searchTerm.toLowerCase())){
-                        sharpedData.push(dataItem);
+                    if ('name' in dataItem){
+                        if (dataItem['name'].toLowerCase().includes(searchTerm.toLowerCase())){
+                            sharpedData.push(dataItem);
+                        }
+                    }
+                    else if ('teachers' in dataItem){
+                        if (dataItem['teachers'].toLowerCase().includes(searchTerm.toLowerCase())){
+                            sharpedData.push(dataItem);
+                        }
                     }
                     /*Object.values(dataItem).some(value => {
                         if (value.toLowerCase().includes(searchTerm.toLowerCase())){

@@ -30,6 +30,7 @@ var LESSON_ADD_STUDENT_BLOCK_DESC = "Добавить ученика на уро
 var LESSON_ADD_STUDENT_SEL_LESSON_LABEL = "Урок";
 var LESSON_ADD_STUDENT_SEL_SUBJECT_LABEL = "Предмет";
 var LESSON_ADD_STUDENT_SEL_DATES_LABEL = "Выбрать даты:";
+var LESSON_ADD_STUDENT_SEL_TEACHER_LABEL = "Педагог";
 var LESSON_ADD_STUDENT_MAIN_BTN_TXT = "Добавить ученика на урок";
 var LESSON_ADD_STUDENT_RES_ADD_TXT_SUC = "Студент добавлен на урок";
 var LESSON_ADD_STUDENT_RES_ADD_TXT_FAILURE = "Произошла ошибка";
@@ -109,6 +110,14 @@ var COMMUNICATION_MAIN_BTN = "Загрузить следующие 10 сооб�
 var COMMUNICATION_CLIENT_TITLE = "Клиент";
 var COMMUNICATION_MANAGER_TITLE = "Менеджер";
 
+//Содержимое блока аналитики
+var ANALYTICS_BLOCK_DESC = "Аналитика";
+var ANALYTICS_COLUMN_MONEY_BALANCE_DESC = "Остаток<br>по сумме";
+var ANALYTICS_COLUMN_LESSONS_BALANCE_DESC = "Остаток по урокам<br>(все абонементы)";
+var ANALYTICS_COLUMN_PURCHASES_AMOUNT_DESC = "Общее количество<br>покупок";
+var ANALYTICS_COLUMN_TOTAL_PURCHASES_SUM_DESC = "Общая сумма<br>покупок";
+var ANALYTICS_COLUMN_AVG_PURCHASES_SUM_DESC = "Средний<br>чек";
+
 //Содержимое подвала
 var FOOTER_COMPANY_INFO = "Сделано<br> на платформе";
 var FOOTER_KNOWLEDGEBASE_BTN_TXT = "База знаний";
@@ -183,6 +192,7 @@ var CAL_MONTHS = [
       LESSON_ADD_STUDENT_MAIN_BTN_TXT = "Add student to the lesson";
       LESSON_ADD_STUDENT_RES_ADD_TXT_SUC = "Student added to the lesson";
       LESSON_ADD_STUDENT_RES_ADD_TXT_FAILURE = "An error occurred";
+      LESSON_ADD_STUDENT_SEL_TEACHER_LABEL = "Teacher";
       
   
       LESSON_ADD_STUDENT_GROUP_COLUMNS_LIST = [
@@ -254,6 +264,13 @@ var CAL_MONTHS = [
       COMMUNICATION_MAIN_BTN = "Load next 10 messages";
       COMMUNICATION_CLIENT_TITLE = "Client";
       COMMUNICATION_MANAGER_TITLE = "Manager";
+
+       ANALYTICS_BLOCK_DESC = "Analytics";
+       ANALYTICS_COLUMN_MONEY_BALANCE_DESC = "Balance";
+       ANALYTICS_COLUMN_LESSONS_BALANCE_DESC = "Lessons balance<br>(all abonements)";
+       ANALYTICS_COLUMN_PURCHASES_AMOUNT_DESC = "Total purchases<br>amount";
+       ANALYTICS_COLUMN_TOTAL_PURCHASES_SUM_DESC = "Total<br>purchases sum";
+       ANALYTICS_COLUMN_AVG_PURCHASES_SUM_DESC = "Average<br>purchase sum";
   
       FOOTER_COMPANY_INFO = "Made<br> on the platform";
       FOOTER_KNOWLEDGEBASE_BTN_TXT = "Knowledge Base";
@@ -323,6 +340,7 @@ var CAL_MONTHS = [
       LESSON_ADD_STUDENT_RES_ADD_TXT_SUC = "Студент добавлен на урок";
       LESSON_ADD_STUDENT_RES_ADD_TXT_FAILURE = "Произошла ошибка";
       LESSON_ADD_STUDENT_SEL_DATES_LABEL = "Выбрать даты:";
+      LESSON_ADD_STUDENT_SEL_TEACHER_LABEL = "Педагог";
   
       LESSON_ADD_STUDENT_GROUP_COLUMNS_LIST = [
         '',
@@ -394,6 +412,13 @@ var CAL_MONTHS = [
        COMMUNICATION_MAIN_BTN = "Загрузить следующие 10 сообщений";
        COMMUNICATION_CLIENT_TITLE = "Клиент";
        COMMUNICATION_MANAGER_TITLE = "Менеджер";
+
+      ANALYTICS_BLOCK_DESC = "Аналитика";
+      ANALYTICS_COLUMN_MONEY_BALANCE_DESC = "Остаток<br>по сумме";
+      ANALYTICS_COLUMN_LESSONS_BALANCE_DESC = "Остаток по урокам<br>(все абонементы)";
+      ANALYTICS_COLUMN_PURCHASES_AMOUNT_DESC = "Общее количество<br>покупок";
+      ANALYTICS_COLUMN_TOTAL_PURCHASES_SUM_DESC = "Общая сумма<br>покупок";
+      ANALYTICS_COLUMN_AVG_PURCHASES_SUM_DESC = "Средний<br>чек";
 
        FOOTER_COMPANY_INFO = "Сделано<br> на платформе";
        FOOTER_KNOWLEDGEBASE_BTN_TXT = "База знаний";

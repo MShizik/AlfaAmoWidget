@@ -333,15 +333,6 @@ function getHtml(){
                           <div id="add-student-to-lesson-lesson-selector"></div>
                       </div>
                   </div>
-                  <div class="selection-row">
-                      <div class="title">
-                          ${LESSON_ADD_STUDENT_SEL_SUBJECT_LABEL}
-                      </div>
-                      <div class="selector">
-                          <div id="add-student-to-lesson-subject-selector"></div>
-                      </div>
-                  </div>
-
                   <div class="calendar-wrapper" id="add-student-to-lesson-calendar-wrapper">
                       <div class="date_picker" id="add-student-to-lesson-calendar">
                           <div class="date_picker_input" id="date-picker-input-add-student-to-lesson">
@@ -379,6 +370,24 @@ function getHtml(){
                                   <div class="cal_days" id="days-cal-add-student-to-lesson"></div>
                                   <div class="calendar_main" id="main-cal-add-student-to-lesson"></div>
                               </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="selection-row">
+                      <div class="title">
+                          ${LESSON_ADD_STUDENT_SEL_SUBJECT_LABEL}
+                      </div>
+                      <div class="selector">
+                          <div id="add-student-to-lesson-subject-selector"></div>
+                      </div>
+                  </div>
+                  <div class="selection-row">
+                      <div class="title">
+                          ${LESSON_ADD_STUDENT_SEL_TEACHER_LABEL}
+                      </div>
+                      <div class="selector">
+                          <div class="input-wrapper">
+                              <input autocomplete="off" class="selection_with_table" id="add_student_teacher_input" type="text">
                           </div>
                       </div>
                   </div>
@@ -566,6 +575,68 @@ function getHtml(){
               <button class="basic_btn inactive" id = "communication-btn">
                   ${COMMUNICATION_MAIN_BTN}
               </button>
+          </div>
+      </div>
+      <div class="widget-content-block inactive forbidden" id = "analytics-content-block">
+          <div class="title">
+              <div class="block-pos">
+                  09
+              </div>
+              <div class="block-desc">
+                  ${ANALYTICS_BLOCK_DESC}
+              </div>
+              <div class = "block-loader hidden">
+              </div>
+              <div class = "block-result hidden">
+                <div class = "result-arrow">
+                </div>
+                <div class = "result-text">
+                </div>
+              </div>
+          </div>
+          <div class="operation-content">
+            <div class = "analytics_row">
+                <div class = "analytics_column" id = "analytics_money_balance">
+                    <div class = "analytics_header">
+                        ${ANALYTICS_COLUMN_MONEY_BALANCE_DESC}
+                    </div>
+                    <div class = "analytics_value">
+
+                    </div>
+                </div>
+                <div class = "analytics_column" id = "analytics_lessons_balance">
+                    <div class = "analytics_header">
+                        ${ANALYTICS_COLUMN_LESSONS_BALANCE_DESC}
+                    </div>
+                    <div class = "analytics_value">
+
+                    </div>
+                </div>
+                <div class = "analytics_column" id = "analytics_purchases_amount">
+                    <div class = "analytics_header">
+                        ${ANALYTICS_COLUMN_PURCHASES_AMOUNT_DESC}
+                    </div>
+                    <div class = "analytics_value">
+
+                    </div>
+                </div>
+                <div class = "analytics_column" id = "analytics_total_purchases_sum">
+                    <div class = "analytics_header">
+                        ${ANALYTICS_COLUMN_TOTAL_PURCHASES_SUM_DESC}
+                    </div>
+                    <div class = "analytics_value">
+
+                    </div>
+                </div>
+                <div class = "analytics_column" id = "analytics_avg_purchase_sum">
+                    <div class = "analytics_header">
+                        ${ANALYTICS_COLUMN_AVG_PURCHASES_SUM_DESC}
+                    </div>
+                    <div class = "analytics_value">
+
+                    </div>
+                </div>
+            </div>
           </div>
       </div>
   </div>

@@ -1,0 +1,25 @@
+#analytics-content-block .analytics_row{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+#analytics-content-block .analytics_column{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    gap: 6px;
+}
+
+#analytics-content-block .analytics_header{
+    color: var(--text-gray, #465E66);
+    font-size: 12px;
+}
+
+#analytics-content-block .analytics_value{
+    color: var(--text-black, #101F23);
+    font-size: 14px;
+    font-weight: 500;
+}

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "alfamo extension for amoCRM/alfaCRM",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Extensions to connect alfacrm and amocrm",
   "permissions": [
   ],
@@ -44,7 +44,8 @@
         "js/blocks/add-student-to-lesson.js",
         "js/blocks/add-student.js",
         "js/blocks/communication.js",
-        "js/blocks/student-choser.js"
+        "js/blocks/student-choser.js",
+        "js/blocks/analytics.js"
       ],
       "css": [
           "css/activation.css",
@@ -67,7 +68,8 @@
           "css/levels/add_student_to_group.css",
           "css/levels/add_student_to_lesson.css",
           "css/levels/add_student.css",
-          "css/levels/student_choser.css"
+          "css/levels/student_choser.css",
+          "css/levels/analytics.css"
         ]
     }
   ]

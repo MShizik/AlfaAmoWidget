@@ -26,15 +26,13 @@ var calInputChangedHandler = function(cal){
                 cropedData.push(data);
             }
         });
-        addStudentToLessonTable.insertData(null , cropedData);
-        addStudentToLessonTable.setUpRowOnClickHandler();
+        addStudentToLessonTable.insertBasicData(null , cropedData);
         addStudentToLessonBtn.classList.add("inactive");
     }
 };
 
 var calClearHandler = function(){
-    addStudentToLessonTable.insertData(null,lessonsData);
-    addStudentToLessonTable.setUpRowOnClickHandler();
+    addStudentToLessonTable.insertBasicData(null,lessonsData);
     addStudentToLessonBtn.classList.add("inactive");
 }
 
@@ -93,8 +91,7 @@ var selectorAfterSelectHandler = function(){
                     });
                 }
     
-                addStudentToLessonTable.insertData(null, cropedData);
-                addStudentToLessonTable.setUpRowOnClickHandler();
+                addStudentToLessonTable.insertBasicData(null, cropedData);
                 isLoadedChecker = 0;
             }
             else{
@@ -114,7 +111,7 @@ var selectorAfterSelectHandler = function(){
             lessonsColumns = LESSON_ADD_STUDENT_SHORT_COLUMNS_LIST;
         }
 
-        addStudentToLessonTable = new CustomTable(tableWrapper, [], lessonsColumns, checkboxHandler);
+        addStudentToLessonTable = new SearchWithTable(tableWrapper, document.querySelector("#add_student_teacher_input"), [], lessonsColumns, checkboxHandler, addStudentToLessonBtn, () => {console.log("test");});
         tableWrapper.classList.remove("hidden");
     }
 }
@@ -212,7 +209,7 @@ function resetAddStudentToLesson(){
 
     lessonsData = [];
 
-    addStudentToLessonTable != null && addStudentToLessonTable.insertData(null, []);
+    addStudentToLessonTable != null && addStudentToLessonTable.insertBasicData(null, []);
 }
 
 function refreshAddStudetnToLesson(){

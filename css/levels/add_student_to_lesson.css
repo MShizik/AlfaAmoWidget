@@ -6,15 +6,26 @@
 #lesson-selector{
     width: 260px;
     height: fit-content;
-    display: flex;
     flex-direction: column;
-    gap: 12px;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    gap: 12px 36px;
 }
 
 #lesson-selector .selection-row{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    gap: 10px;
+}
+
+#lesson-selector .input-wrapper{
+    width: 175px;
+}
+
+#lesson-selector input{
+    box-sizing: border-box;
 }
 
 .itc-select__toggle{
@@ -33,3 +44,6 @@
     z-index: 2425 !important;
 }
 
+#date-picker-input-add-student-to-lesson{
+    margin-bottom: 0px !important;
+}
