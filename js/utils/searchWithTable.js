@@ -32,7 +32,6 @@ class SearchWithTable{
     insertBasicData(tableCont, data){
         console.log(data);
         this.basicData = data;
-        this.currentValue = this.input.value;
         if (this.currentValue === '' || this.currentValue === SEARCH_LABEL){
             this.tableObj.insertData(tableCont, this.basicData);
             this.tableObj.setUpRowOnClickHandler();
@@ -66,7 +65,7 @@ class SearchWithTable{
                 this.connectedBtn.classList.add("inactive");
             }
         }
-        this.onUpdate(this.tableObj);    
+        this.onUpdate(this.tableObj);   
     }
 
     setUpInputBehavior(){
